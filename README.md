@@ -1,5 +1,7 @@
 # kreogl
 
+[![build](https://github.com/phisko/kreogl/workflows/build/badge.svg)](https://github.com/phisko/kreogl/actions/workflows/build.yml)
+
 A simple OpenGL renderer, aimed to get any game project up and running with simple but satisfying graphics.
 
 ## Motivation
