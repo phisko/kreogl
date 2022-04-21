@@ -19,14 +19,20 @@ include(conan_helper)
 # Library
 #
 
-file(GLOB src *.cpp *.hpp)
+file(GLOB src
+		*.cpp *.hpp
+		lights/*.cpp lights/*.hpp
+		model/*.cpp model/*.hpp
+		shapes/*.cpp shapes/*.hpp
+		impl/*.cpp impl/*.hpp
+		impl/shadowMaps/*.cpp impl/shadowMaps/*.hpp)
 
 # shaders
 option(KREOGL_NO_DEFAULT_SHADERS "Disable kreogl default shaders" OFF)
 if (KREOGL_NO_DEFAULT_SHADERS)
 	add_compile_definitions(KREOGL_NO_DEFAULT_SHADERS)
 else()
-	file(GLOB shadersSrc shaders/*.cpp shaders/*.hpp)
+	file(GLOB_RECURSE shadersSrc impl/shaders/*.cpp impl/shaders/*.hpp)
 	set(src ${src} ${shadersSrc})
 endif()
 
@@ -41,4 +47,4 @@ putils_conan(
     freetype/2.11.1
 	OPTIONS glfw:shared=False
 )
-target_link_libraries(kreogl CONAN_PKG::glew CONAN_PKG::glm CONAN_PKG::glfw CONAN_PKG::freetype)
+target_link_libraries(kreogl PUBLIC CONAN_PKG::glew CONAN_PKG::glm CONAN_PKG::glfw CONAN_PKG::freetype)
