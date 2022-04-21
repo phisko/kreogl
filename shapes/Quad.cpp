@@ -1,5 +1,7 @@
 #include "Quad.hpp"
 
+#include <GL/glew.h>
+
 namespace kreogl::shapes {
     void drawQuad() noexcept {
         static GLuint vao = 0;
