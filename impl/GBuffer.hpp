@@ -16,7 +16,7 @@ namespace kreogl {
             "specular",
             "userdata"
         };
-        static constexpr auto nbAttributes = sizeof(attributes) / sizeof(*attributes);
+        static constexpr auto nbAttributes = std::extent_v<decltype(attributes)>;
 
     public:
         GBuffer(const glm::ivec2 & size) noexcept;
