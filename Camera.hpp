@@ -17,22 +17,22 @@ namespace kreogl {
 
     public:
         const glm::vec3 & getPosition() const noexcept { return _position; }
-        void setPosition(const glm::vec3 & position) noexcept { _position = position; }
+        void setPosition(const glm::vec3 & position) noexcept;
 
         const glm::vec3 & getDirection() const noexcept { return _direction; }
-        void setDirection(const glm::vec3 & direction) noexcept { _direction = direction; }
+        void setDirection(const glm::vec3 & direction) noexcept;
 
         float getFOV() const noexcept { return _fov; }
-        void setFOV(float fov) noexcept { _fov = fov; }
+        void setFOV(float fov) noexcept;
 
         const Viewport & getViewport() const noexcept { return _viewport; }
-        Viewport & getViewport() noexcept { return _viewport; }
+        Viewport & getViewportWritable() noexcept;
 
         float getNearPlane() const noexcept { return _nearPlane; }
-        void setNearPlane(float nearPlane) noexcept { _nearPlane = nearPlane; }
+        void setNearPlane(float nearPlane) noexcept;
 
         float getFarPlane() const noexcept { return _farPlane; }
-        void setFarPlane(float farPlane) noexcept { _farPlane = farPlane; }
+        void setFarPlane(float farPlane) noexcept;
 
         const glm::mat4 & getViewMatrix() const noexcept;
         const glm::mat4 & getProjMatrix() const noexcept;

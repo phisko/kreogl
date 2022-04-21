@@ -5,6 +5,36 @@ namespace kreogl {
         : _viewport(params.viewport)
     {}
 
+    void Camera::setPosition(const glm::vec3 & position) noexcept {
+        _position = position;
+        _cachedViewMatrix = std::nullopt;
+    }
+
+    void Camera::setDirection(const glm::vec3 & direction) noexcept {
+        _direction = direction;
+        _cachedViewMatrix = std::nullopt;
+    }
+
+    void Camera::setFOV(float fov) noexcept {
+        _fov = fov;
+        _cachedProjMatrix = std::nullopt;
+    }
+
+    void Camera::setNearPlane(float nearPlane) noexcept {
+        _nearPlane = nearPlane;
+        _cachedProjMatrix = std::nullopt;
+    }
+
+    void Camera::setFarPlane(float farPlane) noexcept {
+        _farPlane = farPlane;
+        _cachedProjMatrix = std::nullopt;
+    }
+
+    Viewport & Camera::getViewportWritable() noexcept {
+        _cachedProjMatrix = std::nullopt;
+        return _viewport;
+    }
+
     const glm::mat4 & Camera::getViewMatrix() const noexcept {
         if (_cachedViewMatrix)
             return *_cachedViewMatrix;
