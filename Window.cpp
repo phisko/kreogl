@@ -53,12 +53,12 @@ namespace kreogl {
         glfwMakeContextCurrent(_glfwWindow);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        std::ranges::sort(_cameras, [](Camera * lhs, Camera * rhs) noexcept {
+        std::ranges::sort(_cameras, [](const Camera * lhs, const Camera * rhs) noexcept {
             return lhs->getViewport().getZOrder() < rhs->getViewport().getZOrder();
         });
 
         for (const auto camera : _cameras) {
-            auto & viewport = camera->getViewport();
+            const auto & viewport = camera->getViewport();
             viewport.draw({ world, *camera });
 
             glBindFramebuffer(GL_READ_FRAMEBUFFER, viewport.getFrameBuffer());
@@ -87,5 +87,9 @@ namespace kreogl {
 
     void Window::pollEvents() noexcept {
         glfwPollEvents();
+    }
+
+    void Window::addCamera(const Camera & camera) noexcept {
+        _cameras.push_back(&camera);
     }
 }

@@ -28,13 +28,14 @@ namespace kreogl {
         static void pollEvents() noexcept;
 
         Camera & getDefaultCamera() noexcept { return *_defaultCamera; }
+        void addCamera(const Camera & camera) noexcept;
 
         GLFWwindow * getGLFWwindow() const noexcept { return _glfwWindow; }
 
     private:
         glm::ivec2 _size;
         GLFWwindow * _glfwWindow;
-        std::vector<Camera *> _cameras;
+        mutable std::vector<const Camera *> _cameras; // gets sorted in `draw`
         std::unique_ptr<Camera> _defaultCamera;
     };
 }

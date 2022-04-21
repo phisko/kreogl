@@ -31,12 +31,12 @@ namespace kreogl {
         assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
     }
 
-    void Viewport::draw(const DrawParams & params) noexcept {
+    void Viewport::draw(const DrawParams & params) const noexcept {
         fillGBuffer(params);
         renderToTexture(params);
     }
 
-    void Viewport::fillGBuffer(const DrawParams & params) noexcept {
+    void Viewport::fillGBuffer(const DrawParams & params) const noexcept {
         _gbuffer.bindForWriting();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -44,7 +44,7 @@ namespace kreogl {
         runShaders(ShaderStep::GBuffer, params);
     }
 
-    void Viewport::renderToTexture(const DrawParams & params) noexcept {
+    void Viewport::renderToTexture(const DrawParams & params) const noexcept {
         _gbuffer.bindForReading();
 
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _frameBuffer);

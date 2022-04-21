@@ -19,7 +19,7 @@ namespace kreogl {
         };
         Viewport(const ConstructionParams & params) noexcept;
 
-        void draw(const DrawParams & params) noexcept;
+        void draw(const DrawParams & params) const noexcept;
 
     public:
         const glm::ivec2 & getResolution() const noexcept { return _resolution; }
@@ -41,8 +41,8 @@ namespace kreogl {
         void init() noexcept;
 
     private:
-        void fillGBuffer(const DrawParams & params) noexcept;
-        void renderToTexture(const DrawParams & params) noexcept;
+        void fillGBuffer(const DrawParams & params) const noexcept;
+        void renderToTexture(const DrawParams & params) const noexcept;
 
     private:
         glm::ivec2 _resolution;

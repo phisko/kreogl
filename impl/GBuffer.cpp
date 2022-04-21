@@ -69,11 +69,11 @@ namespace kreogl {
         }
     }
 
-    void GBuffer::bindForWriting() noexcept {
+    void GBuffer::bindForWriting() const noexcept {
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _frameBuffer);
     }
 
-    void GBuffer::bindForReading() noexcept {
+    void GBuffer::bindForReading() const noexcept {
         glBindFramebuffer(GL_READ_FRAMEBUFFER, _frameBuffer);
         for (unsigned int i = 0; i < _textures.size(); ++i) {
             glActiveTexture(GL_TEXTURE0 + i);

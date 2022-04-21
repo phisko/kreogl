@@ -25,8 +25,8 @@ namespace kreogl {
         void resize(const glm::ivec2 & size) noexcept;
 
     public:
-        void bindForWriting() noexcept;
-        void bindForReading() noexcept;
+        void bindForWriting() const noexcept;
+        void bindForReading() const noexcept;
 
     public:
         struct MappedTexture {
@@ -57,7 +57,7 @@ namespace kreogl {
             Buffer forWrite;
             Buffer forRead;
             bool init = false;
-            bool upToDate = false;
+            mutable bool upToDate = false; // gets invalidated in bindForReading
         };
         std::vector<PBO> _pbos;
     };
