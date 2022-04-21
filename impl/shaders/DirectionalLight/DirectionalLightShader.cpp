@@ -14,8 +14,14 @@ namespace kreogl {
         init();
 
         use();
+
+        _glsl.gposition = (int)GBuffer::Texture::Position;
+        _glsl.gnormal = (int)GBuffer::Texture::Normal;
+        _glsl.gdiffuse = (int)GBuffer::Texture::Diffuse;
+        _glsl.gspecular = (int)GBuffer::Texture::Specular;
+
         for (size_t i = 0; i < KREOGL_MAX_CSM_COUNT; ++i) {
-            _csmGLSL.shadowMap[i] = GBuffer::nbAttributes + i;
+            _csmGLSL.shadowMap[i] = (int)GBuffer::Texture::Count + i;
         }
     }
 
@@ -28,6 +34,10 @@ namespace kreogl {
     std::vector<UniformBase *> DirectionalLightShader::getUniforms() noexcept {
         std::vector<UniformBase *> ret {
             // DirectionalLightGLSL
+            &_glsl.gposition,
+            &_glsl.gnormal,
+            &_glsl.gdiffuse,
+            &_glsl.gspecular,
             &_glsl.viewPos,
             &_glsl.screenSize,
             &_glsl.color,
@@ -95,7 +105,7 @@ namespace kreogl {
             _csmGLSL.cascadeCount = (int)light->cascadeEnds.size();
 
             for (size_t i = 0; i < light->cascadeEnds.size(); ++i) {
-                glActiveTexture((GLenum)(GL_TEXTURE0 + GBuffer::nbAttributes + i));
+                glActiveTexture((GLenum)(GL_TEXTURE0 + (int)GBuffer::Texture::Count + i));
                 glBindTexture(GL_TEXTURE_2D, light->cascadedShadowMap.textures[i]);
                 _csmGLSL.lightSpaceMatrix[i] = light->getCascadedShadowMapLightSpaceMatrix(params, i);
             }

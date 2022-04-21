@@ -9,8 +9,8 @@ namespace kreogl {
     GBuffer::GBuffer(const glm::ivec2 &size) noexcept
         : _size(size)
     {
-        _textures.resize(nbAttributes);
-        _pbos.resize(nbAttributes);
+        _textures.resize((int)Texture::Count);
+        _pbos.resize((int)Texture::Count);
 
         std::vector<GLenum> attachments;
 
@@ -93,7 +93,7 @@ namespace kreogl {
         glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
     }
 
-    GBuffer::MappedTexture GBuffer::getTexture(size_t textureIndex) noexcept {
+    GBuffer::MappedTexture GBuffer::getMappedTexture(size_t textureIndex) noexcept {
         auto & pbo = _pbos[textureIndex];
         if (!pbo.init) {
             pbo.init = true;

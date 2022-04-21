@@ -9,14 +9,14 @@
 namespace kreogl {
     class GBuffer {
     public:
-        static constexpr const char * attributes[] = {
-            "position",
-            "normal",
-            "diffuse",
-            "specular",
-            "userdata"
+        enum class Texture {
+            Position,
+            Normal,
+            Diffuse,
+            Specular,
+            UserData,
+            Count
         };
-        static constexpr auto nbAttributes = std::extent_v<decltype(attributes)>;
 
     public:
         GBuffer(const glm::ivec2 & size) noexcept;
@@ -40,18 +40,18 @@ namespace kreogl {
             const float * _data;
         };
 
-        MappedTexture getTexture(size_t textureIndex) noexcept;
+        MappedTexture getMappedTexture(size_t textureIndex) noexcept;
 
     public:
-        size_t getTextureCount() const noexcept { return _textures.size(); }
+        const kreogl::Texture & getTexture(Texture texture) const noexcept { return _textures[(int)texture]; }
         GLuint getFrameBuffer() const noexcept { return _frameBuffer; }
 
     private:
         FrameBuffer _frameBuffer;
-        Texture _depthTexture;
+        kreogl::Texture _depthTexture;
         glm::ivec2 _size;
 
-        std::vector<Texture> _textures;
+        std::vector<kreogl::Texture> _textures;
 
         struct PBO {
             Buffer forWrite;
