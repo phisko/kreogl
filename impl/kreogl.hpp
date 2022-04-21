@@ -1,14 +1,10 @@
 #pragma once
 
-#include <vector>
-#include <unordered_map>
 #include "lights/DirectionalLight.hpp"
 #include "lights/PointLight.hpp"
 #include "lights/SpotLight.hpp"
-#include "Object.hpp"
 #include "shaders/Shader.hpp"
 #include "shaders/ShaderStep.hpp"
-#include "shaders/VertexSpecification.hpp"
 
 namespace kreogl {
     bool initGLFW() noexcept;

@@ -6,6 +6,8 @@
 
 // stl
 #include <iostream>
+#include <unordered_map>
+#include <vector>
 
 // shaders
 #include "shaders/PositionEmptyNormalColor/PositionEmptyNormalColorShader.hpp"
