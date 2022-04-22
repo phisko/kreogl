@@ -1,5 +1,5 @@
 #include "DirectionalLightShader.hpp"
-#include "impl/shaders/Quad/QuadGLSL.hpp"
+#include "impl/shaders/helpers/Quad/QuadGLSL.hpp"
 
 #include "impl/kreogl.hpp"
 #include "impl/GBuffer.hpp"
@@ -17,12 +17,11 @@ namespace kreogl {
 
         _glsl.gposition = (int)GBuffer::Texture::Position;
         _glsl.gnormal = (int)GBuffer::Texture::Normal;
-        _glsl.gdiffuse = (int)GBuffer::Texture::Diffuse;
+        _glsl.gdiffuse = (int)GBuffer::Texture::DiffuseAndShouldIgnoreLighting;
         _glsl.gspecular = (int)GBuffer::Texture::Specular;
 
-        for (size_t i = 0; i < KREOGL_MAX_CSM_COUNT; ++i) {
+        for (size_t i = 0; i < KREOGL_MAX_CSM_COUNT; ++i)
             _csmGLSL.shadowMap[i] = (int)GBuffer::Texture::Count + i;
-        }
     }
 
     void DirectionalLightShader::addSourceFiles() noexcept {

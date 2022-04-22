@@ -1,7 +1,7 @@
 #pragma once
 
 #include "DirectionalLightGLSL.hpp"
-#include "impl/shaders/CascadedShadowMap/CascadedShadowMapGLSL.hpp"
+#include "impl/shaders/helpers/CascadedShadowMap/CascadedShadowMapGLSL.hpp"
 #include "impl/shaders/Shader.hpp"
 #include "impl/shaders/Singleton.hpp"
 #include "lights/DirectionalLight.hpp"
