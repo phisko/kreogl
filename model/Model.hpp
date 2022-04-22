@@ -8,7 +8,7 @@
 namespace kreogl {
     struct Mesh {
         Mesh() noexcept = default;
-        Mesh(const MeshData & data, const ModelData & model) noexcept;
+        Mesh(const MeshData & data, const ModelData & model, const VertexSpecification & vertexSpecification) noexcept;
         void draw() const noexcept;
 
         VertexArray vertexArray;
@@ -19,9 +19,10 @@ namespace kreogl {
     };
 
     struct Model {
-        Model(const ModelData & data, VertexSpecification vertexSpecification) noexcept;
+        Model(const ModelData & data, const VertexSpecification & vertexSpecification) noexcept;
+        void draw() const noexcept;
 
         std::vector<Mesh> meshes;
-        VertexSpecification vertexSpecification;
+        const VertexSpecification & vertexSpecification;
     };
 }

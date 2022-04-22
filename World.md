@@ -9,7 +9,7 @@ Represents a game world.
 ```cpp
 void add(const Object & object) noexcept;
 void remove(const Object & object) noexcept;
-const std::vector<const Object *> & getObjects(VertexSpecification vertexSpecification) const noexcept;
+const std::vector<const Object *> & getObjects(const VertexSpecification & vertexSpecification) const noexcept;
 ```
 
 The [objects](Object.md) in the world, mapped according to their [model](model/Model.md)'s [vertex specification](impl/shaders/VertexSpecification.md).

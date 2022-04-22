@@ -21,14 +21,7 @@ namespace kreogl {
         std::vector<MeshData> meshes;
         std::function<void()> release = nullptr;
 
-        struct VertexAttribute {
-            const char * name;
-            size_t offset;
-            GLenum type;
-            size_t elementCount;
-        };
-
-        std::vector<VertexAttribute> vertexAttributes;
+        std::vector<size_t> vertexAttributeOffsets;
         size_t vertexSize;
 
         ~ModelData() noexcept;

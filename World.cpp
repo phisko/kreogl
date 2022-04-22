@@ -3,19 +3,19 @@
 
 namespace kreogl {
     void World::add(const Object & object) noexcept {
-        _objects[object.model->vertexSpecification].push_back(&object);
+        _objects[&object.model->vertexSpecification].push_back(&object);
     }
 
     void World::remove(const Object & object) noexcept {
-        auto & objects = _objects[object.model->vertexSpecification];
+        auto & objects = _objects[&object.model->vertexSpecification];
         const auto it = std::ranges::find(objects, &object);
         if (it != objects.end())
             objects.erase(it);
     }
 
-    const std::vector<const Object *> & World::getObjects(VertexSpecification vertexSpecification) const noexcept {
+    const std::vector<const Object *> & World::getObjects(const VertexSpecification & vertexSpecification) const noexcept {
         static const std::vector<const Object *> empty;
-        const auto it = _objects.find(vertexSpecification);
+        const auto it = _objects.find(&vertexSpecification);
         if (it == _objects.end())
             return empty;
         return it->second;

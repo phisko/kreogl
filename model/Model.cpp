@@ -4,17 +4,17 @@
 #include <cassert>
 
 namespace kreogl {
-    static void registerVertexAttribute(size_t vertexSize, size_t location, const ModelData::VertexAttribute & attribute) noexcept {
+    static void registerVertexAttribute(size_t vertexSize, size_t location, const VertexSpecification::Attribute & attribute, std::ptrdiff_t offset) noexcept {
         // register vertex attributes
 
         glEnableVertexAttribArray((GLuint)location);
         if (attribute.type == GL_FLOAT)
-            glVertexAttribPointer((GLuint)location, (GLint)attribute.elementCount, attribute.type, GL_FALSE, (GLsizei)vertexSize, (void *)attribute.offset);
+            glVertexAttribPointer((GLuint)location, (GLint)attribute.elementCount, attribute.type, GL_FALSE, (GLsizei)vertexSize, (void *)offset);
         else
-            glVertexAttribIPointer((GLuint)location, (GLint)attribute.elementCount, attribute.type, (GLsizei)vertexSize, (void *)attribute.offset);
+            glVertexAttribIPointer((GLuint)location, (GLint)attribute.elementCount, attribute.type, (GLsizei)vertexSize, (void *)offset);
     }
 
-    Mesh::Mesh(const MeshData &data, const ModelData & model) noexcept {
+    Mesh::Mesh(const MeshData &data, const ModelData & model, const VertexSpecification & vertexSpecification) noexcept {
         glBindVertexArray(vertexArray);
 
         glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
@@ -25,9 +25,9 @@ namespace kreogl {
 
         nbIndices = data.indices.nbElements;
 
-        size_t location = 0;
-        for (const auto & attribute : model.vertexAttributes)
-            registerVertexAttribute(model.vertexSize, location++, attribute);
+        assert(model.vertexAttributeOffsets.size() == vertexSpecification.attributes.size());
+        for (size_t location = 0; location < model.vertexAttributeOffsets.size(); ++location)
+            registerVertexAttribute(model.vertexSize, location, vertexSpecification.attributes[location], model.vertexAttributeOffsets[location]);
 
         indexType = data.indexType;
     }
@@ -38,11 +38,15 @@ namespace kreogl {
         glDrawElements(GL_TRIANGLES, (GLsizei)nbIndices, indexType, nullptr);
     }
 
-
-    Model::Model(const ModelData &data, VertexSpecification vertexSpecification) noexcept
+    Model::Model(const ModelData &data, const VertexSpecification & vertexSpecification) noexcept
         : vertexSpecification(vertexSpecification)
     {
         for (const auto & meshData : data.meshes)
-            meshes.emplace_back(meshData, data);
+            meshes.emplace_back(meshData, data, vertexSpecification);
+    }
+
+    void Model::draw() const noexcept {
+        for (const auto & mesh : meshes)
+            mesh.draw();
     }
 }

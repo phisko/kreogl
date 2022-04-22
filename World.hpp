@@ -14,7 +14,7 @@ namespace kreogl {
     public:
         void add(const Object & object) noexcept;
         void remove(const Object & object) noexcept;
-        const std::vector<const Object *> & getObjects(VertexSpecification vertexSpecification) const noexcept;
+        const std::vector<const Object *> & getObjects(const VertexSpecification & vertexSpecification) const noexcept;
 
         void add(const DirectionalLight & light) noexcept;
         void remove(const DirectionalLight & light) noexcept;
@@ -29,7 +29,7 @@ namespace kreogl {
         const std::vector<const SpotLight *> & getSpotLights() const noexcept;
 
     private:
-        std::unordered_map<VertexSpecification, std::vector<const Object *>> _objects;
+        std::unordered_map<const VertexSpecification *, std::vector<const Object *>> _objects;
         std::vector<const DirectionalLight *> _directionalLights;
         std::vector<const PointLight *> _pointLights;
         std::vector<const SpotLight *> _spotLights;
