@@ -1,11 +1,11 @@
-#include "PositionEmptyNormalColorGLSL.hpp"
+#include "PositionColorGLSL.hpp"
 
 namespace kreogl {
-    const char * PositionEmptyNormalColorGLSL::vert = R"(
+    const char * PositionColorGLSL::vert = R"(
 #version 330
 
 layout (location = 0) in vec3 position;
-layout (location = 2) in vec3 color;
+layout (location = 1) in vec3 color;
 
 uniform mat4 proj;
 uniform mat4 view;
@@ -20,12 +20,11 @@ void main() {
 	WorldPosition = model * vec4(position, 1.0);
 	EyeRelativePos = WorldPosition.xyz - viewPos;
 	Color = color;
-	//Color = vec3(1.0); // This is pretty
 
 	gl_Position = proj * view * WorldPosition;
 })";
 
-    const char * PositionEmptyNormalColorGLSL::frag = R"(
+    const char * PositionColorGLSL::frag = R"(
 #version 330
 
 in vec4 WorldPosition;

@@ -1,13 +1,13 @@
 #pragma once
 
-#include "PositionEmptyNormalColorGLSL.hpp"
+#include "PositionColorGLSL.hpp"
 #include "impl/shaders/Shader.hpp"
 #include "impl/shaders/Singleton.hpp"
 
 namespace kreogl {
-    class PositionEmptyNormalColorShader : public Shader, public Singleton<PositionEmptyNormalColorShader> {
+    class PositionColorShader : public Shader, public Singleton<PositionColorShader> {
 	public:
-        PositionEmptyNormalColorShader() noexcept;
+        PositionColorShader() noexcept;
 		void draw(const DrawParams & params) noexcept override;
 
     private:
@@ -15,6 +15,6 @@ namespace kreogl {
         std::vector<UniformBase *> getUniforms() noexcept override;
 
     private:
-        PositionEmptyNormalColorGLSL _glsl;
+        PositionColorGLSL _glsl;
     };
 }
