@@ -22,7 +22,7 @@ namespace kreogl {
         void use() noexcept;
 
     private:
-        void link() noexcept;
+        void link() const noexcept;
         void getUniformLocations() noexcept;
 
     private:

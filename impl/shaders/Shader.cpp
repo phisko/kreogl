@@ -39,7 +39,7 @@ namespace kreogl {
         glAttachShader(_program, shader);
     }
 
-    void Shader::link() noexcept {
+    void Shader::link() const noexcept {
         glLinkProgram(_program);
 #ifndef _NDEBUG
         {
