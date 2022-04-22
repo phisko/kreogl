@@ -14,10 +14,6 @@ namespace kreogl {
         , _zOrder(params.zOrder)
         , _gbuffer(params.resolution)
     {
-        init();
-    }
-
-    void Viewport::init() noexcept {
         glBindTexture(GL_TEXTURE_2D, _renderTexture);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, _resolution.x, _resolution.y, 0, GL_RGBA, GL_FLOAT, nullptr);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -49,7 +45,6 @@ namespace kreogl {
 
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _frameBuffer);
         glClear(GL_COLOR_BUFFER_BIT);
-
         glBlitFramebuffer(0, 0, _resolution.x, _resolution.y, 0, 0, _resolution.x, _resolution.y, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
 
         runShaders(ShaderStep::Lighting, params);
@@ -60,7 +55,8 @@ namespace kreogl {
     void Viewport::setResolution(const glm::ivec2 &resolution) noexcept {
         _resolution = resolution;
         _gbuffer.resize(_resolution);
-        // need to regen render texture
-        init();
+
+        glBindTexture(GL_TEXTURE_2D, _renderTexture);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, _resolution.x, _resolution.y, 0, GL_RGBA, GL_FLOAT, nullptr);
     }
 }
