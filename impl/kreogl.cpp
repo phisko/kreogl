@@ -10,8 +10,9 @@
 #include <vector>
 
 // shaders
-#include "shaders/PositionEmptyNormalColor/PositionEmptyNormalColorShader.hpp"
-#include "shaders/DirectionalLight/DirectionalLightShader.hpp"
+#include "shaders/gbuffer/PositionColor/PositionColorShader.hpp"
+#include "shaders/lighting/DirectionalLight/DirectionalLightShader.hpp"
+#include "shaders/shadowMap/Position/PositionShadowMapShader.hpp"
 #include "shaders/ShadowMapShader.hpp"
 
 namespace kreogl {
@@ -71,8 +72,9 @@ namespace kreogl {
     }
 
     void createDefaultShaders() noexcept {
-        addShader(ShaderStep::GBuffer, PositionEmptyNormalColorShader::getSingleton());
+        addShader(ShaderStep::GBuffer, PositionColorShader::getSingleton());
         addShader(ShaderStep::Lighting, DirectionalLightShader::getSingleton());
+        addShader(ShaderStep::ShadowMap, PositionShadowMapShader::getSingleton());
     }
 
     void addShader(ShaderStep step, Shader & shader) noexcept {
