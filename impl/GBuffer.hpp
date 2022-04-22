@@ -12,7 +12,7 @@ namespace kreogl {
         enum class Texture {
             Position,
             Normal,
-            Diffuse,
+            DiffuseAndShouldIgnoreLighting,
             Specular,
             UserData,
             Count

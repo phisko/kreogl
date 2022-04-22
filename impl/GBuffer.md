@@ -10,7 +10,7 @@ The GBuffer for a [viewport](Viewport.md).
 enum class Texture {
 	Position,
 	Normal,
-	Diffuse,
+	DiffuseAndShouldIgnoreLighting,
 	Specular,
 	UserData,
 	Count
