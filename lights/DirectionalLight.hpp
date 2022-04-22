@@ -7,7 +7,7 @@
 namespace kreogl {
     struct DirectionalLight : Light {
         glm::vec3 direction{ 0, -1, 0 };
-        float ambientStrength = 1.f;
+        float ambientStrength = .1f;
         std::vector<float> cascadeEnds = { 50 };
         float shadowCasterMaxDistance = 100.f;
 
