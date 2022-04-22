@@ -15,7 +15,7 @@ namespace kreogl {
         void draw(const SpotLight & light, const DrawParams & params) noexcept;
 
     private:
-        void draw(const DrawParams & params) noexcept override {}
+        void draw(const DrawParams & params) noexcept final {}
 
         template<typename T, typename Func>
         void drawImpl(T & shadowMap, Func && draw, const DrawParams & params) noexcept;
