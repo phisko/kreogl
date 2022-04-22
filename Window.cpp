@@ -51,6 +51,7 @@ namespace kreogl {
 
     void Window::draw(const World & world) noexcept {
         glfwMakeContextCurrent(_glfwWindow);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         std::ranges::sort(_cameras, [](const Camera * lhs, const Camera * rhs) noexcept {
@@ -60,25 +61,30 @@ namespace kreogl {
         for (const auto camera : _cameras) {
             const auto & viewport = camera->getViewport();
             viewport.draw({ world, *camera });
-
-            glBindFramebuffer(GL_READ_FRAMEBUFFER, viewport.getFrameBuffer());
-            glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-
-            const auto destSizeX = (GLint)(viewport.getOnScreenSize().x * (float)_size.x);
-            const auto destSizeY = (GLint)(viewport.getOnScreenSize().y * (float)_size.y);
-
-            const auto destX = (GLint)(viewport.getOnScreenPosition().x * (float)_size.x);
-            // OpenGL coords have Y=0 at the bottom, I want Y=0 at the top
-            const auto destY = (GLint)((float)_size.y - destSizeY - viewport.getOnScreenPosition().y * (float)_size.y);
-
-            glBlitFramebuffer(
-                // src
-                0, 0, viewport.getResolution().x, viewport.getResolution().y,
-                // dest
-                destX, destY, destX + destSizeX, destY + destSizeY,
-                GL_COLOR_BUFFER_BIT, GL_LINEAR
-            );
+            blitViewport(viewport);
         }
+
+        glfwSwapBuffers(_glfwWindow);
+    }
+
+    void Window::blitViewport(const Viewport & viewport) const noexcept {
+        glBindFramebuffer(GL_READ_FRAMEBUFFER, viewport.getFrameBuffer());
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+
+        const auto destSizeX = (GLint)(viewport.getOnScreenSize().x * (float)_size.x);
+        const auto destSizeY = (GLint)(viewport.getOnScreenSize().y * (float)_size.y);
+
+        const auto destX = (GLint)(viewport.getOnScreenPosition().x * (float)_size.x);
+        // OpenGL coords have Y=0 at the bottom, I want Y=0 at the top
+        const auto destY = (GLint)(_size.y - destSizeY - (GLint)(viewport.getOnScreenPosition().y * (float)_size.y));
+
+        glBlitFramebuffer(
+            // src
+            0, 0, viewport.getResolution().x, viewport.getResolution().y,
+            // dest
+            destX, destY, destX + destSizeX, destY + destSizeY,
+            GL_COLOR_BUFFER_BIT, GL_LINEAR
+        );
     }
 
     bool Window::shouldClose() const noexcept {

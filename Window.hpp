@@ -33,6 +33,9 @@ namespace kreogl {
         GLFWwindow * getGLFWwindow() const noexcept { return _glfwWindow; }
 
     private:
+        void blitViewport(const Viewport & viewport) const noexcept;
+
+    private:
         glm::ivec2 _size;
         GLFWwindow * _glfwWindow;
         mutable std::vector<const Camera *> _cameras; // gets sorted in `draw`
