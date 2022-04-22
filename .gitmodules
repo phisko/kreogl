@@ -1,3 +1,6 @@
 [submodule "cmake_helpers"]
 	path = cmake_helpers
 	url = https://github.com/phisko/cmake_helpers.git
+[submodule "third_party/polyvox"]
+	path = third_party/polyvox
+	url = https://github.com/phisko/polyvox.git
