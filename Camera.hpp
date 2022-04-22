@@ -12,6 +12,8 @@ namespace kreogl {
             glm::vec3 direction = { 0, 0, 1 };
             float fov = 1.f;
             Viewport::ConstructionParams viewport = {};
+            float nearPlane = 1.f;
+            float farPlane = 1000.f;
         };
         Camera(const ConstructionParams & params) noexcept;
 
@@ -43,8 +45,8 @@ namespace kreogl {
         float _fov;
         Viewport _viewport;
 
-        float _nearPlane = 1.f;
-        float _farPlane = 1000.f;
+        float _nearPlane;
+        float _farPlane;
 
         mutable std::optional<glm::mat4> _cachedViewMatrix;
         mutable std::optional<glm::mat4> _cachedProjMatrix;

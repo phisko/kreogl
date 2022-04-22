@@ -2,7 +2,12 @@
 
 namespace kreogl {
     Camera::Camera(const ConstructionParams & params) noexcept
-        : _viewport(params.viewport)
+        : _position(params.position)
+        , _direction(params.direction)
+        , _fov(params.fov)
+        , _viewport(params.viewport)
+        , _nearPlane(params.nearPlane)
+        , _farPlane(params.farPlane)
     {}
 
     void Camera::setPosition(const glm::vec3 & position) noexcept {
