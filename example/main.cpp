@@ -29,6 +29,19 @@ static std::unordered_map<int, bool> s_keysPressed;
 static constexpr auto MOUSE_SENSITIVITY = .01f;
 static constexpr auto MOVEMENT_SPEED = 5.f;
 
+struct CameraVectors {
+    glm::vec3 front;
+    glm::vec3 right;
+    glm::vec3 up;
+};
+
+static CameraVectors getCameraVectors(const kreogl::Camera & camera) noexcept {
+    const auto front = camera.getDirection();
+    const auto right = glm::cross(front, { 0.f, 1.f, 0.f });
+    const auto up = glm::cross(right, front);
+    return { front, right, up };
+}
+
 static void setupInput(kreogl::Window & window) noexcept {
     s_window = &window;
 
@@ -44,8 +57,9 @@ static void setupInput(kreogl::Window & window) noexcept {
         auto & camera = s_window->getDefaultCamera();
 
         auto direction = camera.getDirection();
-        direction = glm::rotate(direction, -delta.x * MOUSE_SENSITIVITY, glm::vec3(0.f, 1.f, 0.f));
-        direction = glm::rotate(direction, delta.y * MOUSE_SENSITIVITY, glm::vec3(1.f, 0.f, 0.f));
+        const auto vectors = getCameraVectors(camera);
+        direction = glm::rotate(direction, -delta.x * MOUSE_SENSITIVITY, vectors.up);
+        direction = glm::rotate(direction, -delta.y * MOUSE_SENSITIVITY, vectors.right);
         camera.setDirection(direction);
     });
 
@@ -71,7 +85,7 @@ static void createScene(kreogl::World & world) noexcept {
     world.add(object);
 
     static const kreogl::DirectionalLight light{
-        .direction = { -1.f, -1.f, 0.f }
+        .direction = { -1.f, -1.f, -1.f }
     };
     world.add(light);
 }
@@ -79,25 +93,22 @@ static void createScene(kreogl::World & world) noexcept {
 static void processInput(kreogl::Window & window, float deltaTime) noexcept {
     auto & camera = window.getDefaultCamera();
 
-    const auto front = camera.getDirection();
-    const auto right = glm::cross(front, { 0.f, 1.f, 0.f });
-    const auto up = glm::cross(right, front);
-
+    const auto vectors = getCameraVectors(camera);
     const auto velocity = MOVEMENT_SPEED * deltaTime;
 
     auto position = camera.getPosition();
     if (s_keysPressed['W'])
-        position += front * velocity;
+        position += vectors.front * velocity;
     if (s_keysPressed['S'])
-        position -= front * velocity;
+        position -= vectors.front * velocity;
     if (s_keysPressed['A'])
-        position -= right * velocity;
+        position -= vectors.right * velocity;
     if (s_keysPressed['D'])
-        position += right * velocity;
+        position += vectors.right * velocity;
     if (s_keysPressed[GLFW_KEY_LEFT_SHIFT])
-        position += up * velocity;
+        position += vectors.up * velocity;
     if (s_keysPressed[GLFW_KEY_LEFT_CONTROL])
-        position += up * velocity;
+        position += vectors.up * velocity;
     camera.setPosition(position);
 }
 
