@@ -20,19 +20,19 @@ include(conan_helper)
 #
 
 file(GLOB src
-		*.cpp *.hpp
-		lights/*.cpp lights/*.hpp
-		model/*.cpp model/*.hpp
-		shapes/*.cpp shapes/*.hpp
-		impl/*.cpp impl/*.hpp
-		impl/shadowMaps/*.cpp impl/shadowMaps/*.hpp)
+		kreogl/*.cpp kreogl/*.hpp
+		kreogl/lights/*.cpp kreogl/lights/*.hpp
+		kreogl/model/*.cpp kreogl/model/*.hpp
+		kreogl/shapes/*.cpp kreogl/shapes/*.hpp
+		kreogl/impl/*.cpp kreogl/impl/*.hpp
+		kreogl/impl/shadowMaps/*.cpp kreogl/impl/shadowMaps/*.hpp)
 
 # shaders
 option(KREOGL_NO_DEFAULT_SHADERS "Disable kreogl default shaders" OFF)
 if (KREOGL_NO_DEFAULT_SHADERS)
 	add_compile_definitions(KREOGL_NO_DEFAULT_SHADERS)
 else()
-	file(GLOB_RECURSE shadersSrc impl/shaders/*.cpp impl/shaders/*.hpp)
+	file(GLOB_RECURSE shadersSrc kreogl/impl/shaders/*.cpp kreogl/impl/shaders/*.hpp)
 	set(src ${src} ${shadersSrc})
 endif()
 
