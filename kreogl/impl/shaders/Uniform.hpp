@@ -1,5 +1,6 @@
 #pragma once
 
+#include <type_traits>
 #include <string>
 
 #include <GL/glew.h>
@@ -11,9 +12,12 @@
 
 namespace kreogl {
 	inline void setUniform(GLint location, bool val) noexcept { glUniform1i(location, val); }
+
 	inline void setUniform(GLint location, int val) noexcept { glUniform1i(location, val); }
 	inline void setUniform(GLint location, GLuint val) noexcept { glUniform1i(location, val); }
+    template<typename = std::enable_if_t<!std::is_same_v<size_t, GLuint>>>
 	inline void setUniform(GLint location, size_t val) noexcept { glUniform1i(location, (GLint)val); }
+
 	inline void setUniform(GLint location, float val) noexcept { glUniform1f(location, val); }
 
 	inline void setUniform(GLint location, const float(&val)[3]) noexcept { glUniform3f(location, val[0], val[1], val[2]); }
