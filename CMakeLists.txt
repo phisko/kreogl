@@ -50,3 +50,8 @@ putils_conan(
 target_link_libraries(kreogl PUBLIC CONAN_PKG::glew CONAN_PKG::glm CONAN_PKG::glfw CONAN_PKG::freetype)
 
 target_include_directories(kreogl PUBLIC third_party/polyvox/include)
+
+option(KREOGL_EXAMPLE OFF)
+if (KREOGL_EXAMPLE)
+    add_subdirectory(example)
+endif()
