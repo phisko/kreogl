@@ -37,6 +37,8 @@ namespace kreogl {
         GLuint getFrameBuffer() const noexcept { return _frameBuffer; }
         GLuint getRenderTexture() const noexcept { return _renderTexture; }
 
+        const GBuffer & getGBuffer() const noexcept { return _gbuffer; }
+
     private:
         void fillGBuffer(const DrawParams & params) const noexcept;
         void renderToTexture(const DrawParams & params) const noexcept;

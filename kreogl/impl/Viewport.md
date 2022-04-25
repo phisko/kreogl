@@ -63,3 +63,11 @@ GLuint getRenderTexture() const noexcept;
 ```
 
 Return the underlying resources.
+
+### getGBuffer
+
+```cpp
+const GBuffer & getGBuffer() const noexcept;
+```
+
+Returns the underlying [GBuffer](GBuffer.md).
