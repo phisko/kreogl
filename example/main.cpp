@@ -71,18 +71,36 @@ static void setupInput(kreogl::Window & window) noexcept {
     });
 }
 
-static void createScene(kreogl::World & world) noexcept {
-    PolyVox::RawVolume<VertexData> volume(PolyVox::Region{ { 0, 0, 0 }, { 42, 42, 42 } });
-    volume.setVoxel(1, 1, 1, { glm::vec3(1.f, 0.f, 0.f) });
-    volume.setVoxel(1, 1, 2, { glm::vec3(0.f, 1.f, 0.f) });
-    volume.setVoxel(1, 1, 3, { glm::vec3(0.f, 0.f, 1.f) });
+static const kreogl::Object & createBlock() noexcept {
+    PolyVox::RawVolume<VertexData> volume(PolyVox::Region{ { -1, 0, 0 }, { 2, 1, 1 } });
+    volume.setVoxel(-1, 0, 0, { glm::vec3(1.f, 0.f, 0.f) });
+    volume.setVoxel(0, 0, 0, { glm::vec3(0.f, 1.f, 0.f) });
+    volume.setVoxel(1, 0, 0, { glm::vec3(0.f, 0.f, 1.f) });
 
     static const auto model = kreogl::PolyVox::loadModel(volume);
 
     static kreogl::Object object;
     object.model = &model;
-    object.transform = glm::translate(object.transform, glm::vec3(0.f, -2.f, 0.f));
-    world.add(object);
+    return object;
+}
+
+static const kreogl::Object & createPlane() noexcept {
+    PolyVox::RawVolume<VertexData> volume(PolyVox::Region{ { -50, 0, -50 }, { 51, 1, 51 } });
+    for (int x = -50; x < 50; ++x)
+        for (int z = -50; z < 50; ++z)
+            volume.setVoxel({ x, 0, z }, { glm::vec3(1.f) });
+
+    static const auto model = kreogl::PolyVox::loadModel(volume);
+
+    static kreogl::Object object;
+    object.model = &model;
+    object.transform = glm::translate(object.transform, glm::vec3(-25.f, -2.f, -25.f));
+    return object;
+}
+
+static void createScene(kreogl::World & world) noexcept {
+    world.add(createBlock());
+    world.add(createPlane());
 
     static const kreogl::DirectionalLight light{
         .direction = { -1.f, -1.f, -1.f }
