@@ -34,7 +34,7 @@ namespace kreogl {
                 const float cascadeEnd = light.cascadeEnds[i];
                 if (cascadeStart >= cascadeEnd)
                     continue;
-                drawToTexture(light.cascadedShadowMap.textures[i], light.getCascadedShadowMapLightSpaceMatrix(params, i), params);
+                drawToTexture(light.cascadedShadowMap.textures[i], light.getLightSpaceMatrixForCascade(params, i), params);
             }
         }, params);
     }

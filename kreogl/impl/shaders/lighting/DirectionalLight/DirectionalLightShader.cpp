@@ -106,7 +106,7 @@ namespace kreogl {
             for (size_t i = 0; i < light->cascadeEnds.size(); ++i) {
                 glActiveTexture((GLenum)(GL_TEXTURE0 + (int)GBuffer::Texture::Count + i));
                 glBindTexture(GL_TEXTURE_2D, light->cascadedShadowMap.textures[i]);
-                _csmGLSL.lightSpaceMatrix[i] = light->getCascadedShadowMapLightSpaceMatrix(params, i);
+                _csmGLSL.lightSpaceMatrix[i] = light->getLightSpaceMatrixForCascade(params, i);
             }
 
             kreogl::shapes::drawQuad();

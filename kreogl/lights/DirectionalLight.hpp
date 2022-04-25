@@ -13,6 +13,6 @@ namespace kreogl {
 
         mutable CascadedShadowMap cascadedShadowMap;
 
-        glm::mat4 getCascadedShadowMapLightSpaceMatrix(const DrawParams & params, size_t index) const noexcept;
+        glm::mat4 getLightSpaceMatrixForCascade(const DrawParams & params, size_t index) const noexcept;
     };
 }

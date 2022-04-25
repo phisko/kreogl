@@ -11,7 +11,7 @@ namespace kreogl {
                dir;
     }
 
-    glm::mat4 DirectionalLight::getCascadedShadowMapLightSpaceMatrix(const DrawParams & params, size_t index) const noexcept {
+    glm::mat4 DirectionalLight::getLightSpaceMatrixForCascade(const DrawParams & params, size_t index) const noexcept {
         const auto resolution = params.camera.getViewport().getResolution();
         const float ar = (float)resolution.x / (float)resolution.y;
         const float tanHalfHFOV = std::tan(params.camera.getFOV() * ar / 2.f);
