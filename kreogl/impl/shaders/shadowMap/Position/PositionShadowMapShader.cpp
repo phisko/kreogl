@@ -26,8 +26,7 @@ namespace kreogl {
     void PositionShadowMapShader::drawToTexture(GLuint texture, const glm::mat4 & lightSpaceMatrix, const DrawParams & params) noexcept {
         use();
 
-		_glsl.view = params.camera.getViewMatrix();
-		_glsl.proj = params.camera.getProjMatrix();
+		_glsl.view = lightSpaceMatrix;
 
         for (const auto object : params.world.getObjects(VertexSpecification::positionColor)) {
             _glsl.model = object->transform;
