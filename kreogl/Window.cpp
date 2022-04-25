@@ -63,7 +63,9 @@ namespace kreogl {
             viewport.draw({ world, *camera });
             blitViewport(viewport);
         }
+    }
 
+    void Window::display() const noexcept {
         glfwSwapBuffers(_glfwWindow);
     }
 

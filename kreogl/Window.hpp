@@ -22,6 +22,7 @@ namespace kreogl {
         ~Window() noexcept;
 
         void draw(const class World & world) noexcept;
+        void display() const noexcept;
         bool shouldClose() const noexcept;
 
         // polls events for all windows

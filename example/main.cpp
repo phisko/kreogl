@@ -147,6 +147,8 @@ int main() {
 
         window.pollEvents();
         window.draw(world);
+        window.display();
+
         previousTime = now;
     }
 

@@ -23,6 +23,14 @@ void draw(const class World & world) noexcept;
 
 Draws the provided [world](World.md) into the window.
 
+### display
+
+```cpp
+void display() const noexcept;
+```
+
+Presents the contents of the window to the screen, calling `glfwSwapBuffers`.
+
 ### shouldClose
 
 ```cpp
