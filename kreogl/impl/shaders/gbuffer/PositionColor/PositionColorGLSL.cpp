@@ -35,7 +35,7 @@ uniform vec4 color;
 uniform vec4 userData;
 
 layout (location = 0) out vec4 gposition;
-layout (location = 1) out vec3 gnormal;
+layout (location = 1) out vec4 gnormal;
 layout (location = 2) out vec4 gdiffuse;
 layout (location = 3) out vec4 gspecular;
 layout (location = 4) out vec4 guserData;
@@ -46,9 +46,9 @@ void main() {
 	applyTransparency(color.a);
 
     gposition = WorldPosition;
-    gnormal = -normalize(cross(dFdy(EyeRelativePos), dFdx(EyeRelativePos)));
-    gdiffuse = vec4(Color * color.rgb, 0.0);
-    gspecular = vec4(Color * color.rgb, 0.0);
+    gnormal = vec4(-normalize(cross(dFdy(EyeRelativePos), dFdx(EyeRelativePos))), 1.0);
+    gdiffuse = vec4(Color * color.rgb, 0.0); // 4th component is ShouldIgnoreLighting
+    gspecular = vec4(Color * color.rgb, 1.0);
     guserData = userData;
 })";
 }
