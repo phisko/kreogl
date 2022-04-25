@@ -126,7 +126,7 @@ static void processInput(kreogl::Window & window, float deltaTime) noexcept {
     if (s_keysPressed[GLFW_KEY_LEFT_SHIFT])
         position += vectors.up * velocity;
     if (s_keysPressed[GLFW_KEY_LEFT_CONTROL])
-        position += vectors.up * velocity;
+        position -= vectors.up * velocity;
     camera.setPosition(position);
 }
 
