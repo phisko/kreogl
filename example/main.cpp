@@ -7,6 +7,10 @@
 #include <GLFW/glfw3.h>
 #include <glm/gtx/rotate_vector.hpp>
 
+#include "imgui.h"
+#include "backends/imgui_impl_glfw.h"
+#include "backends/imgui_impl_opengl3.h"
+
 struct VertexData {
     glm::vec3 color;
 
@@ -26,6 +30,7 @@ struct VertexData {
 static kreogl::Window * s_window = nullptr;
 static std::unordered_map<int, bool> s_keysPressed;
 static bool s_rotatingFixedCameras = true;
+static bool s_rightClickPressed = false;
 
 static constexpr auto MOUSE_SENSITIVITY = .01f;
 static constexpr auto MOVEMENT_SPEED = 5.f;
@@ -46,14 +51,15 @@ static CameraVectors getCameraVectors(const kreogl::Camera & camera) noexcept {
 static void setupInput(kreogl::Window & window) noexcept {
     s_window = &window;
 
-    glfwSetInputMode(window.getGLFWwindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
     glfwSetCursorPosCallback(window.getGLFWwindow(), [](GLFWwindow * window, double xPos, double yPos) noexcept {
         static glm::vec2 lastPos = { (float)xPos, (float)yPos };
 
         const glm::vec2 newPos = { (float)xPos, (float)yPos };
         const glm::vec2 delta = newPos - lastPos;
         lastPos = newPos;
+
+        if (!s_rightClickPressed)
+            return;
 
         auto & camera = s_window->getDefaultCamera();
 
@@ -71,6 +77,16 @@ static void setupInput(kreogl::Window & window) noexcept {
         }
         else if (action == GLFW_RELEASE)
             s_keysPressed[key] = false;
+    });
+
+    glfwSetMouseButtonCallback(window.getGLFWwindow(), [](GLFWwindow * window, int button, int action, int modes) noexcept {
+        if (button != GLFW_MOUSE_BUTTON_RIGHT)
+            return;
+
+        if (action == GLFW_PRESS)
+            s_rightClickPressed = true;
+        else if (action == GLFW_RELEASE)
+            s_rightClickPressed = false;
     });
 }
 
@@ -204,6 +220,9 @@ static void createScene(kreogl::World & world) noexcept {
 }
 
 static void processInput(kreogl::Window & window, float deltaTime) noexcept {
+    if (!s_rightClickPressed)
+        return;
+
     auto & camera = window.getDefaultCamera();
 
     const auto vectors = getCameraVectors(camera);
@@ -268,9 +287,19 @@ static void rotateFixedCameras(kreogl::Window & window) noexcept {
     }
 }
 
+static void debugTexture(GLuint texture, float aspectRatio = 1.f) noexcept {
+    const auto textureSide = ImGui::GetWindowSize().x;
+    ImGui::Image((ImTextureID)texture, { textureSide * aspectRatio, textureSide }, { 0, 1 }, { 1, 0 });
+}
+
 int main() {
     kreogl::Window window({});
     setupInput(window);
+
+    ImGui::CreateContext();
+    ImGui_ImplGlfw_InitForOpenGL(window.getGLFWwindow(), true);
+    ImGui_ImplOpenGL3_Init();
+
     window.getDefaultCamera().setPosition({ 0.f, 0.f, -5.f });
 
     kreogl::World world;
@@ -281,12 +310,54 @@ int main() {
         const auto now = std::chrono::system_clock::now();
         const auto deltaTime = (float)std::chrono::duration_cast<std::chrono::milliseconds>(now - previousTime).count() / 1000.f;
 
+        window.pollEvents();
+
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+
         processInput(window, deltaTime);
         if (s_rotatingFixedCameras)
             rotateFixedCameras(window);
 
-        window.pollEvents();
+        if (ImGui::Begin("Directional lights")) {
+            for (const auto light : world.getDirectionalLights()) {
+                ImGui::PushID(light);
+                ImGui::InputFloat3("Direction", const_cast<float *>(&light->direction.x));
+                for (const auto & texture : light->cascadedShadowMap.textures)
+                    debugTexture(texture);
+                ImGui::PopID();
+            }
+        }
+        ImGui::End();
+
+        if (ImGui::Begin("Camera")) {
+            auto & camera = window.getDefaultCamera();
+            auto position = camera.getPosition();
+            if (ImGui::InputFloat3("Position", &position.x))
+                camera.setPosition(position);
+
+            auto direction = camera.getDirection();
+            if (ImGui::InputFloat3("Direction", &direction.x))
+                camera.setDirection(direction);
+
+            auto fov = camera.getFOV();
+            if (ImGui::InputFloat("FOV", &fov))
+                camera.setFOV(fov);
+
+            const auto & gbuffer = camera.getViewport().getGBuffer();
+            for (int i = 0; i < (int)kreogl::GBuffer::Texture::Count; ++i) {
+                const auto &texture = gbuffer.getTexture((kreogl::GBuffer::Texture)i);
+                debugTexture(texture);
+            }
+        }
+        ImGui::End();
+
         window.draw(world);
+
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
         window.display();
 
         previousTime = now;
