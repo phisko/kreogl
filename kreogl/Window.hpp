@@ -30,6 +30,8 @@ namespace kreogl {
 
         Camera & getDefaultCamera() noexcept { return *_defaultCamera; }
         void addCamera(const Camera & camera) noexcept;
+        void removeCamera(const Camera & camera) noexcept;
+        const std::vector<const Camera *> & getCameras() const noexcept { return _cameras; }
 
         GLFWwindow * getGLFWwindow() const noexcept { return _glfwWindow; }
 

@@ -55,13 +55,15 @@ Camera & getDefaultCamera() noexcept { return *_defaultCamera; }
 
 Returns the default camera, which gets automatically created with the window.
 
-### addCamera
+### Cameras
 
 ```cpp
-void Window::addCamera(const Camera & camera) noexcept;
+void addCamera(const Camera & camera) noexcept;
+void removeCamera(const Camera & camera) noexcept;
+const std::vector<const Camera *> & getCameras() const noexcept;
 ```
 
-Adds a camera to the window.
+All cameras displayed in the window.
 
 ### getGLFWWindow
 

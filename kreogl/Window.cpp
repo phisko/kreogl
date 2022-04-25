@@ -100,4 +100,10 @@ namespace kreogl {
     void Window::addCamera(const Camera & camera) noexcept {
         _cameras.push_back(&camera);
     }
+
+    void Window::removeCamera(const Camera &camera) noexcept {
+        const auto it = std::ranges::find(_cameras, &camera);
+        if (it != _cameras.end())
+            _cameras.erase(it);
+    }
 }
