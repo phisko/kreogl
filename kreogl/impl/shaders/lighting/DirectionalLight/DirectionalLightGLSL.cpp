@@ -21,6 +21,9 @@ uniform float specularStrength;
 
 out vec4 outputColor;
 
+const bool debugCSM = false;
+int getCascadeIndex(vec3 worldPos); // for debug only
+
 float calcShadow(vec3 worldPos, vec3 normal, vec3 lightDir);
 
 vec3 calcDirLight(vec3 worldPos, vec3 normal, vec3 diffuse, vec3 specular) {
@@ -59,6 +62,26 @@ void main() {
 	outputColor = vec4(diffuse, 1.0);
 	if (ignoreLighting == 0.0)
 		outputColor = vec4(calcDirLight(worldPos, normal, diffuse, specular), 1.0);
+
+	if (debugCSM) {
+		int index = getCascadeIndex(worldPos);
+		if (index == 0)
+			outputColor = outputColor * vec4(1.0, 0.0, 0.0, 1.0);
+		else if (index == 1)
+			outputColor = outputColor * vec4(0.0, 1.0, 0.0, 1.0);
+		else if (index == 2)
+			outputColor = outputColor * vec4(0.0, 0.0, 1.0, 1.0);
+		else if (index == 3)
+			outputColor = outputColor * vec4(1.0, 1.0, 0.0, 1.0);
+		else if (index == 4)
+			outputColor = outputColor * vec4(1.0, 0.0, 1.0, 1.0);
+		else if (index == 5)
+			outputColor = outputColor * vec4(0.0, 1.0, 1.0, 1.0);
+		else if (index == 6)
+			outputColor = outputColor * vec4(1.0, 0.5, 0.5, 1.0);
+		else if (index == 7)
+			outputColor = outputColor * vec4(0.5, 1.0, 0.5, 1.0);
+	}
 })";
 
     const char * DirectionalLightGLSL::GetDirection::frag = R"(
