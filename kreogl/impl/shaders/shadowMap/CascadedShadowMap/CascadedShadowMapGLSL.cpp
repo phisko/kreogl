@@ -12,7 +12,8 @@ uniform sampler2D shadowMap[CSM_COUNT];
 uniform mat4 lightSpaceMatrix[CSM_COUNT];
 uniform float cascadeEnd[CSM_COUNT];
 uniform int cascadeCount;
-uniform float bias;
+uniform float minBias;
+uniform float maxBias;
 uniform int pcfSamples;
 
 uniform mat4 proj;
@@ -49,7 +50,8 @@ float calcShadowWithCSM(int index, vec3 worldPos, vec3 normal, vec3 lightDir) {
     float closestDepth = texture(shadowMap[index], projCoords.xy).r;
 
     // calculate bias (based on depth map resolution and slope)
-    // float bias = max(shadow_map_max_bias * (1.0 - dot(normal, lightDir)), shadow_map_min_bias);
+    float bias = max(maxBias * (1.0 - dot(normal, lightDir)), minBias);
+    bias *= 1 / (cascadeEnd[index] * 0.5f);
 
     float shadow = 0.0;
     vec2 texelSize = 1.0 / textureSize(shadowMap[index], 0);

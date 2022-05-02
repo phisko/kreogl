@@ -10,7 +10,8 @@ namespace kreogl {
         Uniform<glm::mat4> lightSpaceMatrix[KREOGL_MAX_CSM_COUNT];
         Uniform<float> cascadeEnd[KREOGL_MAX_CSM_COUNT];
         Uniform<int> cascadeCount{ "cascadeCount" };
-        Uniform<float> bias{ "bias" };
+        Uniform<float> minBias{ "minBias" };
+        Uniform<float> maxBias{ "maxBias" };
         Uniform<int> pcfSamples{ "pcfSamples" };
         Uniform<glm::mat4> proj{ "proj" };
         Uniform<glm::mat4> view{ "view" };

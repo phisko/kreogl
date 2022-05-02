@@ -46,7 +46,8 @@ namespace kreogl {
             &_glsl.specularStrength,
             // CascadedShadowMapGLSL
             &_csmGLSL.cascadeCount,
-            &_csmGLSL.bias,
+            &_csmGLSL.minBias,
+            &_csmGLSL.maxBias,
             &_csmGLSL.pcfSamples,
             &_csmGLSL.proj,
             &_csmGLSL.view
@@ -96,7 +97,8 @@ namespace kreogl {
             _glsl.diffuseStrength = light->diffuseStrength;
             _glsl.specularStrength = light->specularStrength;
             _csmGLSL.pcfSamples = light->shadowPCFSamples;
-            _csmGLSL.bias = light->shadowMapBias;
+            _csmGLSL.maxBias = light->shadowMapMaxBias;
+            _csmGLSL.minBias = light->shadowMapMinBias;
 
             for (size_t i = 0; i < light->cascadeEnds.size(); ++i)
                 _csmGLSL.cascadeEnd[i] = light->cascadeEnds[i];
