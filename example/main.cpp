@@ -81,6 +81,7 @@ static const kreogl::Object & createBlock() noexcept {
 
     static kreogl::Object object;
     object.model = &model;
+    object.transform = glm::translate(object.transform, { 0.f, 0.f, 5.f });
     return object;
 }
 
@@ -94,7 +95,7 @@ static const kreogl::Object & createPlane() noexcept {
 
     static kreogl::Object object;
     object.model = &model;
-    object.transform = glm::translate(object.transform, glm::vec3(-25.f, -2.f, -25.f));
+    object.transform = glm::translate(object.transform, glm::vec3(-50.f, -2.f, -50.f));
     return object;
 }
 
