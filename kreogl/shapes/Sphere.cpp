@@ -20,7 +20,7 @@ namespace kreogl::shapes {
             {6,1,10}, {9,0,11}, {9,11,2}, {9,2,5}, {7,2,11} };
 
         static void normalize(GLfloat *a) noexcept {
-            GLfloat d = sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]);
+            GLfloat d = sqrtf(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]);
             a[0] /= d; a[1] /= d; a[2] /= d;
         }
 
