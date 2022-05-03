@@ -21,7 +21,7 @@ uniform float specularStrength;
 
 out vec4 outputColor;
 
-const bool debugCSM = false;
+const bool debugCSM = true;
 int getCascadeIndex(vec3 worldPos); // for debug only
 
 float calcShadow(vec3 worldPos, vec3 normal, vec3 lightDir);
