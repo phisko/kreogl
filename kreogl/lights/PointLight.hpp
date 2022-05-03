@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Light.hpp"
+#include "kreogl/impl/shadowMaps/ShadowCube.hpp"
 
 namespace kreogl {
     struct PointLight : Light {
@@ -9,5 +10,9 @@ namespace kreogl {
         float constant = 1.f;
         float linear = .09f;
         float quadratic = .032f;
+
+        float getRadius() const noexcept;
+
+        mutable ShadowCube shadowCube;
     };
 }
