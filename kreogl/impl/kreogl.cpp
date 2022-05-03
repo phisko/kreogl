@@ -11,9 +11,12 @@
 
 // shaders
 #include "kreogl/impl/shaders/gbuffer/PositionColor/PositionColorShader.hpp"
+
 #include "kreogl/impl/shaders/lighting/DirectionalLight/DirectionalLightShader.hpp"
+#include "kreogl/impl/shaders/lighting/PointLight/PointLightShader.hpp"
+
+#include "kreogl/impl/shaders/shadowMap/PositionShadowCube/PositionShadowCubeShader.hpp"
 #include "kreogl/impl/shaders/shadowMap/PositionShadowMap/PositionShadowMapShader.hpp"
-#include "kreogl/impl/shaders/shadowMap/ShadowMapShader.hpp"
 
 namespace kreogl {
     struct GlobalState {
@@ -74,7 +77,9 @@ namespace kreogl {
     void createDefaultShaders() noexcept {
         addShader(ShaderStep::GBuffer, PositionColorShader::getSingleton());
         addShader(ShaderStep::Lighting, DirectionalLightShader::getSingleton());
+        addShader(ShaderStep::Lighting, PointLightShader::getSingleton());
         addShader(ShaderStep::ShadowMap, PositionShadowMapShader::getSingleton());
+        addShader(ShaderStep::ShadowCube, PositionShadowCubeShader::getSingleton());
     }
 
     void addShader(ShaderStep step, Shader & shader) noexcept {
@@ -103,5 +108,10 @@ namespace kreogl {
     }
 
     void fillShadowMap(const PointLight & light, const DrawParams & params) noexcept {
+        const auto & shaders = globalState.shadersPerStep[ShaderStep::ShadowCube];
+        for (const auto shader : shaders) {
+            const auto shadowCubeShader = static_cast<ShadowCubeShader *>(shader);
+            shadowCubeShader->draw(light, params);
+        }
     }
 }
