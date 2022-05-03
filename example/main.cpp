@@ -71,46 +71,107 @@ static void setupInput(kreogl::Window & window) noexcept {
     });
 }
 
-static const kreogl::Object & createBlock() noexcept {
-    PolyVox::RawVolume<VertexData> volume(PolyVox::Region{ { -1, 0, 0 }, { 2, 1, 1 } });
-    volume.setVoxel(-1, 0, 0, { glm::vec3(1.f, 0.f, 0.f) });
-    volume.setVoxel(0, 0, 0, { glm::vec3(0.f, 1.f, 0.f) });
-    volume.setVoxel(1, 0, 0, { glm::vec3(0.f, 0.f, 1.f) });
+static const kreogl::Model & getBlockModel() noexcept {
+    static const auto model = [] {
+        PolyVox::RawVolume<VertexData> volume(PolyVox::Region{{-1, 0, 0},
+                                                              {2,  1, 1}});
+        volume.setVoxel(-1, 0, 0, {glm::vec3(1.f, 0.f, 0.f)});
+        volume.setVoxel(0, 0, 0, {glm::vec3(0.f, 1.f, 0.f)});
+        volume.setVoxel(1, 0, 0, {glm::vec3(0.f, 0.f, 1.f)});
 
-    static const auto model = kreogl::PolyVox::loadModel(volume);
-    static const kreogl::Object object {
-        .model = &model,
-        .transform = glm::translate(glm::mat4(1.f), { 0.f, 0.f, 5.f })
-    };
-    return object;
+        return kreogl::PolyVox::loadModel(volume);
+    }();
+    return model;
 }
 
-static const kreogl::Object & createPlane() noexcept {
-    PolyVox::RawVolume<VertexData> volume(PolyVox::Region{ { -50, 0, -50 }, { 51, 1, 51 } });
-    for (int x = -50; x < 50; ++x)
-        for (int z = -50; z < 50; ++z)
-            volume.setVoxel({ x, 0, z }, { glm::vec3(1.f) });
+static const kreogl::Model & getPlaneModel() noexcept {
+    static const auto model = [] {
+        constexpr auto size = 50;
+        PolyVox::RawVolume<VertexData> volume(PolyVox::Region{ { -size, 0, -size }, { size + 1, 1, size + 1 } });
+        for (int x = -size; x < size; ++x)
+            for (int z = -size; z < size; ++z)
+                volume.setVoxel({ x, 0, z }, { glm::vec3(1.f) });
 
-    static const auto model = kreogl::PolyVox::loadModel(volume);
-    static const kreogl::Object object {
-        .model = &model,
-        .transform = glm::translate(glm::mat4(1.f), glm::vec3(-50.f, -2.f, -50.f))
-    };
-    return object;
+        return kreogl::PolyVox::loadModel(volume);
+    }();
+    return model;
+}
+
+static const kreogl::Model & getBoxModel() noexcept {
+    static const auto model = [] {
+        constexpr auto size = 12;
+        PolyVox::RawVolume<VertexData> volume(PolyVox::Region{ { -size, -size, -size }, { size + 1, size + 1, size + 1 } });
+        for (int x = -size; x <= size; ++x)
+            for (int y = -size; y <= size; ++y) {
+                // bottom
+                volume.setVoxel({ x, -size, y }, { glm::vec3(1.f) });
+                // top
+                volume.setVoxel({ x, size, y }, { glm::vec3(1.f) });
+                // front
+                volume.setVoxel({ x, y, -size }, { glm::vec3(1.f) });
+                // back
+                volume.setVoxel({ x, y, size }, { glm::vec3(1.f) });
+                // left
+                volume.setVoxel({ -size, x, y }, { glm::vec3(1.f) });
+                // right
+                volume.setVoxel({ size, x, y }, { glm::vec3(1.f) });
+            }
+
+        return kreogl::PolyVox::loadModel(volume);
+    }();
+    return model;
 }
 
 static void createScene(kreogl::World & world) noexcept {
-    world.add(createBlock());
-    world.add(createPlane());
+    static const kreogl::Object frontBlock {
+        .model = &getBlockModel(),
+        .transform = glm::translate(glm::mat4(1.f), { 0.f, 0.f, 5.f })
+    };
+    world.add(frontBlock);
+    static const kreogl::Object backBlock {
+        .model = &getBlockModel(),
+        .transform = glm::translate(glm::mat4(1.f), { 0.f, 0.f, -5.f })
+    };
+    world.add(backBlock);
+    static const kreogl::Object topBlock {
+        .model = &getBlockModel(),
+        .transform = glm::translate(glm::mat4(1.f), { 0.f, 5.f, 0.f })
+    };
+    world.add(topBlock);
+    static const kreogl::Object bottomBlock {
+        .model = &getBlockModel(),
+        .transform = glm::translate(glm::mat4(1.f), { 0.f, -5.f, 0.f })
+    };
+    world.add(bottomBlock);
+    static const kreogl::Object leftBlock {
+        .model = &getBlockModel(),
+        .transform = glm::translate(glm::mat4(1.f), { 5.f, 0.f, 0.f })
+    };
+    world.add(leftBlock);
+    static const kreogl::Object rightBlock {
+        .model = &getBlockModel(),
+        .transform = glm::translate(glm::mat4(1.f), { -5.f, 0.f, 0.f })
+    };
+    world.add(rightBlock);
+
+    static const kreogl::Object plane {
+        .model = &getPlaneModel(),
+        .transform = glm::translate(glm::mat4(1.f), glm::vec3(-50, -50, -50))
+    };
+    world.add(plane);
+
+    static const kreogl::Object box {
+        .model = &getBoxModel(),
+        .transform = glm::translate(glm::mat4(1.f), glm::vec3(-12, -12, -12))
+    };
+    world.add(box);
 
     static const kreogl::DirectionalLight light{
         .direction = { -1.f, -1.f, -1.f }
     };
     world.add(light);
 
-    static const kreogl::PointLight pointLight{
-        .position = { 0.f, 5.f, 0.f }
-    };
+    static const kreogl::PointLight pointLight{};
     world.add(pointLight);
 }
 
