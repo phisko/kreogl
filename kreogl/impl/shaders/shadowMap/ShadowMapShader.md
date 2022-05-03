@@ -1,6 +1,6 @@
 # [ShadowMapShader](ShadowMapShader.hpp)
 
-Interface for shaders used to fill [shadow maps](../shadowMaps/ShadowMap.md).
+Interface for shaders used to fill [shadow maps](../../shadowMaps/ShadowMap.md).
 
 ## Members
 
