@@ -20,7 +20,6 @@ namespace kreogl {
         glCullFace(GL_BACK);
 
         const auto & viewport = params.camera.getViewport();
-        const auto & onScreenPosition = viewport.getOnScreenPosition();
         const auto & resolution = viewport.getResolution();
         glViewport(0, 0, resolution.x, resolution.y);
     }
