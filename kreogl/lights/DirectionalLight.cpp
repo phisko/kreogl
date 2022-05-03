@@ -3,6 +3,8 @@
 
 #include <array>
 
+#include "example/imgui/imgui.h"
+
 namespace kreogl {
     static glm::vec3 getCorrectDirection(const glm::vec3 & dir) noexcept {
         const auto normalized = glm::normalize(dir);
@@ -69,6 +71,24 @@ namespace kreogl {
             min = glm::min(min, glm::vec3(lightPos));
             max = glm::max(max, glm::vec3(lightPos));
         }
+
+        if (ImGui::Begin("Frustum corners")) {
+            char label[12];
+            sprintf_s(label, "%zd", index);
+            if (ImGui::CollapsingHeader(label)) {
+                ImGui::InputFloat3("Center", (float *)&cascadeBoundsWorldSpace.center);
+                ImGui::Columns(2);
+                for (auto worldPos : cascadeBoundsWorldSpace.corners) {
+                    ImGui::InputFloat3("World", &worldPos.x);
+                    ImGui::NextColumn();
+                    auto lightPos = lightView * worldPos;
+                    ImGui::InputFloat3("Light", &lightPos.x);
+                    ImGui::NextColumn();
+                }
+                ImGui::Columns();
+            }
+        }
+        ImGui::End();
 
         const auto largestExtent = glm::max(glm::abs(min), glm::abs(max));
         const auto lightProj = glm::ortho(-largestExtent.x, largestExtent.x, -largestExtent.y, largestExtent.y, -largestExtent.z - shadowCasterMaxDistance, largestExtent.z + shadowCasterMaxDistance);
