@@ -12,7 +12,7 @@
 // shaders
 #include "kreogl/impl/shaders/gbuffer/PositionColor/PositionColorShader.hpp"
 #include "kreogl/impl/shaders/lighting/DirectionalLight/DirectionalLightShader.hpp"
-#include "kreogl/impl/shaders/shadowMap/Position/PositionShadowMapShader.hpp"
+#include "kreogl/impl/shaders/shadowMap/PositionShadowMap/PositionShadowMapShader.hpp"
 #include "kreogl/impl/shaders/shadowMap/ShadowMapShader.hpp"
 
 namespace kreogl {

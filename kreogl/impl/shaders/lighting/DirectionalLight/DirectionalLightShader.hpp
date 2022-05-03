@@ -1,7 +1,8 @@
 #pragma once
 
 #include "DirectionalLightGLSL.hpp"
-#include "kreogl/impl/shaders/shadowMap/CascadedShadowMap/CascadedShadowMapGLSL.hpp"
+#include "kreogl/impl/shaders/shadowMap/sample/SampleCascadedShadowMap/SampleCascadedShadowMapGLSL.hpp"
+
 #include "kreogl/impl/shaders/Shader.hpp"
 #include "kreogl/impl/shaders/Singleton.hpp"
 #include "kreogl/lights/DirectionalLight.hpp"
@@ -18,6 +19,6 @@ namespace kreogl {
 
     private:
         DirectionalLightGLSL _glsl;
-        CascadedShadowMapGLSL _csmGLSL;
+        SampleCascadedShadowMapGLSL _csmGLSL;
     };
 }

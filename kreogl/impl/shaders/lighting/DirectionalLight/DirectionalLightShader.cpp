@@ -27,7 +27,7 @@ namespace kreogl {
     void DirectionalLightShader::addSourceFiles() noexcept {
         addSourceFile(QuadGLSL::vert, GL_VERTEX_SHADER);
         addSourceFile(DirectionalLightGLSL::frag, GL_FRAGMENT_SHADER);
-        addSourceFile(CascadedShadowMapGLSL::frag, GL_FRAGMENT_SHADER);
+        addSourceFile(SampleCascadedShadowMapGLSL::frag, GL_FRAGMENT_SHADER);
     }
 
     std::vector<UniformBase *> DirectionalLightShader::getUniforms() noexcept {
@@ -44,7 +44,7 @@ namespace kreogl {
             &_glsl.ambientStrength,
             &_glsl.diffuseStrength,
             &_glsl.specularStrength,
-            // CascadedShadowMapGLSL
+            // SampleCascadedShadowMapGLSL
             &_csmGLSL.cascadeCount,
             &_csmGLSL.minBias,
             &_csmGLSL.maxBias,

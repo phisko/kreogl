@@ -1,6 +1,6 @@
-# [CascadedShadowMapGLSL](CascadedShadowMapGLSL.hpp)
+# [SampleCascadedShadowMapGLSL](SampleCascadedShadowMapGLSL.hpp)
 
-Shadow map function implementations for [cascaded shadow maps](../../shadowMaps/CascadedShadowMap.md).
+Shadow map function implementations for [cascaded shadow maps](../../../../shadowMaps/CascadedShadowMap.md).
 
 ```glsl
 int getCascadeIndex(vec3 worldPos);

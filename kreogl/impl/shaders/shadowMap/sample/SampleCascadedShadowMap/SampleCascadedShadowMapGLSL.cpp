@@ -1,10 +1,10 @@
-#include "CascadedShadowMapGLSL.hpp"
+#include "SampleCascadedShadowMapGLSL.hpp"
 
 #define MACRO_AS_STRING_IMPL(macro) #macro
 #define MACRO_AS_STRING(macro) MACRO_AS_STRING_IMPL(macro)
 
 namespace kreogl {
-    const char * CascadedShadowMapGLSL::frag = R"(
+    const char * SampleCascadedShadowMapGLSL::frag = R"(
 #version 450
 
 const int CSM_COUNT = )" MACRO_AS_STRING(KREOGL_MAX_CSM_COUNT) R"(;
