@@ -78,10 +78,10 @@ static const kreogl::Object & createBlock() noexcept {
     volume.setVoxel(1, 0, 0, { glm::vec3(0.f, 0.f, 1.f) });
 
     static const auto model = kreogl::PolyVox::loadModel(volume);
-
-    static kreogl::Object object;
-    object.model = &model;
-    object.transform = glm::translate(object.transform, { 0.f, 0.f, 5.f });
+    static const kreogl::Object object {
+        .model = &model,
+        .transform = glm::translate(glm::mat4(1.f), { 0.f, 0.f, 5.f })
+    };
     return object;
 }
 
@@ -92,10 +92,10 @@ static const kreogl::Object & createPlane() noexcept {
             volume.setVoxel({ x, 0, z }, { glm::vec3(1.f) });
 
     static const auto model = kreogl::PolyVox::loadModel(volume);
-
-    static kreogl::Object object;
-    object.model = &model;
-    object.transform = glm::translate(object.transform, glm::vec3(-50.f, -2.f, -50.f));
+    static const kreogl::Object object {
+        .model = &model,
+        .transform = glm::translate(glm::mat4(1.f), glm::vec3(-50.f, -2.f, -50.f))
+    };
     return object;
 }
 
