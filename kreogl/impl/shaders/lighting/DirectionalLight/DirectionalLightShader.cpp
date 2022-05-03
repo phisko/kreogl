@@ -85,10 +85,8 @@ namespace kreogl {
                     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, texture, 0);
                     glClear(GL_DEPTH_BUFFER_BIT);
                 }
+                kreogl::fillShadowMap(*light, params);
             }
-
-            kreogl::fillShadowMap(*light, params);
-            kreogl::runShaders(ShaderStep::ShadowMap, params);
 
             use();
             _glsl.color = light->color;
