@@ -141,6 +141,41 @@ static const kreogl::Model & getBoxModel() noexcept {
     return model;
 }
 
+kreogl::Object frustumCornerMarkers[8];
+kreogl::Object lightOrthoCorners[8];
+namespace kreogl {
+    extern bool shouldSetCorners;
+    extern Object * frustumCornerMarkers;
+    extern Object * lightOrthoCorners;
+}
+
+static const kreogl::Model & getDebugBlockModel() noexcept {
+    static const auto model = [] {
+        PolyVox::RawVolume<VertexData> volume(PolyVox::Region{ { 0, 0, 0 }, { 1, 1, 1 } });
+        volume.setVoxel({ 0, 0, 0 }, { glm::vec3(1.f, 1.f, 1.f) });
+        return kreogl::PolyVox::loadModel(volume);
+    }();
+    return model;
+}
+
+static void initFrustumCornerMarkers(kreogl::World & world) noexcept {
+    kreogl::frustumCornerMarkers = frustumCornerMarkers;
+    for (auto & marker : frustumCornerMarkers) {
+        marker.model = &getDebugBlockModel();
+        marker.castShadows = false;
+        marker.color = { 0.f, 1.f, 0.f, 1.f };
+        world.add(marker);
+    }
+
+    kreogl::lightOrthoCorners = lightOrthoCorners;
+    for (auto & corner : lightOrthoCorners) {
+        corner.model = &getDebugBlockModel();
+        corner.castShadows = false;
+        corner.color = { 0.f, 0.f, 1.f, 1.f };
+        world.add(corner);
+    }
+}
+
 static void createPointLightScene(kreogl::World & world, const glm::vec3 & position) noexcept {
     const auto baseTransform = glm::translate(glm::mat4(1.f), position);
     static const kreogl::Object frontBlock {
@@ -198,6 +233,8 @@ static void createBlockFieldScene(kreogl::World & world, const glm::vec3 & posit
 }
 
 static void createScene(kreogl::World & world) noexcept {
+    initFrustumCornerMarkers(world);
+
     createPointLightScene(world, glm::vec3(0.f));
     createBlockFieldScene(world, glm::vec3(-25.f, 0.f, -25.f));
 
@@ -246,6 +283,9 @@ static void processInput(kreogl::Window & window, float deltaTime) noexcept {
 
     if (s_keysPressed['R'])
         s_rotatingFixedCameras = true;
+
+    if (s_keysPressed['C'])
+        kreogl::shouldSetCorners = true;
 
     camera.setPosition(position);
 }

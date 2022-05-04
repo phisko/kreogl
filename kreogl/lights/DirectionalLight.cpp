@@ -5,6 +5,8 @@
 
 #include "example/imgui/imgui.h"
 
+#include "kreogl/Object.hpp"
+
 namespace kreogl {
     static glm::vec3 getCorrectDirection(const glm::vec3 & dir) noexcept {
         const auto normalized = glm::normalize(dir);
@@ -50,6 +52,9 @@ namespace kreogl {
         return bounds;
     }
 
+    bool shouldSetCorners = true;
+    Object * frustumCornerMarkers = nullptr;
+    Object * lightOrthoCorners = nullptr;
     // based on https://learnopengl.com/Guest-Articles/2021/CSM
     glm::mat4 DirectionalLight::getLightSpaceMatrixForCascade(const DrawParams & params, size_t index) const noexcept {
         const auto nearPlane = index == 0 ? params.camera.getNearPlane() : std::max(params.camera.getNearPlane(), cascadeEnds[index - 1]);
@@ -66,10 +71,14 @@ namespace kreogl {
         glm::vec3 min(std::numeric_limits<float>::max());
         glm::vec3 max(std::numeric_limits<float>::min());
 
+        size_t i = 0;
         for (const auto & worldPos : cascadeBoundsWorldSpace.corners) {
             const auto lightPos = lightView * worldPos;
             min = glm::min(min, glm::vec3(lightPos));
             max = glm::max(max, glm::vec3(lightPos));
+
+            if (shouldSetCorners)
+                frustumCornerMarkers[i++].transform = glm::translate(glm::mat4(1.f), glm::vec3(glm::inverse(lightView) * lightPos));
         }
 
         if (ImGui::Begin("Frustum corners")) {
@@ -89,6 +98,18 @@ namespace kreogl {
             }
         }
         ImGui::End();
+
+        if (shouldSetCorners) {
+            lightOrthoCorners[0].transform = glm::translate(glm::mat4(1.f), glm::vec3(glm::inverse(lightView) * glm::vec4(min.x, min.y, min.z, 1.f)));
+            lightOrthoCorners[1].transform = glm::translate(glm::mat4(1.f), glm::vec3(glm::inverse(lightView) * glm::vec4(max.x, min.y, min.z, 1.f)));
+            lightOrthoCorners[2].transform = glm::translate(glm::mat4(1.f), glm::vec3(glm::inverse(lightView) * glm::vec4(min.x, max.y, min.z, 1.f)));
+            lightOrthoCorners[3].transform = glm::translate(glm::mat4(1.f), glm::vec3(glm::inverse(lightView) * glm::vec4(min.x, min.y, max.z, 1.f)));
+            lightOrthoCorners[4].transform = glm::translate(glm::mat4(1.f), glm::vec3(glm::inverse(lightView) * glm::vec4(max.x, max.y, min.z, 1.f)));
+            lightOrthoCorners[5].transform = glm::translate(glm::mat4(1.f), glm::vec3(glm::inverse(lightView) * glm::vec4(max.x, min.y, max.z, 1.f)));
+            lightOrthoCorners[6].transform = glm::translate(glm::mat4(1.f), glm::vec3(glm::inverse(lightView) * glm::vec4(max.x, max.y, max.z, 1.f)));
+            lightOrthoCorners[7].transform = glm::translate(glm::mat4(1.f), glm::vec3(glm::inverse(lightView) * glm::vec4(min.x, max.y, max.z, 1.f)));
+        }
+        shouldSetCorners = false;
 
         const auto largestExtent = glm::max(glm::abs(min), glm::abs(max));
         const auto lightProj = glm::ortho(-largestExtent.x, largestExtent.x, -largestExtent.y, largestExtent.y, -largestExtent.z - shadowCasterMaxDistance, largestExtent.z + shadowCasterMaxDistance);
