@@ -20,7 +20,7 @@ uniform mat4 proj;
 uniform mat4 view;
 
 int getCascadeIndex(vec3 worldPos) {
-	float clipSpacePosZ = (proj * view * vec4(worldPos, 1.0)).z;
+	float clipSpacePosZ = abs((view * vec4(worldPos, 1.0)).z);
 	for (int i = 0; i < cascadeCount; ++i)
 		if (clipSpacePosZ <= cascadeEnd[i])
 			return i;
@@ -47,6 +47,9 @@ float calcShadowWithCSM(int index, vec3 worldPos, vec3 normal, vec3 lightDir) {
     projCoords = projCoords * 0.5 + 0.5; // transform to [0,1] range
 
     float currentDepth = projCoords.z;
+    if (currentDepth > 1.0)
+        return 0.0;
+
     float closestDepth = texture(shadowMap[index], projCoords.xy).r;
 
     // calculate bias (based on depth map resolution and slope)
@@ -63,9 +66,6 @@ float calcShadowWithCSM(int index, vec3 worldPos, vec3 normal, vec3 lightDir) {
         }
     }
     shadow /= (pcfSamples * 2 + 1) * (pcfSamples * 2 + 1);
-
-    if (projCoords.z > 1.0)
-        shadow = 0.0;
 
     return shadow;
 }
