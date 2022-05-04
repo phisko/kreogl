@@ -25,9 +25,10 @@ namespace kreogl {
     }
 
     void PositionShadowCubeShader::drawObjects(const DrawParams & params) noexcept {
-        for (const auto object : params.world.getObjects(VertexSpecification::positionColor)) {
-            _glsl.model = object->transform;
-            object->model->draw();
-        }
+        for (const auto object : params.world.getObjects(VertexSpecification::positionColor))
+            if (object->castShadows) {
+                _glsl.model = object->transform;
+                object->model->draw();
+            }
     }
 }

@@ -35,3 +35,11 @@ glm::vec4 userData;
 ```
 
 Custom user-provided data that will be drawn into the [gbuffer](impl/GBuffer.md)'s `userData` texture.
+
+### castShadows
+
+```cpp
+bool castShadows = true;
+```
+
+Whether or not this object should cast shadows, and thus be drawn into shadow maps.
