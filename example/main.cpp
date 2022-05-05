@@ -141,10 +141,12 @@ static const kreogl::Model & getBoxModel() noexcept {
     return model;
 }
 
+kreogl::Object frustumCenter;
 kreogl::Object frustumCornerMarkers[8];
 kreogl::Object lightOrthoCorners[8];
 namespace kreogl {
     extern bool shouldSetCorners;
+    extern Object * frustumCenter;
     extern Object * frustumCornerMarkers;
     extern Object * lightOrthoCorners;
 }
@@ -159,6 +161,12 @@ static const kreogl::Model & getDebugBlockModel() noexcept {
 }
 
 static void initFrustumCornerMarkers(kreogl::World & world) noexcept {
+    kreogl::frustumCenter = &frustumCenter;
+    frustumCenter.model = &getBlockModel();
+    frustumCenter.castShadows = false;
+    frustumCenter.color = { 1.f, 0.f, 0.f, 1.f };
+    world.add(frustumCenter);
+
     kreogl::frustumCornerMarkers = frustumCornerMarkers;
     for (auto & marker : frustumCornerMarkers) {
         marker.model = &getDebugBlockModel();

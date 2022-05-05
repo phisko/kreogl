@@ -53,6 +53,7 @@ namespace kreogl {
     }
 
     bool shouldSetCorners = true;
+    Object * frustumCenter = nullptr;
     Object * frustumCornerMarkers = nullptr;
     Object * lightOrthoCorners = nullptr;
     // based on https://learnopengl.com/Guest-Articles/2021/CSM
@@ -64,6 +65,8 @@ namespace kreogl {
         const auto proj = glm::perspective(params.camera.getFOV(), (float)resolution.x / (float)resolution.y, nearPlane, farPlane);
 
         const auto cascadeBoundsWorldSpace = getCascadeBoundsWorldSpace(proj, params.camera.getViewMatrix());
+        if (shouldSetCorners)
+            frustumCenter->transform = glm::translate(glm::mat4(1.f), cascadeBoundsWorldSpace.center);
 
         const auto dir = getCorrectDirection(direction);
         const auto lightView = glm::lookAt(cascadeBoundsWorldSpace.center - glm::normalize(dir), cascadeBoundsWorldSpace.center, { 0.f, 1.f, 0.f });
