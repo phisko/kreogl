@@ -50,8 +50,8 @@ namespace kreogl {
 
     // based on https://learnopengl.com/Guest-Articles/2021/CSM
     glm::mat4 DirectionalLight::getLightSpaceMatrixForCascade(const DrawParams & params, size_t index) const noexcept {
-        const auto nearPlane = index == 0 ? KREOGL_SHADOW_MAP_NEAR_PLANE : cascadeEnds[index - 1];
-        const auto farPlane = cascadeEnds[index];
+        const auto nearPlane = index == 0 ? params.camera.getNearPlane() : std::max(params.camera.getNearPlane(), cascadeEnds[index - 1]);
+        const auto farPlane = std::min(params.camera.getFarPlane(), cascadeEnds[index]);
 
         const auto & resolution = params.camera.getViewport().getResolution();
         const auto proj = glm::perspective(params.camera.getFOV(), (float)resolution.x / (float)resolution.y, nearPlane, farPlane);
