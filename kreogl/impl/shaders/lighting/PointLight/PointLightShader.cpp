@@ -6,7 +6,6 @@
 #include "kreogl/impl/RAII/ScopedGLFeature.hpp"
 #include "kreogl/Camera.hpp"
 #include "kreogl/World.hpp"
-#include "kreogl/lights/PointLight.hpp"
 #include "kreogl/shapes/Sphere.hpp"
 
 namespace kreogl {
