@@ -19,7 +19,7 @@ namespace kreogl {
         bool castShadows = true;
         int shadowPCFSamples = 1;
         int shadowMapSize = 1024;
-        float shadowMapMaxBias = .001f;
-        float shadowMapMinBias = .0001f;
+        float shadowMapMaxBias = .1f;
+        float shadowMapMinBias = .01f;
     };
 }
