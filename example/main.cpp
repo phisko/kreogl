@@ -25,6 +25,7 @@ struct VertexData {
 
 static kreogl::Window * s_window = nullptr;
 static std::unordered_map<int, bool> s_keysPressed;
+static bool s_rotatingFixedCameras = true;
 
 static constexpr auto MOUSE_SENSITIVITY = .01f;
 static constexpr auto MOVEMENT_SPEED = 5.f;
@@ -64,8 +65,10 @@ static void setupInput(kreogl::Window & window) noexcept {
     });
 
     glfwSetKeyCallback(window.getGLFWwindow(), [](GLFWwindow * window, int key, int scancode, int action, int mods) noexcept {
-        if (action == GLFW_PRESS)
+        if (action == GLFW_PRESS) {
+            s_rotatingFixedCameras = false; // Disable automatic camera changes if user wants to move around
             s_keysPressed[key] = true;
+        }
         else if (action == GLFW_RELEASE)
             s_keysPressed[key] = false;
     });
@@ -201,6 +204,7 @@ static void processInput(kreogl::Window & window, float deltaTime) noexcept {
     const auto velocity = MOVEMENT_SPEED * deltaTime;
 
     auto position = camera.getPosition();
+
     if (s_keysPressed['W'])
         position += vectors.front * velocity;
     if (s_keysPressed['S'])
@@ -209,11 +213,53 @@ static void processInput(kreogl::Window & window, float deltaTime) noexcept {
         position -= vectors.right * velocity;
     if (s_keysPressed['D'])
         position += vectors.right * velocity;
+
     if (s_keysPressed[GLFW_KEY_LEFT_SHIFT])
         position += vectors.up * velocity;
     if (s_keysPressed[GLFW_KEY_LEFT_CONTROL])
         position -= vectors.up * velocity;
+
+    if (s_keysPressed['R'])
+        s_rotatingFixedCameras = true;
+
     camera.setPosition(position);
+}
+
+static void rotateFixedCameras(kreogl::Window & window) noexcept {
+    struct Params {
+        glm::vec3 position;
+        glm::vec3 direction;
+    };
+
+    static const Params params[] = {
+        { // Inside the point light demo
+            .position = { -9.f, 7.f, -7.5f },
+            .direction = { 1.3f, -1.f, 0.6f }
+        },
+        { // Global view
+            .position = { 24.f, -7.f, -23.f },
+            .direction = { -1.2f, -0.8f, 0.f }
+        },
+        { // Close up of blocks
+            .position = { 7.5f, -43.f, -8.f },
+            .direction = { -1.f, -0.5f, 0.6f }
+        }
+    };
+    static size_t current = 0;
+
+    static const auto timeBetweenChanges = std::chrono::seconds(3);
+    static auto lastChangeTime = std::chrono::system_clock::now() - timeBetweenChanges * 2; // make sure we trigger a change on first frame
+
+    const auto now = std::chrono::system_clock::now();
+    if (now - lastChangeTime > timeBetweenChanges) {
+        const auto & currentParams = params[current];
+        auto & camera = window.getDefaultCamera();
+        camera.setPosition(currentParams.position);
+        camera.setDirection(currentParams.direction);
+
+        current = (current + 1) % std::extent_v<decltype(params)>;
+        lastChangeTime = now;
+    }
 }
 
 int main() {
@@ -230,6 +276,8 @@ int main() {
         const auto deltaTime = (float)std::chrono::duration_cast<std::chrono::milliseconds>(now - previousTime).count() / 1000.f;
 
         processInput(window, deltaTime);
+        if (s_rotatingFixedCameras)
+            rotateFixedCameras(window);
 
         window.pollEvents();
         window.draw(world);
