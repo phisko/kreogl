@@ -3,8 +3,8 @@
 namespace kreogl {
     float PointLight::getRadius() const noexcept {
         const auto maxChannel = std::fmax(std::fmax(color.r, color.g), color.b);
-        return (-linear + sqrtf(linear * linear - 4.f * quadratic * (constant - 256.f * maxChannel * diffuseStrength)))
+        return (-attenuationLinear + sqrtf(attenuationLinear * attenuationLinear - 4.f * attenuationQuadratic * (attenuationConstant - 256.f * maxChannel * diffuseStrength)))
                /
-               (2.f * quadratic);
+               (2.f * attenuationQuadratic);
     }
 }

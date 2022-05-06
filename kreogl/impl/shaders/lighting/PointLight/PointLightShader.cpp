@@ -71,7 +71,7 @@ namespace kreogl {
         _glsl.viewPos = params.camera.getPosition();
         assert(_shadowCubeGLSL.viewPos.location == _glsl.viewPos.location); // If this fails, we need to explicitly set both uniforms
 
-        glActiveTexture((GLenum)(GL_TEXTURE0 + (int)GBuffer::Texture::Count)); // %NOCOMMIT%
+        glActiveTexture((GLenum)(GL_TEXTURE0 + (int)GBuffer::Texture::Count));
 
         for (const auto light : params.world.getPointLights()) {
             if (light->castShadows) {
@@ -100,9 +100,9 @@ namespace kreogl {
             _glsl.position = light->position;
             _glsl.diffuseStrength = light->diffuseStrength;
             _glsl.specularStrength = light->specularStrength;
-            _glsl.attenuationConstant = light->constant;
-            _glsl.attenuationLinear = light->linear;
-            _glsl.attenuationQuadratic = light->quadratic;
+            _glsl.attenuationConstant = light->attenuationConstant;
+            _glsl.attenuationLinear = light->attenuationLinear;
+            _glsl.attenuationQuadratic = light->attenuationQuadratic;
             _shadowCubeGLSL.farPlane = light->getRadius();
             _shadowCubeGLSL.minBias = light->shadowMapMinBias;
             _shadowCubeGLSL.maxBias = light->shadowMapMaxBias;
