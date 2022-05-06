@@ -70,10 +70,11 @@ namespace kreogl {
             max = glm::max(max, glm::vec3(lightPos));
         }
 
+        const auto largestExtent = glm::max(glm::abs(min), glm::abs(max));
         const auto lightProj = glm::ortho(
-            min.x - shadowCasterMaxDistance, max.x + shadowCasterMaxDistance,
-            min.y - shadowCasterMaxDistance, max.y + shadowCasterMaxDistance,
-            min.z - shadowCasterMaxDistance, max.z + shadowCasterMaxDistance
+            -largestExtent.x - shadowCasterMaxDistance, largestExtent.x + shadowCasterMaxDistance,
+            -largestExtent.y - shadowCasterMaxDistance, largestExtent.y + shadowCasterMaxDistance,
+            -largestExtent.z - shadowCasterMaxDistance, largestExtent.z + shadowCasterMaxDistance
         );
 
         return lightProj * lightView;
