@@ -195,6 +195,12 @@ static void createScene(kreogl::World & world) noexcept {
         .direction = { -1.f, -1.f, -1.f }
     };
     world.add(light);
+
+    static kreogl::SpotLight spotLight{
+        .direction = { 0.f, 1.f, -1.f }
+    };
+    spotLight.position = { -15.f, -15.f, -15.f };
+    world.add(spotLight);
 }
 
 static void processInput(kreogl::Window & window, float deltaTime) noexcept {
