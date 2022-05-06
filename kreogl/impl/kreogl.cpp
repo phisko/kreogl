@@ -14,6 +14,7 @@
 
 #include "kreogl/impl/shaders/lighting/DirectionalLight/DirectionalLightShader.hpp"
 #include "kreogl/impl/shaders/lighting/PointLight/PointLightShader.hpp"
+#include "kreogl/impl/shaders/lighting/SpotLight/SpotLightShader.hpp"
 
 #include "kreogl/impl/shaders/shadowMap/PositionShadowCube/PositionShadowCubeShader.hpp"
 #include "kreogl/impl/shaders/shadowMap/PositionShadowMap/PositionShadowMapShader.hpp"
@@ -78,6 +79,7 @@ namespace kreogl {
         addShader(ShaderStep::GBuffer, PositionColorShader::getSingleton());
         addShader(ShaderStep::Lighting, DirectionalLightShader::getSingleton());
         addShader(ShaderStep::Lighting, PointLightShader::getSingleton());
+        addShader(ShaderStep::Lighting, SpotLightShader::getSingleton());
         addShader(ShaderStep::ShadowMap, PositionShadowMapShader::getSingleton());
         addShader(ShaderStep::ShadowCube, PositionShadowCubeShader::getSingleton());
     }
