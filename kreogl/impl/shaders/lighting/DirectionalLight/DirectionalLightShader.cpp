@@ -49,7 +49,6 @@ namespace kreogl {
             &_csmGLSL.minBias,
             &_csmGLSL.maxBias,
             &_csmGLSL.pcfSamples,
-            &_csmGLSL.proj,
             &_csmGLSL.view
         };
 
@@ -72,7 +71,6 @@ namespace kreogl {
         glBlendEquation(GL_FUNC_ADD);
         glBlendFunc(GL_ONE, GL_ONE);
 
-        _csmGLSL.proj = params.camera.getProjMatrix();
         _csmGLSL.view = params.camera.getViewMatrix();
 
         _glsl.viewPos = params.camera.getPosition();

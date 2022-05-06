@@ -13,7 +13,6 @@ namespace kreogl {
         Uniform<float> minBias{ "minBias" };
         Uniform<float> maxBias{ "maxBias" };
         Uniform<int> pcfSamples{ "pcfSamples" };
-        Uniform<glm::mat4> proj{ "proj" };
         Uniform<glm::mat4> view{ "view" };
 
         SampleCascadedShadowMapGLSL() noexcept {

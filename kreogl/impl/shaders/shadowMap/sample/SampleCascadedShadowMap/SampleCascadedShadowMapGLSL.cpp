@@ -16,7 +16,6 @@ uniform float minBias;
 uniform float maxBias;
 uniform int pcfSamples;
 
-uniform mat4 proj;
 uniform mat4 view;
 
 int getCascadeIndex(vec3 worldPos) {
