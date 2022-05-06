@@ -9,7 +9,7 @@ namespace kreogl {
         glm::vec3 direction{ 0, -1, 0 };
         float ambientStrength = .1f;
         std::vector<float> cascadeEnds = { 5, 10, 20, 40, 100 };
-        float shadowCasterMaxDistance = 10.f;
+        float shadowCasterMaxDistance = 100.f;
 
         mutable CascadedShadowMap cascadedShadowMap;
 
