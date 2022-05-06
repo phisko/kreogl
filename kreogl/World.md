@@ -4,6 +4,8 @@ Represents a game world.
 
 ## Members
 
+For all the following `add` functions, the object taken by reference is ***not stored as a copy***. It is up to the client code to keep these objects alive until `remove` is called.
+
 ### Objects
 
 ```cpp
