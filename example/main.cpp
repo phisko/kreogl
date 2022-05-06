@@ -122,37 +122,65 @@ static const kreogl::Model & getBoxModel() noexcept {
     return model;
 }
 
-static void createScene(kreogl::World & world) noexcept {
+static void createPointLightScene(kreogl::World & world, const glm::vec3 & position) noexcept {
+    const auto baseTransform = glm::translate(glm::mat4(1.f), position);
     static const kreogl::Object frontBlock {
         .model = &getBlockModel(),
-        .transform = glm::translate(glm::mat4(1.f), { 0.f, 0.f, 5.f })
+        .transform = glm::translate(baseTransform, { 0.f, 0.f, 5.f })
     };
     world.add(frontBlock);
     static const kreogl::Object backBlock {
         .model = &getBlockModel(),
-        .transform = glm::translate(glm::mat4(1.f), { 0.f, 0.f, -5.f })
+        .transform = glm::translate(baseTransform, { 0.f, 0.f, -5.f })
     };
     world.add(backBlock);
     static const kreogl::Object topBlock {
         .model = &getBlockModel(),
-        .transform = glm::translate(glm::mat4(1.f), { 0.f, 5.f, 0.f })
+        .transform = glm::translate(baseTransform, { 0.f, 5.f, 0.f })
     };
     world.add(topBlock);
     static const kreogl::Object bottomBlock {
         .model = &getBlockModel(),
-        .transform = glm::translate(glm::mat4(1.f), { 0.f, -5.f, 0.f })
+        .transform = glm::translate(baseTransform, { 0.f, -5.f, 0.f })
     };
     world.add(bottomBlock);
     static const kreogl::Object leftBlock {
         .model = &getBlockModel(),
-        .transform = glm::translate(glm::mat4(1.f), { 5.f, 0.f, 0.f })
+        .transform = glm::translate(baseTransform, { 5.f, 0.f, 0.f })
     };
     world.add(leftBlock);
     static const kreogl::Object rightBlock {
         .model = &getBlockModel(),
-        .transform = glm::translate(glm::mat4(1.f), { -5.f, 0.f, 0.f })
+        .transform = glm::translate(baseTransform, { -5.f, 0.f, 0.f })
     };
     world.add(rightBlock);
+
+    static const kreogl::Object box {
+        .model = &getBoxModel(),
+        .transform = glm::translate(baseTransform, glm::vec3(-12, -12, -12))
+    };
+    world.add(box);
+
+    static const kreogl::PointLight pointLight{};
+    world.add(pointLight);
+}
+
+static void createBlockFieldScene(kreogl::World & world, const glm::vec3 & position) noexcept {
+    const auto baseTransform = glm::translate(glm::mat4(1.f), position);
+
+    static kreogl::Object blocks[10][10];
+    for (size_t x = 0; x < 10; ++x)
+        for (size_t z = 0; z < 10; ++z) {
+            auto & block = blocks[x][z];
+            block.model = &getBlockModel();
+            block.transform = glm::translate(baseTransform, glm::vec3(x * 5.f, -45.f, z * 5.f));
+            world.add(block);
+        }
+}
+
+static void createScene(kreogl::World & world) noexcept {
+    createPointLightScene(world, glm::vec3(0.f));
+    createBlockFieldScene(world, glm::vec3(-25.f, 0.f, -25.f));
 
     static const kreogl::Object plane {
         .model = &getPlaneModel(),
@@ -160,19 +188,10 @@ static void createScene(kreogl::World & world) noexcept {
     };
     world.add(plane);
 
-    static const kreogl::Object box {
-        .model = &getBoxModel(),
-        .transform = glm::translate(glm::mat4(1.f), glm::vec3(-12, -12, -12))
-    };
-    world.add(box);
-
     static const kreogl::DirectionalLight light{
         .direction = { -1.f, -1.f, -1.f }
     };
     world.add(light);
-
-    static const kreogl::PointLight pointLight{};
-    world.add(pointLight);
 }
 
 static void processInput(kreogl::Window & window, float deltaTime) noexcept {
