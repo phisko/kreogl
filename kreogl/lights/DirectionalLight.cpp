@@ -88,7 +88,9 @@ namespace kreogl {
             char label[12];
             sprintf_s(label, "%zd", index);
             if (ImGui::CollapsingHeader(label)) {
-                ImGui::InputFloat3("Center", (float *)&cascadeBoundsWorldSpace.center);
+                ImGui::InputFloat3("Center", const_cast<float *>(&cascadeBoundsWorldSpace.center.x));
+                ImGui::InputFloat3("Min", &min.x);
+                ImGui::InputFloat3("Max", &max.x);
                 ImGui::Columns(2);
                 for (auto worldPos : cascadeBoundsWorldSpace.corners) {
                     ImGui::InputFloat3("World", &worldPos.x);
