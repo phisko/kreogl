@@ -59,30 +59,21 @@ namespace kreogl {
         const auto cascadeBoundsWorldSpace = getCascadeBoundsWorldSpace(proj, params.camera.getViewMatrix());
 
         const auto dir = getCorrectDirection(direction);
-        const auto lightView = glm::lookAt(cascadeBoundsWorldSpace.center - dir, cascadeBoundsWorldSpace.center, { 0.f, 1.f, 0.f });
+        const auto lightView = glm::lookAt(cascadeBoundsWorldSpace.center - glm::normalize(dir), cascadeBoundsWorldSpace.center, { 0.f, 1.f, 0.f });
 
-        float minX = std::numeric_limits<float>::max();
-        float maxX = std::numeric_limits<float>::min();
-        float minY = std::numeric_limits<float>::max();
-        float maxY = std::numeric_limits<float>::min();
-        float minZ = std::numeric_limits<float>::max();
-        float maxZ = std::numeric_limits<float>::min();
+        glm::vec3 min(std::numeric_limits<float>::max());
+        glm::vec3 max(std::numeric_limits<float>::min());
 
         for (const auto & worldPos : cascadeBoundsWorldSpace.corners) {
             const auto lightPos = lightView * worldPos;
-
-            minX = std::min(minX, lightPos.x);
-            maxX = std::max(maxX, lightPos.x);
-            minY = std::min(minY, lightPos.y);
-            maxY = std::max(maxY, lightPos.y);
-            minZ = std::min(minZ, lightPos.z);
-            maxZ = std::max(maxZ, lightPos.z);
+            min = glm::min(min, glm::vec3(lightPos));
+            max = glm::max(max, glm::vec3(lightPos));
         }
 
         const auto lightProj = glm::ortho(
-            minX - shadowCasterMaxDistance, maxX + shadowCasterMaxDistance,
-            minY - shadowCasterMaxDistance, maxY + shadowCasterMaxDistance,
-            minZ - shadowCasterMaxDistance, maxZ + shadowCasterMaxDistance
+            min.x - shadowCasterMaxDistance, max.x + shadowCasterMaxDistance,
+            min.y - shadowCasterMaxDistance, max.y + shadowCasterMaxDistance,
+            min.z - shadowCasterMaxDistance, max.z + shadowCasterMaxDistance
         );
 
         return lightProj * lightView;
