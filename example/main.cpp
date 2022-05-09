@@ -207,8 +207,8 @@ static void createScene(kreogl::World & world) noexcept {
         .direction = { 0.7f, 1.f, 0.8f }
     };
     spotLight.position = { -15, -19, -16 };
-    spotLight.shadowMapMinBias = .0001f;
-    spotLight.shadowMapMaxBias = .001f;
+    spotLight.shadowMapMinBias = .001f;
+    spotLight.shadowMapMaxBias = .01f;
     world.add(spotLight);
 
     // Block slightly in front of the spotlight, to cast a shadow
