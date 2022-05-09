@@ -111,6 +111,8 @@ namespace kreogl {
             _shadowMapGLSL.maxBias = light->shadowMapMaxBias;
 
             glBindTexture(GL_TEXTURE_2D, light->shadowMap.texture);
+            _shadowMapGLSL.lightSpaceMatrix = light->getLightSpaceMatrix();
+
             kreogl::shapes::drawSphere();
         }
 

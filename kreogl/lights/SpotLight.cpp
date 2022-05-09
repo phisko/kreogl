@@ -12,9 +12,8 @@ namespace kreogl {
                dir;
     }
 
-    glm::mat4 SpotLight::getLightSpaceMatrix(const DrawParams & params) const noexcept {
-        const auto & resolution = params.camera.getViewport().getResolution();
-        const auto lightProjection = glm::perspective(45.f, (float)resolution.x / (float)resolution.y, KREOGL_SHADOW_MAP_NEAR_PLANE, KREOGL_SHADOW_MAP_FAR_PLANE);
+    glm::mat4 SpotLight::getLightSpaceMatrix() const noexcept {
+        const auto lightProjection = glm::perspective(glm::radians(90.f), 1.f, KREOGL_SHADOW_MAP_NEAR_PLANE, getRadius());
 
         const auto dir = getCorrectDirection(direction);
         const auto lightView = glm::lookAt(position, position + dir, glm::vec3(0.f, 1.f, 0.f));
