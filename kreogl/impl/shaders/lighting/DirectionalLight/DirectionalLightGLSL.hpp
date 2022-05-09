@@ -21,6 +21,7 @@ namespace kreogl {
 
         struct GetDirection {
             static const char * frag;
+            Uniform<glm::vec3> direction{ "direction" };
         };
     };
 }
