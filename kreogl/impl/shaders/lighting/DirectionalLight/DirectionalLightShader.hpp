@@ -1,11 +1,10 @@
 #pragma once
 
-#include "DirectionalLightGLSL.hpp"
-#include "kreogl/impl/shaders/shadowMap/sample/SampleCascadedShadowMap/SampleCascadedShadowMapGLSL.hpp"
-
 #include "kreogl/impl/shaders/Shader.hpp"
 #include "kreogl/impl/shaders/Singleton.hpp"
-#include "kreogl/lights/DirectionalLight.hpp"
+
+#include "DirectionalLightGLSL.hpp"
+#include "kreogl/impl/shaders/shadowMap/sample/SampleCascadedShadowMap/SampleCascadedShadowMapGLSL.hpp"
 
 namespace kreogl {
     class DirectionalLightShader : public Shader, public Singleton<DirectionalLightShader> {
