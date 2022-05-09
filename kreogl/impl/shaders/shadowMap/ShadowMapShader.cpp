@@ -44,7 +44,7 @@ namespace kreogl {
         light.shadowMap.setSize(light.shadowMapSize);
 
         drawImpl(light.shadowMap, [&]() noexcept {
-            drawToTexture(light.shadowMap.texture, light.getLightSpaceMatrix(params), params);
+            drawToTexture(light.shadowMap.texture, light.getLightSpaceMatrix(), params);
         }, params);
     }
 }

@@ -12,6 +12,6 @@ namespace kreogl {
 
         mutable ShadowMap shadowMap;
 
-        glm::mat4 getLightSpaceMatrix(const DrawParams & params) const noexcept;
+        glm::mat4 getLightSpaceMatrix() const noexcept;
     };
 }
