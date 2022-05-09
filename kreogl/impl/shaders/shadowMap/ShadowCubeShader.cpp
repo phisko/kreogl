@@ -45,14 +45,15 @@ namespace kreogl {
             { { 0.0f, 0.0f, -1.0f }, { 0.0f, -1.0f, 0.0f } }
         };
 
-        const auto proj = glm::perspective(glm::radians(90.f), (float)light.shadowMapSize / (float)light.shadowMapSize, KREOGL_SHADOW_MAP_NEAR_PLANE, KREOGL_SHADOW_MAP_FAR_PLANE);
+        const auto radius = light.getRadius();
+        const auto proj = glm::perspective(glm::radians(90.f), (float)light.shadowMapSize / (float)light.shadowMapSize, KREOGL_SHADOW_MAP_NEAR_PLANE, radius);
         for (unsigned int i = 0; i < 6; ++i) {
             const auto view = glm::lookAt(light.position, light.position + directions[i].target, directions[i].up);
             _glsl.lightSpaceMatrices[i] = proj * view;
         }
 
         _glsl.lightPos = light.position;
-        _glsl.farPlane = light.getRadius();
+        _glsl.farPlane = radius;
 
         drawObjects(params);
 
