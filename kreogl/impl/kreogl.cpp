@@ -19,6 +19,8 @@
 #include "kreogl/impl/shaders/shadowMap/PositionShadowCube/PositionShadowCubeShader.hpp"
 #include "kreogl/impl/shaders/shadowMap/PositionShadowMap/PositionShadowMapShader.hpp"
 
+#include "kreogl/impl/shaders/postLighting/VolumetricLighting/VolumetricDirectionalLight/VolumetricDirectionalLightShader.hpp"
+
 namespace kreogl {
     struct GlobalState {
         bool isGLFWInit = false;
@@ -82,6 +84,7 @@ namespace kreogl {
         addShader(ShaderStep::Lighting, SpotLightShader::getSingleton());
         addShader(ShaderStep::ShadowMap, PositionShadowMapShader::getSingleton());
         addShader(ShaderStep::ShadowCube, PositionShadowCubeShader::getSingleton());
+        addShader(ShaderStep::PostLighting, VolumetricDirectionalLightShader::getSingleton());
     }
 
     void addShader(ShaderStep step, Shader & shader) noexcept {
