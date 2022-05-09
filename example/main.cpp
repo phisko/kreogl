@@ -260,7 +260,8 @@ static void createScene(kreogl::World & world) noexcept {
     static kreogl::SpotLight spotLight{
         .direction = { 0.f, 1.f, -1.f }
     };
-    spotLight.position = { -15.f, -15.f, -15.f };
+    spotLight.shadowMapMinBias = .001f;
+    spotLight.shadowMapMaxBias = .01f;
     world.add(spotLight);
 }
 
