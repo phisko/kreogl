@@ -197,9 +197,11 @@ static void createScene(kreogl::World & world) noexcept {
     world.add(plane);
 
     // Sun
-    static const kreogl::DirectionalLight light{
+    static kreogl::DirectionalLight light{
         .direction = { -1.f, -1.f, -1.f }
     };
+    // Enable volumetric lighting with default params
+    light.volumetricLighting = kreogl::VolumetricLightingParams{};
     world.add(light);
 
     // Spotlight lighting the dark corner of the "point light scene" box
