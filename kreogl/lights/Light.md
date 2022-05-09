@@ -61,3 +61,11 @@ float shadowMapBias = .00001f;
 ```
 
 The parameters used when drawing to this light's shadow map.
+
+### Volumetric lighting parameters
+
+```cpp
+std::optional<VolumetricLightingParams> volumetricLighting;
+```
+
+[Parameters](VolumetricLightingParams.md) for volumetric lighting. If set to `std::nullopt`, the light won't cast volumetric lighting.
