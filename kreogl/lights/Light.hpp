@@ -1,7 +1,9 @@
 #pragma once
 
 #include <vector>
+#include <optional>
 #include <glm/glm.hpp>
+#include "VolumetricLightingParams.hpp"
 
 #ifndef KREOGL_SHADOW_MAP_NEAR_PLANE
 # define KREOGL_SHADOW_MAP_NEAR_PLANE .1f
@@ -21,5 +23,6 @@ namespace kreogl {
         int shadowMapSize = 1024;
         float shadowMapMaxBias = .1f;
         float shadowMapMinBias = .01f;
+        std::optional<VolumetricLightingParams> volumetricLighting;
     };
 }
