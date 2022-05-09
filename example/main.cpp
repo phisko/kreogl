@@ -204,8 +204,9 @@ static void createScene(kreogl::World & world) noexcept {
 
     // Spotlight lighting the dark corner of the "point light scene" box
     static kreogl::SpotLight spotLight{
-        .direction = { 0.f, 1.f, -1.f }
+        .direction = { 0.7f, 1.f, 0.8f }
     };
+    spotLight.position = { -15, -19, -16 };
     spotLight.shadowMapMinBias = .0001f;
     spotLight.shadowMapMaxBias = .001f;
     world.add(spotLight);
