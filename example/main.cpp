@@ -380,6 +380,26 @@ int main() {
         }
         ImGui::End();
 
+        if (ImGui::Begin("Point lights")) {
+            for (const auto light : world.getPointLights()) {
+                ImGui::PushID(light);
+                ImGui::InputFloat3("Position", const_cast<float *>(&light->position.x));
+                ImGui::PopID();
+            }
+        }
+        ImGui::End();
+
+        if (ImGui::Begin("Spot lights")) {
+            for (const auto light : world.getSpotLights()) {
+                ImGui::PushID(light);
+                ImGui::InputFloat3("Position", const_cast<float *>(&light->position.x));
+                ImGui::InputFloat3("Direction", const_cast<float *>(&light->direction.x));
+                debugTexture(light->shadowMap.texture);
+                ImGui::PopID();
+            }
+        }
+        ImGui::End();
+
         if (ImGui::Begin("Camera")) {
             auto & camera = window.getDefaultCamera();
             auto position = camera.getPosition();
