@@ -210,6 +210,13 @@ static void createScene(kreogl::World & world) noexcept {
     spotLight.shadowMapMinBias = .0001f;
     spotLight.shadowMapMaxBias = .001f;
     world.add(spotLight);
+
+    // Block slightly in front of the spotlight, to cast a shadow
+    static kreogl::Object spotLightBlock{
+        .model = &getBlockModel(),
+        .transform = glm::translate(glm::mat4(1.f), spotLight.position + spotLight.direction * 2.f)
+    };
+    world.add(spotLightBlock);
 }
 
 static void processInput(kreogl::Window & window, float deltaTime) noexcept {
