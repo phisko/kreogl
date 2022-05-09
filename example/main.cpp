@@ -166,7 +166,8 @@ static void createPointLightScene(kreogl::World & world, const glm::vec3 & posit
     };
     world.add(box);
 
-    static const kreogl::PointLight pointLight{};
+    static kreogl::PointLight pointLight{};
+    pointLight.position = position;
     world.add(pointLight);
 }
 
