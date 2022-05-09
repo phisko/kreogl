@@ -6,9 +6,9 @@
 
 namespace kreogl {
     struct SpotLight : PointLight {
-        glm::vec3 direction = { 0, -1, 0 };
-        float cutOff = 1.f;
-        float outerCutOff = 1.2f;
+        glm::vec3 direction;
+        float cutOff = .91f;
+        float outerCutOff = .82f;
 
         mutable ShadowMap shadowMap;
 
