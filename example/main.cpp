@@ -125,8 +125,10 @@ static const kreogl::Model & getBoxModel() noexcept {
     return model;
 }
 
+// Creates a large box containing a spot light and a few blocks casting shadows on its walls
 static void createPointLightScene(kreogl::World & world, const glm::vec3 & position) noexcept {
     const auto baseTransform = glm::translate(glm::mat4(1.f), position);
+
     static const kreogl::Object frontBlock {
         .model = &getBlockModel(),
         .transform = glm::translate(baseTransform, { 0.f, 0.f, 5.f })
@@ -168,6 +170,7 @@ static void createPointLightScene(kreogl::World & world, const glm::vec3 & posit
     world.add(pointLight);
 }
 
+// Creates a "field" of blocks slightly above the bottom plane
 static void createBlockFieldScene(kreogl::World & world, const glm::vec3 & position) noexcept {
     const auto baseTransform = glm::translate(glm::mat4(1.f), position);
 
@@ -185,17 +188,20 @@ static void createScene(kreogl::World & world) noexcept {
     createPointLightScene(world, glm::vec3(0.f));
     createBlockFieldScene(world, glm::vec3(-25.f, 0.f, -25.f));
 
+    // Bottom plane
     static const kreogl::Object plane {
         .model = &getPlaneModel(),
         .transform = glm::translate(glm::mat4(1.f), glm::vec3(-50, -50, -50))
     };
     world.add(plane);
 
+    // Sun
     static const kreogl::DirectionalLight light{
         .direction = { -1.f, -1.f, -1.f }
     };
     world.add(light);
 
+    // Spotlight lighting the dark corner of the "point light scene" box
     static kreogl::SpotLight spotLight{
         .direction = { 0.f, 1.f, -1.f }
     };
