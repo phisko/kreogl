@@ -15,7 +15,7 @@ See [Alexandre Pestana's blog post](https://www.alexandre-pestana.com/volumetric
 ### nbSteps
 
 ```cpp
-float nbSteps;
+int nbSteps;
 ```
 
 The number of steps to take. For each step, the shader will test the position at `viewPos + rayDir * stepLength` to see if it is lit or not. The accumulated number of lit positions will determine how much volumetric light is added to the pixel.

@@ -10,7 +10,7 @@ namespace kreogl {
         Uniform<int> gdiffuse{ "gdiffuse" };
 
         Uniform<float> scattering{ "scattering" };
-        Uniform<float> nbSteps{ "nbSteps" };
+        Uniform<int> nbSteps{ "nbSteps" };
         Uniform<float> defaultStepLength{ "defaultStepLength" };
         Uniform<float> intensity{ "intensity" };
 

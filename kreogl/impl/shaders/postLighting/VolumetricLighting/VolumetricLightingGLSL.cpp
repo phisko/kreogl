@@ -8,7 +8,7 @@ uniform sampler2D gposition;
 uniform sampler2D gdiffuse;
 
 uniform float scattering;
-uniform float nbSteps;
+uniform int nbSteps;
 uniform float defaultStepLength;
 uniform float intensity;
 
