@@ -47,7 +47,11 @@ Returns the list of [uniforms](Uniform.md) used by the program.
 ### use
 
 ```cpp
-void use() noexcept;
+UniformChecker use() noexcept;
 ```
 
-Must be called by child classes before performing OpenGL operations.
+Must be called by child classes before performing OpenGL operations. Returns an object which will check that all uniforms have been set by the time it is destroyed.
+
+```cpp
+void useWithoutUniformCheck() const noexcept;
+```

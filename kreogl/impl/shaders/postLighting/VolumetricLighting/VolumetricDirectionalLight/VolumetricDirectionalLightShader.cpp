@@ -11,7 +11,7 @@ namespace kreogl {
     VolumetricDirectionalLightShader::VolumetricDirectionalLightShader() noexcept {
         init();
 
-        use();
+        useWithoutUniformCheck();
 
         _glsl.gposition = (int)GBuffer::Texture::Position;
         _glsl.gdiffuse = (int)GBuffer::Texture::DiffuseAndShouldIgnoreLighting;
@@ -45,10 +45,11 @@ namespace kreogl {
             &_dirLightGLSL.direction,
             // SampleCascadedShadowMapGLSL
             &_csmGLSL.cascadeCount,
-            &_csmGLSL.minBias,
-            &_csmGLSL.maxBias,
-            &_csmGLSL.pcfSamples,
             &_csmGLSL.view,
+            // Unused
+            // &_csmGLSL.minBias,
+            // &_csmGLSL.maxBias,
+            // &_csmGLSL.pcfSamples,
         };
 
         for (auto & uniform : _csmGLSL.shadowMap)
@@ -64,7 +65,7 @@ namespace kreogl {
     }
 
     void VolumetricDirectionalLightShader::draw(const DrawParams & params) noexcept {
-        use();
+        const auto uniformChecker = use();
 
         const ScopedGLFeature blend(GL_BLEND);
         glBlendEquation(GL_FUNC_ADD);

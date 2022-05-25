@@ -3,7 +3,24 @@
 #include <iostream>
 
 namespace kreogl {
-    void Shader::use() noexcept {
+#ifndef NDEBUG
+    Shader::UniformUseChecker::~UniformUseChecker() noexcept {
+        for (const auto uniform : uniforms)
+            if (!uniform->used)
+                std::cerr << "kreogl: Unset uniform [" << uniform->name << ']' << std::endl;
+    }
+#endif
+
+    Shader::UniformUseChecker Shader::use() noexcept {
+        useWithoutUniformCheck();
+        return {
+#ifndef NDEBUG
+            .uniforms = _uniforms
+#endif
+        };
+    }
+
+    void Shader::useWithoutUniformCheck() const noexcept {
         glUseProgram(_program);
     }
 

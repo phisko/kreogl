@@ -19,7 +19,14 @@ namespace kreogl {
         virtual std::vector<UniformBase *> getUniforms() noexcept = 0;
 
     protected:
-        void use() noexcept;
+        struct UniformUseChecker {
+#ifndef NDEBUG
+            ~UniformUseChecker() noexcept;
+            std::vector<UniformBase *> & uniforms;
+#endif
+        };
+        UniformUseChecker use() noexcept;
+        void useWithoutUniformCheck() const noexcept;
 
     private:
         void link() const noexcept;

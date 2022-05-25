@@ -13,7 +13,7 @@ namespace kreogl {
     DirectionalLightShader::DirectionalLightShader() noexcept {
         init();
 
-        use();
+        useWithoutUniformCheck();
 
         _glsl.gposition = (int)GBuffer::Texture::Position;
         _glsl.gnormal = (int)GBuffer::Texture::Normal;
@@ -65,7 +65,7 @@ namespace kreogl {
     }
 
     void DirectionalLightShader::draw(const DrawParams &params) noexcept {
-        use();
+        const auto uniformChecker = use();
 
         const ScopedGLFeature blend(GL_BLEND);
         glBlendEquation(GL_FUNC_ADD);
@@ -86,7 +86,7 @@ namespace kreogl {
                 kreogl::fillShadowMap(*light, params);
             }
 
-            use();
+            const auto uniformChecker = use();
             _glsl.color = light->color;
             _glsl.direction = light->direction;
             _glsl.ambientStrength = light->ambientStrength;

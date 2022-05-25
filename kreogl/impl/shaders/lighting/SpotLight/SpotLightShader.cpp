@@ -12,7 +12,7 @@ namespace kreogl {
     SpotLightShader::SpotLightShader() noexcept {
         init();
 
-        use();
+        useWithoutUniformCheck();
 
         _glsl.gposition = (int)GBuffer::Texture::Position;
         _glsl.gnormal = (int)GBuffer::Texture::Normal;
@@ -61,7 +61,7 @@ namespace kreogl {
     }
 
     void SpotLightShader::draw(const DrawParams & params) noexcept {
-        use();
+        const auto uniformChecker = use();
 
         const ScopedGLFeature cull(GL_CULL_FACE);
         const ScopedGLFeature blend(GL_BLEND);
@@ -86,7 +86,7 @@ namespace kreogl {
             else
                 glCullFace(GL_FRONT);
 
-            use();
+            const auto uniformChecker = use();
 
             _ppvmGLSL.proj = params.camera.getProjMatrix();
             _ppvmGLSL.view = params.camera.getViewMatrix();

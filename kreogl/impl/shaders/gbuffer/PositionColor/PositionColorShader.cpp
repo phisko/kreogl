@@ -28,7 +28,7 @@ namespace kreogl {
     }
 
 	void PositionColorShader::draw(const DrawParams & params) noexcept {
-		use();
+		const auto uniformChecker = use();
 
 		_glsl.view = params.camera.getViewMatrix();
 		_glsl.proj = params.camera.getProjMatrix();

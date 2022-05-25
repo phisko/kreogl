@@ -12,7 +12,15 @@ namespace kreogl {
     PointLightShader::PointLightShader() noexcept {
         init();
 
-        use();
+#ifndef NDEBUG
+        assert(_glsl.position.location == _shadowCubeGLSL.position.location);
+        _shadowCubeGLSL.position.used = true;
+
+        assert(_glsl.viewPos.location == _shadowCubeGLSL.viewPos.location);
+        _shadowCubeGLSL.viewPos.used = true;
+#endif
+
+        useWithoutUniformCheck();
 
         _glsl.gposition = (int)GBuffer::Texture::Position;
         _glsl.gnormal = (int)GBuffer::Texture::Normal;
@@ -59,7 +67,7 @@ namespace kreogl {
     }
 
     void PointLightShader::draw(const DrawParams &params) noexcept {
-        use();
+        const auto uniformChecker = use();
 
         const ScopedGLFeature cull(GL_CULL_FACE);
         const ScopedGLFeature blend(GL_BLEND);
@@ -85,7 +93,7 @@ namespace kreogl {
             else
                 glCullFace(GL_FRONT);
 
-            use();
+            const auto uniformChecker = use();
 
             _ppvmGLSL.proj = params.camera.getProjMatrix();
             _ppvmGLSL.view = params.camera.getViewMatrix();
