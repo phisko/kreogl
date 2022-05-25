@@ -45,11 +45,9 @@ float calcShadowWithCSM(int index, vec3 worldPos, vec3 normal, vec3 lightDir) {
     vec3 projCoords = worldPosLightSpace.xyz / worldPosLightSpace.w;
     projCoords = projCoords * 0.5 + 0.5; // transform to [0,1] range
 
-    float currentDepth = projCoords.z;
-    if (currentDepth > 1.0)
+    float worldPosDepth = projCoords.z;
+    if (worldPosDepth > 1.0)
         return 0.0;
-
-    float closestDepth = texture(shadowMap[index], projCoords.xy).r;
 
     // calculate bias (based on depth map resolution and slope)
     float bias = max(maxBias * (1.0 - dot(normal, lightDir)), minBias);
@@ -61,7 +59,7 @@ float calcShadowWithCSM(int index, vec3 worldPos, vec3 normal, vec3 lightDir) {
     for (int x = -pcfSamples; x <= pcfSamples; ++x) {
         for (int y = -pcfSamples; y <= pcfSamples; ++y) {
             float pcfDepth = texture(shadowMap[index], projCoords.xy + vec2(x, y) * texelSize).r;
-            shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;
+            shadow += worldPosDepth - bias > pcfDepth ? 1.0 : 0.0;
         }
     }
     shadow /= (pcfSamples * 2 + 1) * (pcfSamples * 2 + 1);
