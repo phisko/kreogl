@@ -23,7 +23,7 @@ out vec4 outColor;
 
 #define PI 3.1415926535897932384626433832795
 
-vec2 getShadowMapValue(vec3 worldPos);
+bool isPositionLit(vec3 worldPos, float bias);
 vec3 getLightDirection(vec3 worldPos);
 
 float computeScattering(float lightDotView) {
@@ -81,8 +81,8 @@ void main() {
     vec3 accumFog = vec3(0.0);
 
     for (int i = 0; i < nbSteps; ++i) {
-        vec2 shadow = getShadowMapValue(currentPos);
-        if (shadow.x < 0.0 || shadow.x > shadow.y)
+        const float bias = 0.0;
+        if (isPositionLit(currentPos, bias))
             accumFog += computeScattering(dot(rayDir, lightDir)) * color.rgb * intensity;
 		currentPos += rayStep;
     }
