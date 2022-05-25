@@ -29,7 +29,7 @@ int getCascadeIndex(vec3 worldPos) {
 vec2 getShadowMapValue(vec3 worldPos) {
 	int index = getCascadeIndex(worldPos);
 	if (index < 0)
-		return vec2(1, 1);
+		return vec2(-1, -1);
 
     vec4 worldPosLightSpace = lightSpaceMatrix[index] * vec4(worldPos, 1.0);
     vec3 projCoords = worldPosLightSpace.xyz / worldPosLightSpace.w;
@@ -38,6 +38,23 @@ vec2 getShadowMapValue(vec3 worldPos) {
     float objectDepth = projCoords.z;
     float shadowMapValue = texture(shadowMap[index], projCoords.xy).r;
     return vec2(shadowMapValue, objectDepth);
+}
+
+bool isPositionLit(vec3 worldPos, float bias) {
+    vec2 shadow = getShadowMapValue(worldPos);
+
+    float shadowMapValue = shadow.x;
+    float objectDepth = shadow.y;
+
+    // not covered by cascades
+    if (shadowMapValue < 0.0)
+        return false;
+
+    // corrupted light space matrix for index :(
+    if (objectDepth > 1.0)
+        return false;
+
+    return shadowMapValue > objectDepth - bias;
 }
 
 float calcShadowWithCSM(int index, vec3 worldPos, vec3 normal, vec3 lightDir) {
