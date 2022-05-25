@@ -13,7 +13,7 @@ namespace kreogl {
         const ScopedBindFramebuffer bound(depthMap.frameBuffer);
         const ScopedGLFeature depth(GL_DEPTH_TEST);
 
-        use();
+        const auto uniformChecker = use();
 
         draw();
 

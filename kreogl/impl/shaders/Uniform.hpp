@@ -34,11 +34,17 @@ namespace kreogl {
     struct UniformBase {
         std::string name;
         GLint location = -1;
+#ifndef NDEBUG
+        bool used = false;
+#endif
     };
 
 	template<typename T>
 	struct Uniform : UniformBase {
-		void operator=(const T & val) const noexcept {
+		void operator=(const T & val) noexcept {
+#ifndef NDEBUG
+            used = true;
+#endif
 			setUniform(location, val);
 		}
 	};
