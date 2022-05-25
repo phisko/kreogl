@@ -20,7 +20,7 @@ namespace kreogl {
         glShaderSource(shader, 1, &glsl, nullptr);
         glCompileShader(shader);
 
-#ifndef _NDEBUG
+#ifndef NDEBUG
         {
             char buffer[512];
             glGetShaderInfoLog(shader, sizeof(buffer), nullptr, buffer);
@@ -41,7 +41,7 @@ namespace kreogl {
 
     void Shader::link() const noexcept {
         glLinkProgram(_program);
-#ifndef _NDEBUG
+#ifndef NDEBUG
         {
             char buffer[512];
             glGetProgramInfoLog(_program, sizeof(buffer), nullptr, buffer);
@@ -60,7 +60,7 @@ namespace kreogl {
     void Shader::getUniformLocations() noexcept {
         for (const auto uniform: _uniforms) {
             uniform->location = glGetUniformLocation(_program, uniform->name.c_str());
-#ifndef _NDEBUG
+#ifndef NDEBUG
             if (uniform->location == -1)
                 std::cerr << "Failed to get location for `" << uniform->name << "` uniform" << std::endl;
 #endif
