@@ -168,6 +168,7 @@ static void createPointLightScene(kreogl::World & world, const glm::vec3 & posit
 
     static kreogl::PointLight pointLight{};
     pointLight.position = position;
+    pointLight.volumetricLighting = kreogl::VolumetricLightingParams{};
     world.add(pointLight);
 }
 
