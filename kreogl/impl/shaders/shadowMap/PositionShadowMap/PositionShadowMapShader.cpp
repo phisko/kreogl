@@ -5,7 +5,7 @@
 
 namespace kreogl {
     PositionShadowMapShader::PositionShadowMapShader() noexcept {
-        init();
+        init("PositionShadowMapShader");
         useWithoutUniformCheck();
         _glsl.proj = glm::mat4(1.f);
     }

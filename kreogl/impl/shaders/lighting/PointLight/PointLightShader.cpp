@@ -10,7 +10,7 @@
 
 namespace kreogl {
     PointLightShader::PointLightShader() noexcept {
-        init();
+        init("PointLightShader");
 
 #ifndef NDEBUG
         assert(_glsl.position.location == _shadowCubeGLSL.position.location);

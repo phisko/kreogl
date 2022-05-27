@@ -7,7 +7,7 @@
 
 namespace kreogl {
     PositionColorShader::PositionColorShader() noexcept {
-        init();
+        init("PositionColorShader");
     }
 
     void PositionColorShader::addSourceFiles() noexcept {
