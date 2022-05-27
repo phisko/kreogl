@@ -11,7 +11,7 @@
 
 namespace kreogl {
     DirectionalLightShader::DirectionalLightShader() noexcept {
-        init();
+        init("DirectionalLightShader");
 
         useWithoutUniformCheck();
 

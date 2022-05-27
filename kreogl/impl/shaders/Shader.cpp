@@ -28,8 +28,11 @@ namespace kreogl {
         glUseProgram(_program);
     }
 
-    void Shader::init() noexcept {
+    void Shader::init(const std::string & name) noexcept {
         _program = glCreateProgram();
+#ifndef NDEBUG
+        glObjectLabel(GL_PROGRAM, _program, name.size(), name.c_str());
+#endif
         addSourceFiles();
         link();
         _uniforms = getUniforms();

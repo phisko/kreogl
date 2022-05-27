@@ -4,7 +4,7 @@
 
 namespace kreogl {
     PositionShadowCubeShader::PositionShadowCubeShader() noexcept {
-        init();
+        init("PositionShadowCubeShader");
         useWithoutUniformCheck();
         _glsl.proj = glm::mat4(1.f);
         _glsl.view = glm::mat4(1.f);

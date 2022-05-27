@@ -10,7 +10,7 @@
 
 namespace kreogl {
     SpotLightShader::SpotLightShader() noexcept {
-        init();
+        init("SpotLightShader");
 
         useWithoutUniformCheck();
 

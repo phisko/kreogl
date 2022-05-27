@@ -9,7 +9,7 @@
 
 namespace kreogl {
     VolumetricDirectionalLightShader::VolumetricDirectionalLightShader() noexcept {
-        init();
+        init("VolumetricDirectionalLightShader");
 
         useWithoutUniformCheck();
 

@@ -13,7 +13,7 @@ namespace kreogl {
         virtual void draw(const DrawParams & params) noexcept = 0;
 
     protected:
-        void init() noexcept; // must be called for initialization
+        void init(const std::string & name) noexcept; // must be called for initialization
         void addSourceFile(const char * glsl, GLenum type) noexcept;
         virtual void addSourceFiles() noexcept = 0;
         virtual std::vector<UniformBase *> getUniforms() noexcept = 0;
