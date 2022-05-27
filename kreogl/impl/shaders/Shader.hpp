@@ -24,8 +24,9 @@ namespace kreogl {
             ~UniformUseChecker() noexcept;
             std::vector<UniformBase *> & uniforms;
 #endif
+            bool shouldCheck = true;
         };
-        UniformUseChecker use() noexcept;
+        UniformUseChecker use(bool shouldCheck = true) noexcept;
         void useWithoutUniformCheck() const noexcept;
 
     private:

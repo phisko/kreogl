@@ -67,7 +67,7 @@ namespace kreogl {
     }
 
     void PointLightShader::draw(const DrawParams &params) noexcept {
-        const auto uniformChecker = use();
+        useWithoutUniformCheck();
 
         const ScopedGLFeature cull(GL_CULL_FACE);
         const ScopedGLFeature blend(GL_BLEND);

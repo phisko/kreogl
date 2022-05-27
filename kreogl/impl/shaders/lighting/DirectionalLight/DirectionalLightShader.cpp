@@ -65,7 +65,7 @@ namespace kreogl {
     }
 
     void DirectionalLightShader::draw(const DrawParams &params) noexcept {
-        const auto uniformChecker = use();
+        useWithoutUniformCheck();
 
         const ScopedGLFeature blend(GL_BLEND);
         glBlendEquation(GL_FUNC_ADD);

@@ -65,7 +65,7 @@ namespace kreogl {
     }
 
     void VolumetricDirectionalLightShader::draw(const DrawParams & params) noexcept {
-        const auto uniformChecker = use();
+        auto uniformChecker = use(false);
 
         const ScopedGLFeature blend(GL_BLEND);
         glBlendEquation(GL_FUNC_ADD);
@@ -97,6 +97,7 @@ namespace kreogl {
             }
             _csmGLSL.cascadeCount = (int)light->cascadeEnds.size();
 
+            uniformChecker.shouldCheck = true;
             kreogl::shapes::drawQuad();
         }
     }
