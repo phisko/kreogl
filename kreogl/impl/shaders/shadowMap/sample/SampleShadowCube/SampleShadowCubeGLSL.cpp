@@ -18,6 +18,13 @@ vec2 getShadowMapValue(vec3 worldPos) {
     return vec2(shadowMapValue, objectDepth);
 }
 
+bool isPositionLit(vec3 worldPos, float bias) {
+    vec2 shadow = getShadowMapValue(worldPos);
+    float shadowMapValue = shadow.x;
+    float objectDepth = shadow.y;
+    return shadowMapValue > objectDepth - bias;
+}
+
 float calcShadow(vec3 worldPos, vec3 normal, vec3 lightDirIgnore) {
 	vec3 lightDir = worldPos - position;
 	float currentDepth = length(lightDir);
