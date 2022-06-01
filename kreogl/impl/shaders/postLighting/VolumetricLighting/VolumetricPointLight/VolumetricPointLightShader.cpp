@@ -54,8 +54,9 @@ namespace kreogl {
             &_shadowCubeGLSL.position,
             &_shadowCubeGLSL.viewPos,
             &_shadowCubeGLSL.farPlane,
-            &_shadowCubeGLSL.minBias,
-            &_shadowCubeGLSL.maxBias,
+            // Unused
+            // &_shadowCubeGLSL.minBias,
+            // &_shadowCubeGLSL.maxBias,
         };
     }
 
@@ -87,8 +88,6 @@ namespace kreogl {
 
             glBindTexture(GL_TEXTURE_CUBE_MAP, light->shadowCube.texture);
             _shadowCubeGLSL.farPlane = light->getRadius();
-            _shadowCubeGLSL.minBias = light->shadowMapMinBias;
-            _shadowCubeGLSL.maxBias = light->shadowMapMaxBias;
 
             uniformChecker.shouldCheck = true;
             kreogl::shapes::drawQuad();
