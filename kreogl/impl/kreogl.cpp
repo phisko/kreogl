@@ -21,6 +21,7 @@
 
 #include "kreogl/impl/shaders/postLighting/VolumetricLighting/VolumetricDirectionalLight/VolumetricDirectionalLightShader.hpp"
 #include "kreogl/impl/shaders/postLighting/VolumetricLighting/VolumetricPointLight/VolumetricPointLightShader.hpp"
+#include "kreogl/impl/shaders/postLighting/VolumetricLighting/VolumetricSpotLight/VolumetricSpotLightShader.hpp"
 
 namespace kreogl {
     struct GlobalState {
@@ -87,6 +88,7 @@ namespace kreogl {
         addShader(ShaderStep::ShadowCube, PositionShadowCubeShader::getSingleton());
         addShader(ShaderStep::PostLighting, VolumetricDirectionalLightShader::getSingleton());
         addShader(ShaderStep::PostLighting, VolumetricPointLightShader::getSingleton());
+        addShader(ShaderStep::PostLighting, VolumetricSpotLightShader::getSingleton());
     }
 
     void addShader(ShaderStep step, Shader & shader) noexcept {
