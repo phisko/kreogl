@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include "UIntSwapper.hpp"
 
 namespace kreogl {
@@ -15,4 +16,8 @@ namespace kreogl {
         Texture(Texture &&) noexcept = default;
         Texture & operator=(Texture &&) noexcept = default;
     };
+
+    bool isSupporteTextureFormat(const char * file) noexcept;
+    std::optional<Texture> loadTexture(const char * file) noexcept;
+    std::optional<Texture> loadTexture(const void * data, size_t width, size_t height) noexcept;
 }

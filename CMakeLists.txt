@@ -23,7 +23,10 @@ file(GLOB src
 		kreogl/*.cpp kreogl/*.hpp
 		kreogl/lights/*.cpp kreogl/lights/*.hpp
 		kreogl/model/*.cpp kreogl/model/*.hpp
+		kreogl/animation/*.cpp kreogl/animation/*.hpp
+		kreogl/animation/AssImp/*.cpp kreogl/animation/AssImp/*.hpp
 		kreogl/shapes/*.cpp kreogl/shapes/*.hpp
+		kreogl/texture/*.cpp kreogl/texture/*.hpp
 		kreogl/impl/*.cpp kreogl/impl/*.hpp
 		kreogl/impl/shadowMaps/*.cpp kreogl/impl/shadowMaps/*.hpp)
 
@@ -41,13 +44,16 @@ target_include_directories(kreogl PUBLIC .)
 
 # dependencies
 putils_conan(
-    glew/2.2.0
-    glm/0.9.9.8
-	glfw/3.3.6
-    freetype/2.11.1
-	OPTIONS glfw:shared=False
+		assimp/5.1.0
+		glew/2.2.0
+		glm/0.9.9.8
+		glfw/3.3.6
+		freetype/2.11.1
+        stb/cci.20210910
+		zlib/1.2.12 # Need to override to fix conflicts between libpng and assimp
+		OPTIONS glfw:shared=False
 )
-target_link_libraries(kreogl PUBLIC CONAN_PKG::glew CONAN_PKG::glm CONAN_PKG::glfw CONAN_PKG::freetype)
+target_link_libraries(kreogl PUBLIC CONAN_PKG::assimp CONAN_PKG::glew CONAN_PKG::glm CONAN_PKG::glfw CONAN_PKG::freetype CONAN_PKG::stb)
 
 target_include_directories(kreogl PUBLIC third_party/polyvox/include)
 

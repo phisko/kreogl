@@ -1,9 +1,17 @@
+// stl
+#include <filesystem>
+
+// kreogl
 #include "kreogl/Window.hpp"
 #include "kreogl/World.hpp"
+#include "kreogl/animation/AnimatedObject.hpp"
+#include "kreogl/animation/AssImp/AssImpModelLoader.hpp"
 
+// polyvox
 #include "PolyVox/RawVolume.h"
 #include "kreogl/model/PolyVox/PolyVoxModel.hpp"
 
+// GLFW
 #include <GLFW/glfw3.h>
 #include <glm/gtx/rotate_vector.hpp>
 
@@ -288,13 +296,29 @@ static void rotateFixedCameras(kreogl::Window & window) noexcept {
     }
 }
 
-int main() {
+int main(int ac, const char ** av) {
+    // go to executable directory to be near "resources"
+    const auto binDir = std::filesystem::path(av[0]).parent_path();
+    if (exists(binDir))
+        std::filesystem::current_path(binDir);
+
     kreogl::Window window({});
     setupInput(window);
     window.getDefaultCamera().setPosition({ 0.f, 0.f, -5.f });
 
     kreogl::World world;
     createScene(world);
+
+    const auto funnymanModel = kreogl::AssImp::loadModel("resources/funnyman/funnyman.fbx");
+    assert(funnymanModel);
+
+    kreogl::AnimatedObject funnyman;
+    funnyman.model = &funnymanModel.value();
+    funnyman.animation = kreogl::Animation{
+        .model = &funnymanModel->animations[0],
+        .loop = true
+    };
+    world.add(funnyman);
 
     auto previousTime = std::chrono::system_clock::now();
     while (!window.shouldClose()) {
@@ -304,6 +328,8 @@ int main() {
         processInput(window, deltaTime);
         if (s_rotatingFixedCameras)
             rotateFixedCameras(window);
+
+        funnyman.tickAnimation(deltaTime);
 
         window.pollEvents();
         window.draw(world);
