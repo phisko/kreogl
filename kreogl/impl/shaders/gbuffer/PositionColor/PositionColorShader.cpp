@@ -1,6 +1,5 @@
 #include "PositionColorShader.hpp"
 #include "kreogl/impl/shaders/helpers/ApplyTransparency/ApplyTransparencyGLSL.hpp"
-#include "kreogl/impl/kreogl.hpp"
 
 #include "kreogl/Camera.hpp"
 #include "kreogl/World.hpp"
