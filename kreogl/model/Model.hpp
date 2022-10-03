@@ -18,11 +18,19 @@ namespace kreogl {
         GLenum indexType = GL_UNSIGNED_INT;
     };
 
-    struct Model {
-        Model(const ModelData & data, const VertexSpecification & vertexSpecification) noexcept;
+    class Model {
+    public:
+        virtual ~Model() noexcept = default;
+
+        Model(const VertexSpecification & vertexSpecification, const ModelData & data) noexcept;
         void draw() const noexcept;
 
-        std::vector<Mesh> meshes;
         const VertexSpecification & vertexSpecification;
+        std::vector<Mesh> meshes;
+
+        Model(const Model &) noexcept = default;
+        Model(Model &&) noexcept = default;
+        Model & operator=(const Model &) noexcept = default;
+        Model & operator=(Model &&) noexcept = default;
     };
 }

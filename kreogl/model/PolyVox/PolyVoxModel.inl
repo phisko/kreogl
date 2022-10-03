@@ -43,6 +43,6 @@ namespace kreogl::PolyVox {
             .vertexSize = sizeof(VertexType)
         };
 
-        return { modelData, vertexSpecification };
+        return { vertexSpecification, modelData };
     }
 }
