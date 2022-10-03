@@ -31,7 +31,7 @@ namespace kreogl {
     void Shader::init(const std::string & name) noexcept {
         _program = glCreateProgram();
 #ifndef NDEBUG
-        glObjectLabel(GL_PROGRAM, _program, name.size(), name.c_str());
+        glObjectLabel(GL_PROGRAM, _program, (GLsizei)name.size(), name.c_str());
 #endif
         addSourceFiles();
         link();
