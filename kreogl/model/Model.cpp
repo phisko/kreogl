@@ -38,9 +38,10 @@ namespace kreogl {
         glDrawElements(GL_TRIANGLES, (GLsizei)nbIndices, indexType, nullptr);
     }
 
-    Model::Model(const ModelData &data, const VertexSpecification & vertexSpecification) noexcept
+    Model::Model(const VertexSpecification & vertexSpecification, const ModelData &data) noexcept
         : vertexSpecification(vertexSpecification)
     {
+        meshes.clear();
         for (const auto & meshData : data.meshes)
             meshes.emplace_back(meshData, data, vertexSpecification);
     }
