@@ -24,6 +24,7 @@ file(GLOB src
 		kreogl/lights/*.cpp kreogl/lights/*.hpp
 		kreogl/model/*.cpp kreogl/model/*.hpp
 		kreogl/shapes/*.cpp kreogl/shapes/*.hpp
+		kreogl/texture/*.cpp kreogl/texture/*.hpp
 		kreogl/impl/*.cpp kreogl/impl/*.hpp
 		kreogl/impl/shadowMaps/*.cpp kreogl/impl/shadowMaps/*.hpp)
 
