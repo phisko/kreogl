@@ -1,9 +1,12 @@
+// kreogl
 #include "kreogl/Window.hpp"
 #include "kreogl/World.hpp"
 
+// polyvox
 #include "PolyVox/RawVolume.h"
 #include "kreogl/model/PolyVox/PolyVoxModel.hpp"
 
+// GLFW
 #include <GLFW/glfw3.h>
 #include <glm/gtx/rotate_vector.hpp>
 
