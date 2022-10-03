@@ -41,13 +41,23 @@ target_include_directories(kreogl PUBLIC .)
 
 # dependencies
 putils_conan(
-    glew/2.2.0
-    glm/0.9.9.8
+	assimp/5.0.1 # tested with 5.2.2 but that caused animation bugs (imported animation model was missing intermediate nodes)
+	freetype/2.11.1
+	glew/2.2.0
+	glm/0.9.9.8
 	glfw/3.3.6
-    freetype/2.11.1
-	OPTIONS glfw:shared=False
+	stb/cci.20210910
+	OPTIONS
+	assimp:with_ifc=False # Otherwise AssImp will depend on clipper/4.10.0, which is broken
+	glfw:shared=False
 )
-target_link_libraries(kreogl PUBLIC CONAN_PKG::glew CONAN_PKG::glm CONAN_PKG::glfw CONAN_PKG::freetype)
+target_link_libraries(kreogl PUBLIC
+	CONAN_PKG::assimp
+	CONAN_PKG::freetype
+	CONAN_PKG::glew
+	CONAN_PKG::glm
+	CONAN_PKG::glfw
+	CONAN_PKG::stb)
 
 target_include_directories(kreogl PUBLIC third_party/polyvox/include)
 
