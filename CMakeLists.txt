@@ -29,6 +29,14 @@ file(GLOB src
 	kreogl/impl/*.cpp kreogl/impl/*.hpp
 	kreogl/impl/shadowMaps/*.cpp kreogl/impl/shadowMaps/*.hpp)
 
+# loaders
+option(KREOGL_LOADER_ASSIMP "Use AssImp as asset loader" ON)
+if (KREOGL_LOADER_ASSIMP)
+	add_compile_definitions(KREOGL_LOADER_ASSIMP)
+	file(GLOB_RECURSE AssImpSrc kreogl/impl/loaders/AssImp/*.cpp kreogl/impl/loaders/AssImp/*.hpp)
+	set(src ${src} ${AssImpSrc})
+endif()
+
 # shaders
 option(KREOGL_NO_DEFAULT_SHADERS "Disable kreogl default shaders" OFF)
 if (KREOGL_NO_DEFAULT_SHADERS)
