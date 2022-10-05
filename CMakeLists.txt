@@ -20,13 +20,14 @@ include(conan_helper)
 #
 
 file(GLOB src
-		kreogl/*.cpp kreogl/*.hpp
-		kreogl/lights/*.cpp kreogl/lights/*.hpp
-		kreogl/model/*.cpp kreogl/model/*.hpp
-		kreogl/shapes/*.cpp kreogl/shapes/*.hpp
-		kreogl/texture/*.cpp kreogl/texture/*.hpp
-		kreogl/impl/*.cpp kreogl/impl/*.hpp
-		kreogl/impl/shadowMaps/*.cpp kreogl/impl/shadowMaps/*.hpp)
+	kreogl/*.cpp kreogl/*.hpp
+	kreogl/animation/*.cpp kreogl/animation/*.hpp
+	kreogl/lights/*.cpp kreogl/lights/*.hpp
+	kreogl/model/*.cpp kreogl/model/*.hpp
+	kreogl/shapes/*.cpp kreogl/shapes/*.hpp
+	kreogl/texture/*.cpp kreogl/texture/*.hpp
+	kreogl/impl/*.cpp kreogl/impl/*.hpp
+	kreogl/impl/shadowMaps/*.cpp kreogl/impl/shadowMaps/*.hpp)
 
 # shaders
 option(KREOGL_NO_DEFAULT_SHADERS "Disable kreogl default shaders" OFF)

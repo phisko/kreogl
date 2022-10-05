@@ -11,6 +11,7 @@
 
 // shaders
 #include "kreogl/impl/shaders/gbuffer/PositionColor/PositionColorShader.hpp"
+#include "kreogl/impl/shaders/gbuffer/Skeletal/SkeletalShader.hpp"
 
 #include "kreogl/impl/shaders/lighting/DirectionalLight/DirectionalLightShader.hpp"
 #include "kreogl/impl/shaders/lighting/PointLight/PointLightShader.hpp"
@@ -81,6 +82,7 @@ namespace kreogl {
 
     void createDefaultShaders() noexcept {
         addShader(ShaderStep::GBuffer, PositionColorShader::getSingleton());
+        addShader(ShaderStep::GBuffer, SkeletalShader::getSingleton());
         addShader(ShaderStep::Lighting, DirectionalLightShader::getSingleton());
         addShader(ShaderStep::Lighting, PointLightShader::getSingleton());
         addShader(ShaderStep::Lighting, SpotLightShader::getSingleton());
