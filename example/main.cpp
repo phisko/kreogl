@@ -322,7 +322,7 @@ int main(int ac, const char ** av) {
     // Mesh dancing in the "point light scene"
     kreogl::AnimatedObject funnyManInPointLight; {
         funnyManInPointLight.model = funnyManModel.get();
-        funnyManInPointLight.transform = glm::translate(glm::mat4{1.f}, glm::vec3{0.f, -2.5f, 0.});
+        funnyManInPointLight.transform = glm::translate(glm::mat4{1.f}, glm::vec3{-2.5f, -2.5f, -2.5f});
         funnyManInPointLight.animation = kreogl::Animation{
             .model = animFile->animations[0].get(),
             .loop = true
