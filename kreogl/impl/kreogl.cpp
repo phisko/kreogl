@@ -29,6 +29,7 @@
 //// skeletal
 #include "kreogl/impl/shaders/gbuffer/SkeletalTextured/SkeletalTexturedShader.hpp"
 #include "kreogl/impl/shaders/shadowMap/SkeletalShadowMap/SkeletalShadowMapShader.hpp"
+#include "kreogl/impl/shaders/shadowMap/SkeletalShadowCube/SkeletalShadowCubeShader.hpp"
 
 namespace kreogl {
     struct GlobalState {
@@ -105,6 +106,7 @@ namespace kreogl {
         // Skeletal meshes
         addShader(ShaderStep::GBuffer, SkeletalTexturedShader::getSingleton());
         addShader(ShaderStep::ShadowMap, SkeletalShadowMapShader::getSingleton());
+        addShader(ShaderStep::ShadowCube, SkeletalShadowCubeShader::getSingleton());
     }
 
     void addShader(ShaderStep step, Shader & shader) noexcept {
