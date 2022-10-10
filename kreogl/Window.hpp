@@ -16,9 +16,13 @@ namespace kreogl {
             glm::ivec2 size = { 1280, 720 };
             bool resizable = false;
             bool defaultShaders = true;
+
+            // Needed to avoid this error with gcc:
+            // "Default member initializer for 'name' needed within definition of enclosing class 'Window' outside of member functions"
+            ConstructionParams() noexcept {}
         };
 
-        Window(const ConstructionParams& params) noexcept;
+        Window(const ConstructionParams & params = ConstructionParams{}) noexcept;
         ~Window() noexcept;
 
         void draw(const class World & world) noexcept;

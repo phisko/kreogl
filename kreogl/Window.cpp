@@ -10,7 +10,7 @@
 #include "kreogl/impl/kreogl.hpp"
 
 namespace kreogl {
-    Window::Window(const ConstructionParams& params) noexcept
+    Window::Window(const ConstructionParams & params) noexcept
         : _size(params.size)
     {
         initGLFW();
