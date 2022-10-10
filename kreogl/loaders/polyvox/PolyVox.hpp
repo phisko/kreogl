@@ -16,4 +16,4 @@ namespace kreogl::PolyVox {
     Model loadModel(const Mesh & mesh, const VertexSpecification & vertexSpecification, const std::vector<size_t> & vertexAttributeOffsets) noexcept;
 }
 
-#include "PolyVoxModel.inl"
+#include "PolyVox.inl"

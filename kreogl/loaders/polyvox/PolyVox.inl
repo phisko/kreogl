@@ -1,4 +1,4 @@
-#include "PolyVoxModel.hpp"
+#include "PolyVox.hpp"
 
 namespace kreogl::PolyVox {
     template<typename VertexData>
