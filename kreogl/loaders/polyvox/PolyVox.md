@@ -1,4 +1,4 @@
-# [PolyVoxModel](PolyVoxModel.hpp)
+# [PolyVox](PolyVox.hpp)
 
 Helper functions to load PolyVox models.
 
