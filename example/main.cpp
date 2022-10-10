@@ -313,31 +313,51 @@ int main(int ac, const char ** av) {
     kreogl::World world;
     scene::createScene(world);
 
-    const auto funnymanModel = kreogl::AssImp::loadAnimatedModel("resources/funnyman/funnyman.fbx");
-    assert(funnymanModel && funnymanModel->animations.size() == 1);
+    const auto funnyManModel = kreogl::AssImp::loadAnimatedModel("resources/funnyman/funnyman.fbx");
+    assert(funnyManModel && funnyManModel->animations.size() == 1);
 
     const auto animFile = kreogl::AssImp::loadAnimationFile("resources/funnyman/animations/dancing.fbx");
     assert(animFile && animFile->animations.size() == 1);
 
-    kreogl::AnimatedObject funnyman;
-    funnyman.model = funnymanModel.get();
-    funnyman.animation = kreogl::Animation{
-        .model = animFile->animations[0].get(),
-        .loop = true
-    };
-    funnyman.transform = glm::translate(glm::mat4{ 1.f }, glm::vec3{ 0.f, -2.5f, 0. });
-    world.add(funnyman);
+    // Mesh dancing in the "point light scene"
+    kreogl::AnimatedObject funnyManInPointLight; {
+        funnyManInPointLight.model = funnyManModel.get();
+        funnyManInPointLight.transform = glm::translate(glm::mat4{1.f}, glm::vec3{0.f, -2.5f, 0.});
+        funnyManInPointLight.animation = kreogl::Animation{
+            .model = animFile->animations[0].get(),
+            .loop = true
+        };
+        world.add(funnyManInPointLight);
+    }
+
+    // Meshes dancing in the "block field scene"
+    kreogl::AnimatedObject funnyMenInField[scene::s_blockFieldSide][scene::s_blockFieldSide]; {
+        const auto baseTransform = glm::translate(glm::mat4(1.f), glm::vec3(-25.f, 0.f, -25.f));
+        for (size_t x = 0; x < scene::s_blockFieldSide; ++x)
+            for (size_t z = 0; z < scene::s_blockFieldSide; ++z) {
+                auto & funnyMan = funnyMenInField[x][z];
+                funnyMan.model = funnyManModel.get();
+                funnyMan.transform = glm::translate(baseTransform, glm::vec3(x * 5.f, -45.f, z * 5.f));
+                funnyMan.animation = kreogl::Animation{
+                    .model = funnyManModel->animations[0].get(),
+                    .loop = true
+                };
+                world.add(funnyMan);
+            }
+    }
 
     auto previousTime = std::chrono::system_clock::now();
     while (!window.shouldClose()) {
         const auto now = std::chrono::system_clock::now();
         const auto deltaTime = (float)std::chrono::duration_cast<std::chrono::milliseconds>(now - previousTime).count() / 1000.f;
 
-        processInput(window, deltaTime);
-        if (s_rotatingFixedCameras)
-            rotateFixedCameras(window);
+        input::processInput(window, deltaTime);
+        cameraRotation::rotateFixedCameras(window);
 
-        funnyman.tickAnimation(deltaTime);
+        funnyManInPointLight.tickAnimation(deltaTime);
+        for (auto & line : funnyMenInField)
+            for (auto & funnyMan : line)
+                funnyMan.tickAnimation(deltaTime);
 
         window.pollEvents();
         window.draw(world);
