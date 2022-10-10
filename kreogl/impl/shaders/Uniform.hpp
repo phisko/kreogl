@@ -37,14 +37,18 @@ namespace kreogl {
 #ifndef NDEBUG
         bool used = false;
 #endif
+
+        void markAsUsed() {
+#ifndef NDEBUG
+            used = true;
+#endif
+        }
     };
 
 	template<typename T>
 	struct Uniform : UniformBase {
 		void operator=(const T & val) noexcept {
-#ifndef NDEBUG
-            used = true;
-#endif
+            markAsUsed();
 			setUniform(location, val);
 		}
 	};
