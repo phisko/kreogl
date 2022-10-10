@@ -24,18 +24,14 @@ file(GLOB src
 	kreogl/animation/*.cpp kreogl/animation/*.hpp
 	kreogl/lights/*.cpp kreogl/lights/*.hpp
 	kreogl/model/*.cpp kreogl/model/*.hpp
+	kreogl/loaders/*.cpp kreogl/loaders/*.hpp
+	kreogl/loaders/polyvox/*.cpp kreogl/loaders/polyvox/*.hpp
+	kreogl/loaders/assimp/*.cpp kreogl/loaders/assimp/*.hpp
+	kreogl/loaders/assimp/impl/*.cpp kreogl/loaders/assimp/impl/*.hpp
 	kreogl/shapes/*.cpp kreogl/shapes/*.hpp
 	kreogl/texture/*.cpp kreogl/texture/*.hpp
 	kreogl/impl/*.cpp kreogl/impl/*.hpp
 	kreogl/impl/shadowMaps/*.cpp kreogl/impl/shadowMaps/*.hpp)
-
-# loaders
-option(KREOGL_LOADER_ASSIMP "Use AssImp as asset loader" ON)
-if (KREOGL_LOADER_ASSIMP)
-	add_compile_definitions(KREOGL_LOADER_ASSIMP)
-	file(GLOB_RECURSE AssImpSrc kreogl/impl/loaders/AssImp/*.cpp kreogl/impl/loaders/AssImp/*.hpp)
-	set(src ${src} ${AssImpSrc})
-endif()
 
 # shaders
 option(KREOGL_NO_DEFAULT_SHADERS "Disable kreogl default shaders" OFF)
