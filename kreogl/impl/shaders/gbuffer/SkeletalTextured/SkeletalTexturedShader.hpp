@@ -1,15 +1,15 @@
 #pragma once
 
-#include "SkeletalGLSL.hpp"
+#include "kreogl/impl/shaders/helpers/Skeletal/SkeletalShader.hpp"
 #include "kreogl/impl/shaders/Shader.hpp"
 #include "kreogl/impl/shaders/Singleton.hpp"
 
 #include "kreogl/animation/AnimatedModel.hpp"
 
 namespace kreogl {
-    class SkeletalShader : public Shader, public Singleton<SkeletalShader> {
+    class SkeletalTexturedShader : public Shader, public SkeletalShader, public Singleton<SkeletalTexturedShader> {
     public:
-        SkeletalShader() noexcept;
+        SkeletalTexturedShader() noexcept;
         void draw(const DrawParams & params) noexcept override;
 
     private:
@@ -17,10 +17,7 @@ namespace kreogl {
         std::vector<UniformBase *> getUniforms() noexcept override;
 
     private:
-        void uploadDefaultBones() noexcept;
+        void setMeshUniforms(const AnimatedModel & model, unsigned int meshIndex) noexcept override;
         void bindTextures(const AnimatedModel::MeshTextures & textures) noexcept;
-
-    private:
-        SkeletalGLSL _glsl;
     };
 }

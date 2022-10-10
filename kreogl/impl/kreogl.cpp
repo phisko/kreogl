@@ -10,19 +10,25 @@
 #include <vector>
 
 // shaders
-#include "kreogl/impl/shaders/gbuffer/PositionColor/PositionColorShader.hpp"
-#include "kreogl/impl/shaders/gbuffer/Skeletal/SkeletalShader.hpp"
 
+//// lighting
 #include "kreogl/impl/shaders/lighting/DirectionalLight/DirectionalLightShader.hpp"
 #include "kreogl/impl/shaders/lighting/PointLight/PointLightShader.hpp"
 #include "kreogl/impl/shaders/lighting/SpotLight/SpotLightShader.hpp"
 
-#include "kreogl/impl/shaders/shadowMap/PositionShadowCube/PositionShadowCubeShader.hpp"
-#include "kreogl/impl/shaders/shadowMap/PositionShadowMap/PositionShadowMapShader.hpp"
-
+//// volumetric lighting
 #include "kreogl/impl/shaders/postLighting/VolumetricLighting/VolumetricDirectionalLight/VolumetricDirectionalLightShader.hpp"
 #include "kreogl/impl/shaders/postLighting/VolumetricLighting/VolumetricPointLight/VolumetricPointLightShader.hpp"
 #include "kreogl/impl/shaders/postLighting/VolumetricLighting/VolumetricSpotLight/VolumetricSpotLightShader.hpp"
+
+//// voxels
+#include "kreogl/impl/shaders/gbuffer/PositionColor/PositionColorShader.hpp"
+#include "kreogl/impl/shaders/shadowMap/PositionShadowCube/PositionShadowCubeShader.hpp"
+#include "kreogl/impl/shaders/shadowMap/PositionShadowMap/PositionShadowMapShader.hpp"
+
+//// skeletal
+#include "kreogl/impl/shaders/gbuffer/SkeletalTextured/SkeletalTexturedShader.hpp"
+#include "kreogl/impl/shaders/shadowMap/SkeletalShadowMap/SkeletalShadowMapShader.hpp"
 
 namespace kreogl {
     struct GlobalState {
@@ -81,16 +87,24 @@ namespace kreogl {
     }
 
     void createDefaultShaders() noexcept {
-        addShader(ShaderStep::GBuffer, PositionColorShader::getSingleton());
-        addShader(ShaderStep::GBuffer, SkeletalShader::getSingleton());
+        // Lighting
         addShader(ShaderStep::Lighting, DirectionalLightShader::getSingleton());
         addShader(ShaderStep::Lighting, PointLightShader::getSingleton());
         addShader(ShaderStep::Lighting, SpotLightShader::getSingleton());
-        addShader(ShaderStep::ShadowMap, PositionShadowMapShader::getSingleton());
-        addShader(ShaderStep::ShadowCube, PositionShadowCubeShader::getSingleton());
+
+        // Volumetric
         addShader(ShaderStep::PostLighting, VolumetricDirectionalLightShader::getSingleton());
         addShader(ShaderStep::PostLighting, VolumetricPointLightShader::getSingleton());
         addShader(ShaderStep::PostLighting, VolumetricSpotLightShader::getSingleton());
+
+        // Voxels
+        addShader(ShaderStep::GBuffer, PositionColorShader::getSingleton());
+        addShader(ShaderStep::ShadowMap, PositionShadowMapShader::getSingleton());
+        addShader(ShaderStep::ShadowCube, PositionShadowCubeShader::getSingleton());
+
+        // Skeletal meshes
+        addShader(ShaderStep::GBuffer, SkeletalTexturedShader::getSingleton());
+        addShader(ShaderStep::ShadowMap, SkeletalShadowMapShader::getSingleton());
     }
 
     void addShader(ShaderStep step, Shader & shader) noexcept {
