@@ -37,7 +37,7 @@ namespace cameraRotation {
                 .direction = { -1.2f, -0.8f, 0.f }
             },
             { // Close up of blocks
-                .position = { 7.5f, -43.f, -8.f },
+                .position = { 0.f, -40.f, -20.f },
                 .direction = { -1.f, -0.5f, 0.6f }
             }
         };
