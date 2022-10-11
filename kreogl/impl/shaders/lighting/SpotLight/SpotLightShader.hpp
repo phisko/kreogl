@@ -12,9 +12,9 @@ namespace kreogl {
     class SpotLightShader : public Shader, public Singleton<SpotLightShader> {
     public:
         SpotLightShader() noexcept;
-        void draw(const DrawParams & params) noexcept override;
 
     private:
+        void draw(const DrawParams & params) noexcept override;
         void addSourceFiles() noexcept override;
         std::vector<UniformBase *> getUniforms() noexcept override;
 

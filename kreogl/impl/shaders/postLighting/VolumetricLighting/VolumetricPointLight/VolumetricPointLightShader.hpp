@@ -11,9 +11,9 @@ namespace kreogl {
     class VolumetricPointLightShader : public Shader, public Singleton<VolumetricPointLightShader> {
     public:
         VolumetricPointLightShader() noexcept;
-        void draw(const DrawParams & params) noexcept override;
 
     private:
+        void draw(const DrawParams & params) noexcept override;
         void addSourceFiles() noexcept override;
         std::vector<UniformBase *> getUniforms() noexcept override;
 

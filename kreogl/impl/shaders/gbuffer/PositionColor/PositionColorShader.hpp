@@ -8,9 +8,9 @@ namespace kreogl {
     class PositionColorShader : public Shader, public Singleton<PositionColorShader> {
 	public:
         PositionColorShader() noexcept;
-		void draw(const DrawParams & params) noexcept override;
 
     private:
+        void draw(const DrawParams & params) noexcept override;
         void addSourceFiles() noexcept override;
         std::vector<UniformBase *> getUniforms() noexcept override;
 
