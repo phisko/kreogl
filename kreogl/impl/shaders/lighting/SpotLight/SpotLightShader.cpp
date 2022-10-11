@@ -1,12 +1,13 @@
 #include "SpotLightShader.hpp"
 
-#include "kreogl/impl/kreogl.hpp"
 #include "kreogl/Camera.hpp"
 #include "kreogl/World.hpp"
 #include "kreogl/shapes/Sphere.hpp"
 #include "kreogl/impl/GBuffer.hpp"
 #include "kreogl/impl/RAII/ScopedGLFeature.hpp"
 #include "kreogl/impl/RAII/ScopedBindFramebuffer.hpp"
+#include "kreogl/impl/shaders/ShaderPipeline.hpp"
+#include "kreogl/impl/shaders/shadowMap/ShadowMapShader.hpp"
 
 namespace kreogl {
     SpotLightShader::SpotLightShader() noexcept {
@@ -74,11 +75,8 @@ namespace kreogl {
         glActiveTexture((GLenum)(GL_TEXTURE0 + (int)GBuffer::Texture::Count));
 
         for (const auto light : params.world.getSpotLights()) {
-            if (light->castShadows) {
-                const ScopedBindFramebuffer bind(light->shadowMap.frameBuffer);
-                glClear(GL_DEPTH_BUFFER_BIT);
-                kreogl::fillShadowMap(*light, params);
-            }
+            if (light->castShadows)
+                updateShadowMap(*light, params);
 
             const auto radius = light->getRadius();
             if (glm::length(params.camera.getPosition() - light->position) < radius)
@@ -117,5 +115,19 @@ namespace kreogl {
         }
 
         glCullFace(GL_BACK);
+    }
+
+    void SpotLightShader::updateShadowMap(const SpotLight & light, const DrawParams & params) noexcept {
+        const ScopedBindFramebuffer bind(light.shadowMap.frameBuffer);
+        glClear(GL_DEPTH_BUFFER_BIT);
+
+        const auto shaders = params.shaderPipeline.getShaders(ShaderStep::ShadowMap);
+        if (!shaders)
+            return;
+
+        for (const auto shader : *shaders) {
+            const auto shadowMapShader = static_cast<ShadowMapShader *>(shader);
+            shadowMapShader->draw(light, params);
+        }
     }
 }

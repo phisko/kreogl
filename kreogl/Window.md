@@ -18,10 +18,10 @@ If `defaultShaders` is set to `false`, the engine's pre-built shaders will not b
 ### draw
 
 ```cpp
-void draw(const class World & world) noexcept;
+void draw(const class World & world, const ShaderPipeline & shaderPipeline = ShaderPipeline::getDefaultShaders()) noexcept;
 ```
 
-Draws the provided [world](World.md) into the window.
+Draws the provided [world](World.md) into the window using the provided [ShaderPipeline](impl/shaders/ShaderPipeline.md).
 
 ### display
 

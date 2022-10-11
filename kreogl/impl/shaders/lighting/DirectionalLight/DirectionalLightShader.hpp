@@ -17,6 +17,9 @@ namespace kreogl {
         std::vector<UniformBase *> getUniforms() noexcept override;
 
     private:
+        void updateShadowMap(const struct DirectionalLight & light, const DrawParams & params) noexcept;
+
+    private:
         DirectionalLightGLSL _glsl;
         SampleCascadedShadowMapGLSL _csmGLSL;
     };

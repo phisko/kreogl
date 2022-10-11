@@ -2,9 +2,8 @@
 
 #include <cassert>
 
-#include "kreogl.hpp"
 #include "kreogl/impl/RAII/ScopedGLFeature.hpp"
-#include "kreogl/impl/shaders/ShaderStep.hpp"
+#include "kreogl/impl/shaders/ShaderPipeline.hpp"
 
 namespace kreogl {
     Viewport::Viewport(const ConstructionParams & params) noexcept
@@ -37,7 +36,7 @@ namespace kreogl {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         const ScopedGLFeature depth(GL_DEPTH_TEST);
-        runShaders(ShaderStep::GBuffer, params);
+        params.shaderPipeline.runShaders(ShaderStep::GBuffer, params);
     }
 
     void Viewport::renderToTexture(const DrawParams & params) const noexcept {
@@ -47,9 +46,9 @@ namespace kreogl {
         glClear(GL_COLOR_BUFFER_BIT);
         glBlitFramebuffer(0, 0, _resolution.x, _resolution.y, 0, 0, _resolution.x, _resolution.y, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
 
-        runShaders(ShaderStep::Lighting, params);
-        runShaders(ShaderStep::PostLighting, params);
-        runShaders(ShaderStep::PostProcess, params);
+        params.shaderPipeline.runShaders(ShaderStep::Lighting, params);
+        params.shaderPipeline.runShaders(ShaderStep::PostLighting, params);
+        params.shaderPipeline.runShaders(ShaderStep::PostProcess, params);
     }
 
     void Viewport::setResolution(const glm::ivec2 &resolution) noexcept {
