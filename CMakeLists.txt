@@ -31,14 +31,14 @@ file(GLOB src
 	kreogl/shapes/*.cpp kreogl/shapes/*.hpp
 	kreogl/texture/*.cpp kreogl/texture/*.hpp
 	kreogl/impl/*.cpp kreogl/impl/*.hpp
+	kreogl/impl/shaders/*.cpp kreogl/impl/shaders/*.hpp
 	kreogl/impl/shadowMaps/*.cpp kreogl/impl/shadowMaps/*.hpp)
 
 # shaders
-option(KREOGL_NO_DEFAULT_SHADERS "Disable kreogl default shaders" OFF)
-if (KREOGL_NO_DEFAULT_SHADERS)
-	add_compile_definitions(KREOGL_NO_DEFAULT_SHADERS)
-else()
-	file(GLOB_RECURSE shadersSrc kreogl/impl/shaders/*.cpp kreogl/impl/shaders/*.hpp)
+option(KREOGL_DEFAULT_SHADERS "Enable kreogl default shaders" ON)
+if (KREOGL_DEFAULT_SHADERS)
+	add_compile_definitions(KREOGL_DEFAULT_SHADERS)
+	file(GLOB_RECURSE shadersSrc kreogl/impl/shaders/*/*.cpp kreogl/impl/shaders/*/*.hpp)
 	set(src ${src} ${shadersSrc})
 endif()
 

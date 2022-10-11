@@ -3,31 +3,6 @@
 #include <iostream>
 
 namespace kreogl {
-#ifndef NDEBUG
-    Shader::UniformUseChecker::~UniformUseChecker() noexcept {
-        if (!shouldCheck)
-            return;
-
-        for (const auto uniform : uniforms)
-            if (!uniform->used)
-                std::cerr << "kreogl: Unset uniform [" << uniform->name << ']' << std::endl;
-    }
-#endif
-
-    Shader::UniformUseChecker Shader::use(bool shouldCheck) noexcept {
-        useWithoutUniformCheck();
-        return {
-#ifndef NDEBUG
-            .uniforms = _uniforms,
-            .shouldCheck = shouldCheck
-#endif
-        };
-    }
-
-    void Shader::useWithoutUniformCheck() const noexcept {
-        glUseProgram(_program);
-    }
-
     void Shader::init(const std::string & name) noexcept {
         _program = glCreateProgram();
 #ifndef NDEBUG
@@ -61,6 +36,31 @@ namespace kreogl {
 #endif
 
         glAttachShader(_program, shader);
+    }
+
+#ifndef NDEBUG
+    Shader::UniformUseChecker::~UniformUseChecker() noexcept {
+        if (!shouldCheck)
+            return;
+
+        for (const auto uniform : uniforms)
+            if (!uniform->used)
+                std::cerr << "kreogl: Unset uniform [" << uniform->name << ']' << std::endl;
+    }
+#endif
+
+    Shader::UniformUseChecker Shader::use(bool shouldCheck) noexcept {
+        useWithoutUniformCheck();
+        return {
+#ifndef NDEBUG
+            .uniforms = _uniforms,
+            .shouldCheck = shouldCheck
+#endif
+        };
+    }
+
+    void Shader::useWithoutUniformCheck() const noexcept {
+        glUseProgram(_program);
     }
 
     void Shader::link() const noexcept {

@@ -1,12 +1,13 @@
 #include "DirectionalLightShader.hpp"
 #include "kreogl/impl/shaders/helpers/Quad/QuadGLSL.hpp"
 
-#include "kreogl/impl/kreogl.hpp"
+#include "kreogl/Camera.hpp"
+#include "kreogl/World.hpp"
 #include "kreogl/impl/GBuffer.hpp"
 #include "kreogl/impl/RAII/ScopedBindFramebuffer.hpp"
 #include "kreogl/impl/RAII/ScopedGLFeature.hpp"
-#include "kreogl/Camera.hpp"
-#include "kreogl/World.hpp"
+#include "kreogl/impl/shaders/ShaderPipeline.hpp"
+#include "kreogl/impl/shaders/shadowMap/ShadowMapShader.hpp"
 #include "kreogl/shapes/Quad.hpp"
 
 namespace kreogl {
@@ -77,14 +78,8 @@ namespace kreogl {
         _glsl.screenSize = params.camera.getViewport().getResolution();
 
         for (const auto light : params.world.getDirectionalLights()) {
-            if (light->castShadows) {
-                const ScopedBindFramebuffer bind(light->cascadedShadowMap.frameBuffer);
-                for (const auto & texture : light->cascadedShadowMap.textures) {
-                    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, texture, 0);
-                    glClear(GL_DEPTH_BUFFER_BIT);
-                }
-                kreogl::fillShadowMap(*light, params);
-            }
+            if (light->castShadows)
+                updateShadowMap(*light, params);
 
             const auto uniformChecker = use();
             _glsl.color = light->color;
@@ -105,6 +100,23 @@ namespace kreogl {
             _csmGLSL.cascadeCount = (int)light->cascadeEnds.size();
 
             kreogl::shapes::drawQuad();
+        }
+    }
+
+    void DirectionalLightShader::updateShadowMap(const DirectionalLight & light, const DrawParams & params) noexcept {
+        const ScopedBindFramebuffer bind(light.cascadedShadowMap.frameBuffer);
+        for (const auto & texture : light.cascadedShadowMap.textures) {
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, texture, 0);
+            glClear(GL_DEPTH_BUFFER_BIT);
+        }
+
+        const auto shaders = params.shaderPipeline.getShaders(ShaderStep::ShadowMap);
+        if (!shaders)
+            return;
+
+        for (const auto shader : *shaders) {
+            const auto shadowMapShader = static_cast<ShadowMapShader *>(shader);
+            shadowMapShader->draw(light, params);
         }
     }
 }

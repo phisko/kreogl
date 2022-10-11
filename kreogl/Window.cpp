@@ -7,7 +7,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "kreogl/impl/kreogl.hpp"
+// kreogl
+#include "kreogl/impl/kreogl_init.hpp"
 
 namespace kreogl {
     Window::Window(const ConstructionParams & params) noexcept
@@ -34,9 +35,6 @@ namespace kreogl {
 
         initGlew();
 
-        if (params.defaultShaders)
-            createDefaultShaders();
-
         _defaultCamera = std::make_unique<Camera>(Camera::ConstructionParams{
             .viewport = {
                 .resolution = params.size
@@ -49,7 +47,7 @@ namespace kreogl {
         glfwDestroyWindow(_glfwWindow);
     }
 
-    void Window::draw(const World & world) noexcept {
+    void Window::draw(const World & world, const ShaderPipeline & shaderPipeline) noexcept {
         glfwMakeContextCurrent(_glfwWindow);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -60,7 +58,7 @@ namespace kreogl {
 
         for (const auto camera : _cameras) {
             const auto & viewport = camera->getViewport();
-            viewport.draw({ world, *camera });
+            viewport.draw({ world, *camera, shaderPipeline });
             blitViewport(viewport);
         }
     }

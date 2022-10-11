@@ -18,6 +18,9 @@ namespace kreogl {
         std::vector<UniformBase *> getUniforms() noexcept override;
 
     private:
+        void updateShadowMap(const struct PointLight & light, const DrawParams & params) noexcept;
+
+    private:
         PositionProjViewModelGLSL _ppvmGLSL;
         PointLightGLSL _glsl;
         SampleShadowCubeGLSL _shadowCubeGLSL;

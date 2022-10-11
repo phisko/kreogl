@@ -360,7 +360,12 @@ int main(int ac, const char ** av) {
                 funnyMan.tickAnimation(deltaTime);
 
         window.pollEvents();
-        window.draw(world);
+        window.draw(
+            world
+#ifndef KREOGL_DEFAULT_SHADERS
+            , kreogl::ShaderPipeline{}
+#endif
+        );
         window.display();
 
         previousTime = now;
