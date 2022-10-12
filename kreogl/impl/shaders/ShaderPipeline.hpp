@@ -17,6 +17,7 @@ namespace kreogl {
 
     public:
         void addShader(ShaderStep step, Shader & shader) noexcept;
+        void removeShader(ShaderStep step, const Shader & shader) noexcept;
         void runShaders(ShaderStep step, const DrawParams & params) const noexcept;
         const std::vector<Shader *> * getShaders(ShaderStep step) const noexcept;
 

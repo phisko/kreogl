@@ -1,5 +1,9 @@
 #include "ShaderPipeline.hpp"
 
+// stl
+#include <algorithm>
+
+// shaders
 #ifdef KREOGL_DEFAULT_SHADERS
 // lighting
 # include "kreogl/impl/shaders/lighting/DirectionalLight/DirectionalLightShader.hpp"
@@ -57,6 +61,16 @@ namespace kreogl {
 
     void ShaderPipeline::addShader(ShaderStep step, Shader & shader) noexcept {
         _shadersPerStep[step].push_back(&shader);
+    }
+
+    void ShaderPipeline::removeShader(ShaderStep step, const Shader & shader) noexcept {
+        const auto shaders = _shadersPerStep.find(step);
+        if (shaders == _shadersPerStep.end())
+            return;
+        const auto it = std::ranges::find(shaders->second, &shader);
+        if (it == shaders->second.end())
+            return;
+        shaders->second.erase(it);
     }
 
     void ShaderPipeline::runShaders(ShaderStep step, const DrawParams & params) const noexcept {
