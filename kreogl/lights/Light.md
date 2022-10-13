@@ -69,3 +69,11 @@ std::optional<VolumetricLightingParams> volumetricLighting;
 ```
 
 [Parameters](VolumetricLightingParams.md) for volumetric lighting. If set to `std::nullopt`, the light won't cast volumetric lighting.
+
+### lightSphereSize
+
+```cpp
+float lightSphereSize = .25f;
+```
+
+Size of the light sphere representing this light.
