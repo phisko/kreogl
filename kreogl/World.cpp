@@ -3,7 +3,8 @@
 
 namespace kreogl {
     void World::add(const Object & object) noexcept {
-        _objects[&object.model->vertexSpecification].push_back(&object);
+        auto & objects = _objects[&object.model->vertexSpecification];
+        objects.push_back(&object);
     }
 
     void World::remove(const Object & object) noexcept {
@@ -21,45 +22,19 @@ namespace kreogl {
         return it->second;
     }
 
-    void World::add(const DirectionalLight & light) noexcept {
-        _directionalLights.push_back(&light);
+#define DEFINE_COLLECTION(T) \
+    void World::add(const T & object) noexcept { \
+        _##T##s.push_back(&object); \
+    } \
+    void World::remove(const T & object) noexcept { \
+        const auto it = std::ranges::find(_##T##s, &object); \
+        if (it != _##T##s.end()) \
+            _##T##s.erase(it); \
+    } \
+    const std::vector<const T *> & World::get##T##s() const noexcept { \
+        return _##T##s; \
     }
 
-    void World::remove(const DirectionalLight & light) noexcept {
-        const auto it = std::ranges::find(_directionalLights, &light);
-        if (it != _directionalLights.end())
-            _directionalLights.erase(it);
-    }
-
-    const std::vector<const DirectionalLight *> & World::getDirectionalLights() const noexcept {
-        return _directionalLights;
-    }
-
-    void World::add(const PointLight & light) noexcept {
-        _pointLights.push_back(&light);
-    }
-
-    void World::remove(const PointLight & light) noexcept {
-        const auto it = std::ranges::find(_pointLights, &light);
-        if (it != _pointLights.end())
-            _pointLights.erase(it);
-    }
-
-    const std::vector<const PointLight *> & World::getPointLights() const noexcept {
-        return _pointLights;
-    }
-
-    void World::add(const SpotLight & light) noexcept {
-        _spotLights.push_back(&light);
-    }
-
-    void World::remove(const SpotLight & light) noexcept {
-        const auto it = std::ranges::find(_spotLights, &light);
-        if (it != _spotLights.end())
-            _spotLights.erase(it);
-    }
-
-    const std::vector<const SpotLight *> & World::getSpotLights() const noexcept {
-        return _spotLights;
-    }
+    KREOGL_WORLD_COLLECTIONS(DEFINE_COLLECTION)
+#undef DEFINE_COLLECTION
 }
