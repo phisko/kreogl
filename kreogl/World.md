@@ -4,40 +4,31 @@ Represents a game world.
 
 ## Members
 
-For all the following `add` functions, the object taken by reference is ***not stored as a copy***. It is up to the client code to keep these objects alive until `remove` is called.
+### Collections
 
-### Objects
+Worlds contain the following objects:
+* [Object](Object.md)
+* [DirectionalLight](lights/DirectionalLight.md)
+* [PointLight](lights/PointLight.md)
+* [SpotLight](lights/SpotLight.md)
+* [DebugElement](debug/DebugElement.md)
+
+For each of those types, the following functions are defined:
 
 ```cpp
-void add(const Object & object) noexcept;
-void remove(const Object & object) noexcept;
+void add(const T & object) noexcept;
+void remove(const T & object) noexcept;
+const std::vector<const T *> & getTs() const noexcept;
+```
+
+Note that the `add` functions ***do not store copies of the objects***. It is up to the client code to keep these objects alive until `remove` is called.
+
+### getObjects
+
+`getObjects()` is the only function with a different API:
+
+```cpp
 const std::vector<const Object *> & getObjects(const VertexSpecification & vertexSpecification) const noexcept;
 ```
 
-The [objects](Object.md) in the world, mapped according to their [model](model/Model.md)'s [vertex specification](impl/shaders/VertexSpecification.md).
-
-### Lights
-
-#### Directional lights
-
-```cpp
-void add(const DirectionalLight & light) noexcept;
-void remove(const DirectionalLight & light) noexcept;
-const std::vector<const DirectionalLight *> & getDirectionalLights() const noexcept;
-```
-
-#### Point lights
-
-```cpp
-void add(const PointLight & light) noexcept;
-void remove(const PointLight & light) noexcept;
-const std::vector<const PointLight *> & getPointLights() const noexcept;
-```
-
-#### Spot lights
-
-```cpp
-void add(const SpotLight & light) noexcept;
-void remove(const SpotLight & light) noexcept;
-const std::vector<const SpotLight *> & getSpotLights() const noexcept;
-```
+This is because `Object`s are mapped according to their [model](model/Model.md)'s [vertex specification](impl/shaders/VertexSpecification.md).

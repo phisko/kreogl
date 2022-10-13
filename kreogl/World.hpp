@@ -1,13 +1,21 @@
 #pragma once
 
+#include <algorithm>
 #include <unordered_map>
 #include <vector>
 
 #include "Object.hpp"
+#include "debug/DebugElement.hpp"
 #include "kreogl/lights/DirectionalLight.hpp"
 #include "kreogl/lights/PointLight.hpp"
 #include "kreogl/lights/SpotLight.hpp"
 #include "kreogl/impl/shaders/VertexSpecification.hpp"
+
+#define KREOGL_WORLD_COLLECTIONS(MACRO) \
+    MACRO(DirectionalLight) \
+    MACRO(PointLight) \
+    MACRO(SpotLight) \
+    MACRO(DebugElement)
 
 namespace kreogl {
     class World {
@@ -16,22 +24,18 @@ namespace kreogl {
         void remove(const Object & object) noexcept;
         const std::vector<const Object *> & getObjects(const VertexSpecification & vertexSpecification) const noexcept;
 
-        void add(const DirectionalLight & light) noexcept;
-        void remove(const DirectionalLight & light) noexcept;
-        const std::vector<const DirectionalLight *> & getDirectionalLights() const noexcept;
-
-        void add(const PointLight & light) noexcept;
-        void remove(const PointLight & light) noexcept;
-        const std::vector<const PointLight *> & getPointLights() const noexcept;
-
-        void add(const SpotLight & light) noexcept;
-        void remove(const SpotLight & light) noexcept;
-        const std::vector<const SpotLight *> & getSpotLights() const noexcept;
+#define DECLARE_COLLECTION(T) \
+        void add(const T & object) noexcept; \
+        void remove(const T & object) noexcept; \
+        const std::vector<const T *> & get##T##s() const noexcept;
+        KREOGL_WORLD_COLLECTIONS(DECLARE_COLLECTION)
+#undef DECLARE_COLLECTION
 
     private:
         std::unordered_map<const VertexSpecification *, std::vector<const Object *>> _objects;
-        std::vector<const DirectionalLight *> _directionalLights;
-        std::vector<const PointLight *> _pointLights;
-        std::vector<const SpotLight *> _spotLights;
+
+#define COLLECTION_VECTOR(T) std::vector<const T *> _##T##s;
+        KREOGL_WORLD_COLLECTIONS(COLLECTION_VECTOR)
+#undef COLLECTION_VECTOR
     };
 }
