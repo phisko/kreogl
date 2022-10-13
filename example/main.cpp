@@ -345,6 +345,27 @@ int main(int ac, const char ** av) {
             }
     }
 
+    const kreogl::DebugElement debugLine {
+        .type = kreogl::DebugElement::Type::Line,
+        .transform = funnyManInPointLight.transform,
+        .color = glm::vec4(1.f, 0.f, 0.f, 1.f)
+    };
+    world.add(debugLine);
+
+    const kreogl::DebugElement debugSphere {
+        .type = kreogl::DebugElement::Type::Sphere,
+        .transform = glm::translate(funnyManInPointLight.transform, glm::vec3(0.f, 0.f, 1.f)),
+        .color = glm::vec4(0.f, 1.f, 0.f, 1.f)
+    };
+    world.add(debugSphere);
+
+    const kreogl::DebugElement debugBox {
+        .type = kreogl::DebugElement::Type::Box,
+        .transform = glm::translate(funnyManInPointLight.transform, glm::vec3(0.f, 0.f, -1.f)),
+        .color = glm::vec4(0.f, 0.f, 1.f, 1.f)
+    };
+    world.add(debugBox);
+
     auto previousTime = std::chrono::system_clock::now();
     while (!window.shouldClose()) {
         const auto now = std::chrono::system_clock::now();
