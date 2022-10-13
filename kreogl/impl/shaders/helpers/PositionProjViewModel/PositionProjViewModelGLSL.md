@@ -1,3 +1,3 @@
-# [QuadGLSL](QuadGLSL.hpp)
+# [PositionProjViewModelGLSL](PositionProjViewModelGLSL.hpp)
 
-GLSL shader for drawing full-screen quads.
+GLSL vertex shader for drawing meshes with a `position` vertex attribute, given `proj`, `view` and `model` matrices.
