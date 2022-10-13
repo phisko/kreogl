@@ -18,11 +18,14 @@ namespace kreogl {
         glm::vec4 color{ 1.f };
         float diffuseStrength = 1.f;
         float specularStrength = 1.f;
+
         bool castShadows = true;
         int shadowPCFSamples = 1;
         int shadowMapSize = 1024;
         float shadowMapMaxBias = .1f;
         float shadowMapMinBias = .01f;
         std::optional<VolumetricLightingParams> volumetricLighting;
+
+        float lightSphereSize = .25f;
     };
 }

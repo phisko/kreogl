@@ -10,6 +10,9 @@
 # include "kreogl/impl/shaders/lighting/PointLight/PointLightShader.hpp"
 # include "kreogl/impl/shaders/lighting/SpotLight/SpotLightShader.hpp"
 
+// light spheres
+#include "kreogl/impl/shaders/postProcess/LightSphere/LightSphereShader.hpp"
+
 // volumetric lighting
 # include "kreogl/impl/shaders/postLighting/VolumetricLighting/VolumetricDirectionalLight/VolumetricDirectionalLightShader.hpp"
 # include "kreogl/impl/shaders/postLighting/VolumetricLighting/VolumetricPointLight/VolumetricPointLightShader.hpp"
@@ -36,6 +39,9 @@ namespace kreogl {
             pipeline.addShader(ShaderStep::Lighting, DirectionalLightShader::getSingleton());
             pipeline.addShader(ShaderStep::Lighting, PointLightShader::getSingleton());
             pipeline.addShader(ShaderStep::Lighting, SpotLightShader::getSingleton());
+
+            // Light spheres
+            pipeline.addShader(ShaderStep::PostProcess, LightSphereShader::getSingleton());
 
             // Volumetric
             pipeline.addShader(ShaderStep::PostLighting, VolumetricDirectionalLightShader::getSingleton());

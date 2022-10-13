@@ -20,6 +20,14 @@ float ambientStrength = 1.f;
 
 The intensity of the ambient effect of this light.
 
+### lightSphereDistance
+
+```cpp
+float lightSphereDistance = 500.f;
+```
+
+Distance at which the sphere representing this light should appear.
+
 ### cascadeEnds
 
 ```cpp

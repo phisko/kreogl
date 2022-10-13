@@ -274,9 +274,8 @@ namespace scene {
         world.add(plane);
 
         // Sun
-        static kreogl::DirectionalLight light{
-            .direction = {-1.f, -1.f, -1.f}
-        };
+        static kreogl::DirectionalLight light;
+        light.direction = {-1.f, -1.f, -1.f};
         // Enable volumetric lighting with default params
         light.volumetricLighting = kreogl::VolumetricLightingParams{};
         world.add(light);
