@@ -310,6 +310,14 @@ int main(int ac, const char ** av) {
     window.getDefaultCamera().setPosition({ 0.f, 0.f, -5.f });
 
     kreogl::World world;
+    world.skybox.texture = kreogl::SkyboxTexture{
+        "resources/skybox/left.jpg",
+        "resources/skybox/right.jpg",
+        "resources/skybox/top.jpg",
+        "resources/skybox/bottom.jpg",
+        "resources/skybox/front.jpg",
+        "resources/skybox/back.jpg",
+    };
     scene::createScene(world);
 
     const auto funnyManModel = kreogl::AssImp::loadAnimatedModel("resources/funnyman/funnyman.fbx");
