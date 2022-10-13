@@ -10,9 +10,6 @@
 # include "kreogl/impl/shaders/lighting/PointLight/PointLightShader.hpp"
 # include "kreogl/impl/shaders/lighting/SpotLight/SpotLightShader.hpp"
 
-// light spheres
-#include "kreogl/impl/shaders/postProcess/LightSphere/LightSphereShader.hpp"
-
 // volumetric lighting
 # include "kreogl/impl/shaders/postLighting/VolumetricLighting/VolumetricDirectionalLight/VolumetricDirectionalLightShader.hpp"
 # include "kreogl/impl/shaders/postLighting/VolumetricLighting/VolumetricPointLight/VolumetricPointLightShader.hpp"
@@ -27,6 +24,10 @@
 # include "kreogl/impl/shaders/gbuffer/SkeletalTextured/SkeletalTexturedShader.hpp"
 # include "kreogl/impl/shaders/shadowMap/SkeletalShadowMap/SkeletalShadowMapShader.hpp"
 # include "kreogl/impl/shaders/shadowMap/SkeletalShadowCube/SkeletalShadowCubeShader.hpp"
+
+// misc
+# include "kreogl/impl/shaders/postProcess/LightSphere/LightSphereShader.hpp"
+# include "kreogl/impl/shaders/gbuffer/Debug/DebugShader.hpp"
 #endif
 
 namespace kreogl {
@@ -39,9 +40,6 @@ namespace kreogl {
             pipeline.addShader(ShaderStep::Lighting, DirectionalLightShader::getSingleton());
             pipeline.addShader(ShaderStep::Lighting, PointLightShader::getSingleton());
             pipeline.addShader(ShaderStep::Lighting, SpotLightShader::getSingleton());
-
-            // Light spheres
-            pipeline.addShader(ShaderStep::PostProcess, LightSphereShader::getSingleton());
 
             // Volumetric
             pipeline.addShader(ShaderStep::PostLighting, VolumetricDirectionalLightShader::getSingleton());
@@ -57,6 +55,10 @@ namespace kreogl {
             pipeline.addShader(ShaderStep::GBuffer, SkeletalTexturedShader::getSingleton());
             pipeline.addShader(ShaderStep::ShadowMap, SkeletalShadowMapShader::getSingleton());
             pipeline.addShader(ShaderStep::ShadowCube, SkeletalShadowCubeShader::getSingleton());
+
+            // Misc
+            pipeline.addShader(ShaderStep::PostProcess, LightSphereShader::getSingleton());
+            pipeline.addShader(ShaderStep::GBuffer, DebugShader::getSingleton());
 
             return pipeline;
         }();
