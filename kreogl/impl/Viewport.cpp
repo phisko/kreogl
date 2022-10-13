@@ -23,6 +23,10 @@ namespace kreogl {
         glBindFramebuffer(GL_FRAMEBUFFER, _frameBuffer);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _renderTexture, 0);
 
+        glBindTexture(GL_TEXTURE_2D, _depthTexture);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, _resolution.x, _resolution.y, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, _depthTexture, 0);
+
         assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
     }
 
