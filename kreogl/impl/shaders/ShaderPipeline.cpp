@@ -26,8 +26,9 @@
 # include "kreogl/impl/shaders/shadowMap/SkeletalShadowCube/SkeletalShadowCubeShader.hpp"
 
 // misc
-# include "kreogl/impl/shaders/postProcess/LightSphere/LightSphereShader.hpp"
 # include "kreogl/impl/shaders/gbuffer/Debug/DebugShader.hpp"
+# include "kreogl/impl/shaders/postProcess/LightSphere/LightSphereShader.hpp"
+# include "kreogl/impl/shaders/postProcess/Skybox/SkyboxShader.hpp"
 #endif
 
 namespace kreogl {
@@ -57,8 +58,9 @@ namespace kreogl {
             pipeline.addShader(ShaderStep::ShadowCube, SkeletalShadowCubeShader::getSingleton());
 
             // Misc
-            pipeline.addShader(ShaderStep::PostProcess, LightSphereShader::getSingleton());
             pipeline.addShader(ShaderStep::GBuffer, DebugShader::getSingleton());
+            pipeline.addShader(ShaderStep::PostProcess, LightSphereShader::getSingleton());
+            pipeline.addShader(ShaderStep::PostProcess, SkyboxShader::getSingleton());
 
             return pipeline;
         }();

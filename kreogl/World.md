@@ -32,3 +32,15 @@ const std::vector<const Object *> & getObjects(const VertexSpecification & verte
 ```
 
 This is because `Object`s are mapped according to their [model](model/Model.md)'s [vertex specification](impl/shaders/VertexSpecification.md).
+
+### Skybox
+
+```cpp
+struct Skybox {
+	SkyboxTexture texture;
+	glm::vec4 color{ 1.f };
+};
+Skybox skybox;
+```
+
+The skybox to draw for the world. Empty by default, to add a skybox simply set its `texture` attribute (see [SkyboxTexture](texture/SkyboxTexture.md)).
