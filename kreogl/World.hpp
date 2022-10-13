@@ -9,6 +9,7 @@
 #include "kreogl/lights/DirectionalLight.hpp"
 #include "kreogl/lights/PointLight.hpp"
 #include "kreogl/lights/SpotLight.hpp"
+#include "kreogl/texture/SkyboxTexture.hpp"
 #include "kreogl/impl/shaders/VertexSpecification.hpp"
 
 #define KREOGL_WORLD_COLLECTIONS(MACRO) \
@@ -30,6 +31,12 @@ namespace kreogl {
         const std::vector<const T *> & get##T##s() const noexcept;
         KREOGL_WORLD_COLLECTIONS(DECLARE_COLLECTION)
 #undef DECLARE_COLLECTION
+
+        struct Skybox {
+            SkyboxTexture texture;
+            glm::vec4 color{ 1.f };
+        };
+        Skybox skybox;
 
     private:
         std::unordered_map<const VertexSpecification *, std::vector<const Object *>> _objects;
