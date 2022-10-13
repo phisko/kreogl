@@ -51,6 +51,7 @@ namespace kreogl {
 
         FrameBuffer _frameBuffer;
         Texture _renderTexture;
+        Texture _depthTexture;
         GBuffer _gbuffer;
     };
 }
