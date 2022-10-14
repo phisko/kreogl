@@ -1,6 +1,6 @@
 # [DebugElement](DebugElement.hpp)
 
-Can be added to the [World](../World.md) to be drawn by the debug shader.
+Can be added to the [World](World.md) to be drawn by the debug shader.
 
 ## Members
 
@@ -46,7 +46,7 @@ The color to be drawn.
 glm::vec4 userData{ 0.f };
 ```
 
-The user data to be written to the [GBuffer](../impl/GBuffer.md).
+The user data to be written to the [GBuffer](impl/GBuffer.md).
 
 ### lineEnd
 
