@@ -1,7 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include "kreogl/model/Model.hpp"
+#include "model/Model.hpp"
 
 namespace kreogl {
     struct Object {

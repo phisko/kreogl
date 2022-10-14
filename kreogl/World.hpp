@@ -5,12 +5,12 @@
 #include <vector>
 
 #include "Object.hpp"
-#include "debug/DebugElement.hpp"
-#include "kreogl/lights/DirectionalLight.hpp"
-#include "kreogl/lights/PointLight.hpp"
-#include "kreogl/lights/SpotLight.hpp"
-#include "kreogl/texture/SkyboxTexture.hpp"
-#include "kreogl/impl/shaders/VertexSpecification.hpp"
+#include "DebugElement.hpp"
+#include "lights/DirectionalLight.hpp"
+#include "lights/PointLight.hpp"
+#include "lights/SpotLight.hpp"
+#include "texture/SkyboxTexture.hpp"
+#include "impl/shaders/VertexSpecification.hpp"
 
 #define KREOGL_WORLD_COLLECTIONS(MACRO) \
     MACRO(DirectionalLight) \

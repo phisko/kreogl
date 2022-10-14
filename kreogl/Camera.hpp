@@ -2,7 +2,7 @@
 
 #include <optional>
 #include <glm/gtc/matrix_transform.hpp>
-#include "kreogl/impl/Viewport.hpp"
+#include "impl/Viewport.hpp"
 
 namespace kreogl {
     class Camera {
