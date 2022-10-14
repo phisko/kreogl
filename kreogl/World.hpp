@@ -6,17 +6,19 @@
 
 #include "Object.hpp"
 #include "DebugElement.hpp"
+#include "Text.hpp"
 #include "lights/DirectionalLight.hpp"
 #include "lights/PointLight.hpp"
 #include "lights/SpotLight.hpp"
 #include "texture/SkyboxTexture.hpp"
-#include "impl/shaders/VertexSpecification.hpp"
 
 #define KREOGL_WORLD_COLLECTIONS(MACRO) \
     MACRO(DirectionalLight) \
     MACRO(PointLight) \
     MACRO(SpotLight) \
-    MACRO(DebugElement)
+    MACRO(DebugElement) \
+    MACRO(Text2D) \
+    MACRO(Text3D)
 
 namespace kreogl {
     class World {
