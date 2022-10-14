@@ -11,7 +11,8 @@ Worlds contain the following objects:
 * [DirectionalLight](lights/DirectionalLight.md)
 * [PointLight](lights/PointLight.md)
 * [SpotLight](lights/SpotLight.md)
-* [DebugElement](debug/DebugElement.md)
+* [DebugElement](DebugElement.md)
+* [Text2D and Text3D](Text.md)
 
 For each of those types, the following functions are defined:
 
