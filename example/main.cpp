@@ -374,6 +374,21 @@ int main(int ac, const char ** av) {
     };
     world.add(debugBox);
 
+    kreogl::Text2D text2D;
+    text2D.text = "Kreogl example";
+    text2D.font = "resources/fonts/arial.ttf";
+    text2D.transform = glm::translate(glm::mat4{ 1.f }, glm::vec3{ 1.f, -.9f, -1.f });
+    text2D.transform = glm::scale(text2D.transform, glm::vec3{ .1f, .1f, 0.f });
+    text2D.alignment = kreogl::Text::Alignment::Right;
+    world.add(text2D);
+
+    kreogl::Text3D text3D;
+    text3D.text = "3D text example";
+    text3D.font = "resources/fonts/arial.ttf";
+    text3D.transform = glm::translate(funnyManInPointLight.transform, glm::vec3(0.f, -1.f, 0.f));
+    text3D.color = glm::vec4(1.f, 1.f, 0.f, .5f);
+    world.add(text3D);
+
     auto previousTime = std::chrono::system_clock::now();
     while (!window.shouldClose()) {
         const auto now = std::chrono::system_clock::now();
