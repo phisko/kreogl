@@ -7,6 +7,7 @@
 #include "Object.hpp"
 #include "DebugElement.hpp"
 #include "Text.hpp"
+#include "Sprite.hpp"
 #include "lights/DirectionalLight.hpp"
 #include "lights/PointLight.hpp"
 #include "lights/SpotLight.hpp"
@@ -18,7 +19,9 @@
     MACRO(SpotLight) \
     MACRO(DebugElement) \
     MACRO(Text2D) \
-    MACRO(Text3D)
+    MACRO(Text3D) \
+    MACRO(Sprite2D) \
+    MACRO(Sprite3D)
 
 namespace kreogl {
     class World {
