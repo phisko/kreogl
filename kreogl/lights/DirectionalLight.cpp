@@ -53,8 +53,7 @@ namespace kreogl {
         const auto nearPlane = index == 0 ? params.camera.getNearPlane() : std::max(params.camera.getNearPlane(), cascadeEnds[index - 1]);
         const auto farPlane = std::min(params.camera.getFarPlane(), cascadeEnds[index]);
 
-        const auto & resolution = params.camera.getViewport().getResolution();
-        const auto proj = glm::perspective(params.camera.getFOV(), (float)resolution.x / (float)resolution.y, nearPlane, farPlane);
+        const auto proj = glm::perspective(params.camera.getFOV(), params.camera.getViewport().getAspectRatio(), nearPlane, farPlane);
 
         const auto cascadeBoundsWorldSpace = getCascadeBoundsWorldSpace(proj, params.camera.getViewMatrix());
 

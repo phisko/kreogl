@@ -50,7 +50,7 @@ namespace kreogl {
     const glm::mat4 & Camera::getProjMatrix() const noexcept {
         if (_cachedProjMatrix)
             return *_cachedProjMatrix;
-        _cachedProjMatrix = glm::perspective(_fov, (float)_viewport.getResolution().x / (float)_viewport.getResolution().y, _nearPlane, _farPlane);
+        _cachedProjMatrix = glm::perspective(_fov, _viewport.getAspectRatio(), _nearPlane, _farPlane);
         return *_cachedProjMatrix;
     }
 }

@@ -25,6 +25,8 @@ namespace kreogl {
         const glm::ivec2 & getResolution() const noexcept { return _resolution; }
         void setResolution(const glm::ivec2 & resolution) noexcept;
 
+        float getAspectRatio() const noexcept { return (float)_resolution.x / (float)_resolution.y; }
+
         const glm::vec2 & getOnScreenPosition() const noexcept { return _onScreenPosition; }
         void setOnScreenPosition(const glm::vec2 & onScreenPosition) noexcept { _onScreenPosition = onScreenPosition; }
 
