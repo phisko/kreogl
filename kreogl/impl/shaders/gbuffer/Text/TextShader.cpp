@@ -51,13 +51,17 @@ namespace kreogl {
 
         _glsl.view = glm::mat4{ 1.f };
         _glsl.proj = glm::mat4{ 1.f };
-        for (const auto text2D : params.world.getText2Ds())
+        for (const auto text2D : params.world.getText2Ds()) {
+            uniformChecker.shouldCheck = true;
             draw(params, *text2D);
+        }
 
         _glsl.view = params.camera.getViewMatrix();
         _glsl.proj = params.camera.getProjMatrix();
-        for (const auto text3D : params.world.getText3Ds())
+        for (const auto text3D : params.world.getText3Ds()) {
+            uniformChecker.shouldCheck = true;
             draw(params, *text3D);
+        }
     }
 
     void TextShader::draw(const DrawParams & params, const Text & text) noexcept {
