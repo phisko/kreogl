@@ -145,11 +145,11 @@ namespace voxelModels {
         glm::vec3 color;
 
         bool operator==(size_t i) const {
-            return color == glm::vec3(0.f);
+            return color == glm::vec3{ 0.f };
         }
 
         bool operator>(size_t i) const {
-            return color != glm::vec3(0.f);
+            return color != glm::vec3{ 0.f };
         }
 
         bool operator==(const VertexData & rhs) const {
@@ -161,9 +161,9 @@ namespace voxelModels {
         static const auto model = [] {
             PolyVox::RawVolume<VertexData> volume(PolyVox::Region{{-1, 0, 0},
                                                                   {2,  1, 1}});
-            volume.setVoxel(-1, 0, 0, {glm::vec3(1.f, 0.f, 0.f)});
-            volume.setVoxel(0, 0, 0, {glm::vec3(0.f, 1.f, 0.f)});
-            volume.setVoxel(1, 0, 0, {glm::vec3(0.f, 0.f, 1.f)});
+            volume.setVoxel(-1, 0, 0, { glm::vec3 { 1.f, 0.f, 0.f } });
+            volume.setVoxel(0, 0, 0, { glm::vec3{ 0.f, 1.f, 0.f } });
+            volume.setVoxel(1, 0, 0, { glm::vec3{ 0.f, 0.f, 1.f } });
 
             return kreogl::PolyVox::loadModel(volume);
         }();
@@ -177,7 +177,7 @@ namespace voxelModels {
                                                                   {size + 1, 1, size + 1}});
             for (int x = -size; x < size; ++x)
                 for (int z = -size; z < size; ++z)
-                    volume.setVoxel({x, 0, z}, {glm::vec3(1.f)});
+                    volume.setVoxel({x, 0, z}, { glm::vec3{ 1.f } });
 
             return kreogl::PolyVox::loadModel(volume);
         }();
@@ -192,17 +192,17 @@ namespace voxelModels {
             for (int x = -size; x <= size; ++x)
                 for (int y = -size; y <= size; ++y) {
                     // bottom
-                    volume.setVoxel({x, -size, y}, {glm::vec3(1.f)});
+                    volume.setVoxel({x, -size, y}, { glm::vec3{ 1.f } });
                     // top
-                    volume.setVoxel({x, size, y}, {glm::vec3(1.f)});
+                    volume.setVoxel({x, size, y}, { glm::vec3{ 1.f } });
                     // front
-                    volume.setVoxel({x, y, -size}, {glm::vec3(1.f)});
+                    volume.setVoxel({x, y, -size}, { glm::vec3{ 1.f } });
                     // back
-                    volume.setVoxel({x, y, size}, {glm::vec3(1.f)});
+                    volume.setVoxel({x, y, size}, { glm::vec3{ 1.f } });
                     // left
-                    volume.setVoxel({-size, x, y}, {glm::vec3(1.f)});
+                    volume.setVoxel({-size, x, y}, { glm::vec3{ 1.f } });
                     // right
-                    volume.setVoxel({size, x, y}, {glm::vec3(1.f)});
+                    volume.setVoxel({size, x, y}, { glm::vec3{ 1.f } });
                 }
 
             return kreogl::PolyVox::loadModel(volume);
@@ -237,7 +237,7 @@ namespace scene {
 
         static const kreogl::Object box{
             .model = &voxelModels::getBoxModel(),
-            .transform = glm::translate(baseTransform, glm::vec3(-12, -12, -12))
+            .transform = glm::translate(baseTransform, glm::vec3{ -12, -12, -12 })
         };
         world.add(box);
 
@@ -257,19 +257,19 @@ namespace scene {
             for (size_t z = 0; z < s_blockFieldSide; ++z) {
                 auto & block = blocks[x][z];
                 block.model = &voxelModels::getBlockModel();
-                block.transform = glm::translate(baseTransform, glm::vec3(x * 5.f, -45.f, z * 5.f));
+                block.transform = glm::translate(baseTransform, glm::vec3{ x * 5.f, -45.f, z * 5.f });
                 world.add(block);
             }
     }
 
     static void createScene(kreogl::World & world) noexcept {
-        createPointLightScene(world, glm::vec3(0.f));
-        createBlockFieldScene(world, glm::vec3(-25.f, 0.f, -25.f));
+        createPointLightScene(world, glm::vec3{ 0.f });
+        createBlockFieldScene(world, glm::vec3{ -25.f, 0.f, -25.f });
 
         // Bottom plane
         static const kreogl::Object plane{
             .model = &voxelModels::getPlaneModel(),
-            .transform = glm::translate(glm::mat4(1.f), glm::vec3(-50, -50, -50))
+            .transform = glm::translate(glm::mat4(1.f), glm::vec3{ -50, -50, -50 })
         };
         world.add(plane);
 
@@ -329,7 +329,7 @@ int main(int ac, const char ** av) {
     // Mesh dancing in the "point light scene"
     kreogl::AnimatedObject funnyManInPointLight; {
         funnyManInPointLight.model = funnyManModel.get();
-        funnyManInPointLight.transform = glm::translate(glm::mat4{1.f}, glm::vec3{-2.5f, -2.5f, -2.5f});
+        funnyManInPointLight.transform = glm::translate(glm::mat4{1.f}, glm::vec3{ -2.5f, -2.5f, -2.5f });
         funnyManInPointLight.animation = kreogl::Animation{
             .model = animFile->animations[0].get(),
             .loop = true
@@ -339,12 +339,12 @@ int main(int ac, const char ** av) {
 
     // Meshes dancing in the "block field scene"
     kreogl::AnimatedObject funnyMenInField[scene::s_blockFieldSide][scene::s_blockFieldSide]; {
-        const auto baseTransform = glm::translate(glm::mat4(1.f), glm::vec3(-25.f, 0.f, -25.f));
+        const auto baseTransform = glm::translate(glm::mat4(1.f), glm::vec3{ -25.f, 0.f, -25.f });
         for (size_t x = 0; x < scene::s_blockFieldSide; ++x)
             for (size_t z = 0; z < scene::s_blockFieldSide; ++z) {
                 auto & funnyMan = funnyMenInField[x][z];
                 funnyMan.model = funnyManModel.get();
-                funnyMan.transform = glm::translate(baseTransform, glm::vec3(x * 5.f, -45.f, z * 5.f));
+                funnyMan.transform = glm::translate(baseTransform, glm::vec3{ x * 5.f, -45.f, z * 5.f });
                 funnyMan.animation = kreogl::Animation{
                     .model = funnyManModel->animations[0].get(),
                     .loop = true
@@ -362,14 +362,14 @@ int main(int ac, const char ** av) {
 
     const kreogl::DebugElement debugSphere {
         .type = kreogl::DebugElement::Type::Sphere,
-        .transform = glm::translate(funnyManInPointLight.transform, glm::vec3(0.f, 0.f, 1.f)),
+        .transform = glm::translate(funnyManInPointLight.transform, glm::vec3{ 0.f, 0.f, 1.f }),
         .color = glm::vec4(0.f, 1.f, 0.f, 1.f)
     };
     world.add(debugSphere);
 
     const kreogl::DebugElement debugBox {
         .type = kreogl::DebugElement::Type::Box,
-        .transform = glm::translate(funnyManInPointLight.transform, glm::vec3(0.f, 0.f, -1.f)),
+        .transform = glm::translate(funnyManInPointLight.transform, glm::vec3{ 0.f, 0.f, -1.f }),
         .color = glm::vec4(0.f, 0.f, 1.f, 1.f)
     };
     world.add(debugBox);
@@ -385,7 +385,7 @@ int main(int ac, const char ** av) {
     kreogl::Text3D text3D;
     text3D.text = "3D text example";
     text3D.font = "resources/fonts/arial.ttf";
-    text3D.transform = glm::translate(funnyManInPointLight.transform, glm::vec3(0.f, -1.f, 0.f));
+    text3D.transform = glm::translate(funnyManInPointLight.transform, glm::vec3{ 0.f, -1.f, 0.f });
     text3D.color = glm::vec4(1.f, 1.f, 0.f, .5f);
     world.add(text3D);
 
