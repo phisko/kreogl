@@ -45,4 +45,4 @@ struct Skybox {
 Skybox skybox;
 ```
 
-The skybox to draw for the world. Empty by default, to add a skybox simply set its `texture` attribute (see [SkyboxTexture](texture/SkyboxTexture.md)).
+The skybox to draw for the world. Empty by default, to add a skybox simply set its `texture` attribute (see [SkyboxTexture](impl/texture/SkyboxTexture.md)).

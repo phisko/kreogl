@@ -11,7 +11,7 @@
 #include "lights/DirectionalLight.hpp"
 #include "lights/PointLight.hpp"
 #include "lights/SpotLight.hpp"
-#include "texture/SkyboxTexture.hpp"
+#include "impl/texture/SkyboxTexture.hpp"
 
 #define KREOGL_WORLD_COLLECTIONS(MACRO) \
     MACRO(DirectionalLight) \

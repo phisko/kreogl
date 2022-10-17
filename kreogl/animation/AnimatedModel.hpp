@@ -8,7 +8,7 @@
 
 // kreogl
 #include "kreogl/model/Model.hpp"
-#include "kreogl/texture/ImageTexture.hpp"
+#include "kreogl/impl/texture/ImageTexture.hpp"
 #include "AnimationModel.hpp"
 #include "SkeletonModel.hpp"
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include "texture/ImageTexture.hpp"
+#include "impl/texture/ImageTexture.hpp"
 
 namespace kreogl {
     struct Sprite {

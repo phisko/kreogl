@@ -10,7 +10,7 @@ A sprite to be drawn into the [World](World.md). Two identical types exist: `Spr
 const ImageTexture * texture = nullptr;
 ```
 
-The [ImageTexture](texture/ImageTexture.md) to be drawn.
+The [ImageTexture](impl/texture/ImageTexture.md) to be drawn.
 
 ### transform
 
