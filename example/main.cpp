@@ -15,7 +15,10 @@
 #include <GLFW/glfw3.h>
 #include <glm/gtx/rotate_vector.hpp>
 
+// Functions to automatically move the camera to a set of fixed positions
+// Automatically stops when the user moves the camera, and starts again by pressing 'R' (handled by input::processInput)
 namespace cameraRotation {
+    // Determines whether to apply the rotation or not
     static bool s_rotatingFixedCameras = true;
 
     static void rotateFixedCameras(kreogl::Window & window) noexcept {
@@ -59,6 +62,7 @@ namespace cameraRotation {
     }
 }
 
+// Functions to move the camera around
 namespace input {
     static kreogl::Window * s_window = nullptr;
     static std::unordered_map<int, bool> s_keysPressed;
@@ -136,27 +140,30 @@ namespace input {
 
         camera.setPosition(position);
     }
-
-
 }
 
+// Functions that create and return PolyVox models
 namespace voxelModels {
+    // Vertex type for PolyVox volumes
     struct VertexData {
         glm::vec3 color;
-
-        bool operator==(size_t i) const {
-            return color == glm::vec3{ 0.f };
-        }
-
-        bool operator>(size_t i) const {
-            return color != glm::vec3{ 0.f };
-        }
 
         bool operator==(const VertexData & rhs) const {
             return color == rhs.color;
         }
+
+        // Used to know if vertex is empty
+        bool operator==(size_t i) const {
+            return color == glm::vec3{ 0.f };
+        }
+
+        // Used to know if vertex is empty
+        bool operator>(size_t i) const {
+            return color != glm::vec3{ 0.f };
+        }
     };
 
+    // Block of 3 RGB voxels
     static const kreogl::Model & getBlockModel() noexcept {
         static const auto model = [] {
             PolyVox::RawVolume<VertexData> volume(PolyVox::Region{{-1, 0, 0},
@@ -170,39 +177,39 @@ namespace voxelModels {
         return model;
     }
 
+    // Plane used as the "floor"
     static const kreogl::Model & getPlaneModel() noexcept {
         static const auto model = [] {
             constexpr auto size = 50;
-            PolyVox::RawVolume<VertexData> volume(PolyVox::Region{{-size,    0, -size},
-                                                                  {size + 1, 1, size + 1}});
+            PolyVox::RawVolume<VertexData> volume(PolyVox::Region{ { -size, 0, -size }, { size + 1, 1, size + 1 } });
             for (int x = -size; x < size; ++x)
                 for (int z = -size; z < size; ++z)
-                    volume.setVoxel({x, 0, z}, { glm::vec3{ 1.f } });
+                    volume.setVoxel({ x, 0, z }, { glm::vec3{ 1.f } });
 
             return kreogl::PolyVox::loadModel(volume);
         }();
         return model;
     }
 
+    // Creates a large box
     static const kreogl::Model & getBoxModel() noexcept {
         static const auto model = [] {
             constexpr auto size = 12;
-            PolyVox::RawVolume<VertexData> volume(PolyVox::Region{{-size,    -size,    -size},
-                                                                  {size + 1, size + 1, size + 1}});
+            PolyVox::RawVolume<VertexData> volume(PolyVox::Region{ { -size, -size, -size }, { size + 1, size + 1, size + 1 } });
             for (int x = -size; x <= size; ++x)
                 for (int y = -size; y <= size; ++y) {
                     // bottom
-                    volume.setVoxel({x, -size, y}, { glm::vec3{ 1.f } });
+                    volume.setVoxel({ x, -size, y }, { glm::vec3{ 1.f } });
                     // top
-                    volume.setVoxel({x, size, y}, { glm::vec3{ 1.f } });
+                    volume.setVoxel({ x, size, y }, { glm::vec3{ 1.f } });
                     // front
-                    volume.setVoxel({x, y, -size}, { glm::vec3{ 1.f } });
+                    volume.setVoxel({ x, y, -size }, { glm::vec3{ 1.f } });
                     // back
-                    volume.setVoxel({x, y, size}, { glm::vec3{ 1.f } });
+                    volume.setVoxel({ x, y, size }, { glm::vec3{ 1.f } });
                     // left
-                    volume.setVoxel({-size, x, y}, { glm::vec3{ 1.f } });
+                    volume.setVoxel({ -size, x, y }, { glm::vec3{ 1.f } });
                     // right
-                    volume.setVoxel({size, x, y}, { glm::vec3{ 1.f } });
+                    volume.setVoxel({ size, x, y }, { glm::vec3{ 1.f } });
                 }
 
             return kreogl::PolyVox::loadModel(volume);
@@ -211,6 +218,7 @@ namespace voxelModels {
     }
 }
 
+// Functions that create the static scenery. These hold the objects and lights as `static`, as they must be kept alive
 namespace scene {
     // Creates a large box containing a spot light and a few blocks casting shadows on its walls
     static void createPointLightScene(kreogl::World & world, const glm::vec3 & position) noexcept {
@@ -326,7 +334,7 @@ int main(int ac, const char ** av) {
     const auto animFile = kreogl::AssImp::loadAnimationFile("resources/funnyman/animations/dancing.fbx");
     assert(animFile && animFile->animations.size() == 1);
 
-    // Mesh dancing in the "point light scene"
+    // Mesh dancing in the "point light scene", using the animation from the dancing.fbx
     kreogl::AnimatedObject funnyManInPointLight; {
         funnyManInPointLight.model = funnyManModel.get();
         funnyManInPointLight.transform = glm::translate(glm::mat4{1.f}, glm::vec3{ -2.5f, -2.5f, -2.5f });
@@ -337,7 +345,7 @@ int main(int ac, const char ** av) {
         world.add(funnyManInPointLight);
     }
 
-    // Meshes dancing in the "block field scene"
+    // Meshes dancing in the "block field scene", using the animation pre-baked in funnyman.fbx
     kreogl::AnimatedObject funnyMenInField[scene::s_blockFieldSide][scene::s_blockFieldSide]; {
         const auto baseTransform = glm::translate(glm::mat4(1.f), glm::vec3{ -25.f, 0.f, -25.f });
         for (size_t x = 0; x < scene::s_blockFieldSide; ++x)
