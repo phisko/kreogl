@@ -28,9 +28,9 @@ file(GLOB src
 	kreogl/loaders/polyvox/*.cpp kreogl/loaders/polyvox/*.hpp
 	kreogl/loaders/assimp/*.cpp kreogl/loaders/assimp/*.hpp
 	kreogl/loaders/assimp/impl/*.cpp kreogl/loaders/assimp/impl/*.hpp
-	kreogl/shapes/*.cpp kreogl/shapes/*.hpp
 	kreogl/texture/*.cpp kreogl/texture/*.hpp
 	kreogl/impl/*.cpp kreogl/impl/*.hpp
+	kreogl/impl/shapes/*.cpp kreogl/impl/shapes/*.hpp
 	kreogl/impl/shaders/*.cpp kreogl/impl/shaders/*.hpp
 	kreogl/impl/shadowMaps/*.cpp kreogl/impl/shadowMaps/*.hpp)
 

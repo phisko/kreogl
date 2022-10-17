@@ -3,7 +3,7 @@
 
 #include "kreogl/Camera.hpp"
 #include "kreogl/World.hpp"
-#include "kreogl/shapes/TexturedQuad.hpp"
+#include "kreogl/impl/shapes/TexturedQuad.hpp"
 
 namespace kreogl {
     SpriteShader::SpriteShader() noexcept {

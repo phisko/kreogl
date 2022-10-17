@@ -2,7 +2,7 @@
 
 #include "kreogl/Camera.hpp"
 #include "kreogl/World.hpp"
-#include "kreogl/shapes/Sphere.hpp"
+#include "kreogl/impl/shapes/Sphere.hpp"
 #include "kreogl/impl/RAII/ScopedGLFeature.hpp"
 
 namespace kreogl {

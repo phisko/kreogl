@@ -5,7 +5,7 @@
 #include "kreogl/World.hpp"
 #include "kreogl/impl/GBuffer.hpp"
 #include "kreogl/impl/RAII/ScopedGLFeature.hpp"
-#include "kreogl/shapes/Quad.hpp"
+#include "kreogl/impl/shapes/Quad.hpp"
 
 namespace kreogl {
     VolumetricSpotLightShader::VolumetricSpotLightShader() noexcept {

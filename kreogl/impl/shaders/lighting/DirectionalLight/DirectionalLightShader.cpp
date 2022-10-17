@@ -8,7 +8,7 @@
 #include "kreogl/impl/RAII/ScopedGLFeature.hpp"
 #include "kreogl/impl/shaders/ShaderPipeline.hpp"
 #include "kreogl/impl/shaders/shadowMap/ShadowMapShader.hpp"
-#include "kreogl/shapes/Quad.hpp"
+#include "kreogl/impl/shapes/Quad.hpp"
 
 namespace kreogl {
     DirectionalLightShader::DirectionalLightShader() noexcept {

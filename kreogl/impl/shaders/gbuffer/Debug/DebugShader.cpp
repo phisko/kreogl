@@ -4,9 +4,9 @@
 #include "kreogl/Camera.hpp"
 #include "kreogl/World.hpp"
 #include "kreogl/impl/shaders/VertexSpecification.hpp"
-#include "kreogl/shapes/Line.hpp"
-#include "kreogl/shapes/Sphere.hpp"
-#include "kreogl/shapes/Box.hpp"
+#include "kreogl/impl/shapes/Line.hpp"
+#include "kreogl/impl/shapes/Sphere.hpp"
+#include "kreogl/impl/shapes/Box.hpp"
 
 namespace kreogl {
     DebugShader::DebugShader() noexcept {
