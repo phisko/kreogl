@@ -19,11 +19,7 @@ namespace kreogl {
 
     struct ModelData {
         std::vector<MeshData> meshes;
-        std::function<void()> release = nullptr;
-
         std::vector<size_t> vertexAttributeOffsets;
         size_t vertexSize;
-
-        ~ModelData() noexcept;
     };
 }
