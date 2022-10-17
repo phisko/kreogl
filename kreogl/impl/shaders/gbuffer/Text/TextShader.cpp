@@ -73,8 +73,7 @@ namespace kreogl {
         _glsl.userData = text.userData;
 
         const auto scaleY = 1.f / (float)text.fontSize;
-        const auto & resolution = params.camera.getViewport().getResolution();
-        const auto scaleX = scaleY * (float)resolution.y / (float)resolution.x;
+        const auto scaleX = scaleY / params.camera.getViewport().getAspectRatio();
 
         // Calculate text starting position
         const auto size = font->getSizeAndGenerateCharacters(text.text, scaleX, scaleY);

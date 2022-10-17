@@ -34,6 +34,14 @@ void setResolution(const glm::ivec2 & resolution) noexcept;
 
 The underlying framebuffer's resolution.
 
+### aspectRatio
+
+```cpp
+float getAspectRatio() const noexcept;
+```
+
+Returns the underlying framebuffer's aspect ratio.
+
 ### onScreenPosition, onScreenSize
 
 ```cpp
