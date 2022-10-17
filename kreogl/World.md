@@ -12,6 +12,7 @@ Worlds contain the following objects:
 * [PointLight](lights/PointLight.md)
 * [SpotLight](lights/SpotLight.md)
 * [DebugElement](DebugElement.md)
+* [Sprite2D and Sprite3D](Sprite.md)
 * [Text2D and Text3D](Text.md)
 
 For each of those types, the following functions are defined:
