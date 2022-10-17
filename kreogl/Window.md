@@ -10,10 +10,7 @@ Class to create and manipulate a GLFW window.
 const char * name = "kreogl";
 glm::ivec2 size = { 1280, 720 };
 bool resizable = false;
-bool defaultShaders = true;
 ```
-
-If `defaultShaders` is set to `false`, the engine's pre-built shaders will not be used, letting users provide their custom shaders.
 
 ### draw
 
