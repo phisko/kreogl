@@ -374,12 +374,20 @@ int main(int ac, const char ** av) {
     };
     world.add(debugBox);
 
+    const kreogl::ImageTexture koalaTexture("resources/sprites/koala.png");
+
+    kreogl::Sprite2D sprite2D;
+    sprite2D.texture = &koalaTexture;
+    sprite2D.transform = glm::translate(glm::mat4{ 1.f }, glm::vec3{ -.95f, -.9f, -1.f }); // Bottom left corner
+    sprite2D.transform = glm::scale(sprite2D.transform, glm::vec3{ .1f / window.getDefaultCamera().getViewport().getAspectRatio(), .1f, 0.f });
+    world.add(sprite2D);
+
     kreogl::Text2D text2D;
     text2D.text = "Kreogl example";
     text2D.font = "resources/fonts/arial.ttf";
-    text2D.transform = glm::translate(glm::mat4{ 1.f }, glm::vec3{ 1.f, -.9f, -1.f });
+    text2D.transform = glm::translate(glm::mat4{ 1.f }, glm::vec3{ -.9f, -.9f, -1.f }); // Bottom left, to the right of sprite2D
     text2D.transform = glm::scale(text2D.transform, glm::vec3{ .1f, .1f, 0.f });
-    text2D.alignment = kreogl::Text::Alignment::Right;
+    text2D.alignment = kreogl::Text::Alignment::Left;
     world.add(text2D);
 
     kreogl::Text3D text3D;
@@ -388,6 +396,12 @@ int main(int ac, const char ** av) {
     text3D.transform = glm::translate(funnyManInPointLight.transform, glm::vec3{ 0.f, -1.f, 0.f });
     text3D.color = glm::vec4(1.f, 1.f, 0.f, .5f);
     world.add(text3D);
+
+    kreogl::Sprite3D sprite3D;
+    sprite3D.texture = &koalaTexture;
+    sprite3D.transform = glm::translate(text3D.transform, glm::vec3{ 0.f, -1.5f, 0.f });
+    sprite3D.color = text3D.color;
+    world.add(sprite3D);
 
     auto previousTime = std::chrono::system_clock::now();
     while (!window.shouldClose()) {
