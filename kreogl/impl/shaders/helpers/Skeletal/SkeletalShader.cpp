@@ -5,9 +5,12 @@
 
 // kreogl
 #include "kreogl/animation/AnimatedObject.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     void SkeletalShader::uploadDefaultBones() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         static glm::mat4 defaultMats[KREOGL_SKELETON_MAX_BONES];
         static bool first = true;
         if (first) {
@@ -20,6 +23,8 @@ namespace kreogl {
     }
 
     void SkeletalShader::drawObject(const Object & object) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         const auto animatedObject = static_cast<const AnimatedObject &>(object);
         const auto animatedModel = static_cast<const AnimatedModel *>(object.model);
 

@@ -1,16 +1,21 @@
 #include "Font.hpp"
 
 #include <iostream>
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     Font::FreeTypeLibrary Font::g_freetypeLibrary;
 
     Font::FreeTypeLibrary::~FreeTypeLibrary() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         if (library)
             FT_Done_FreeType(library);
     }
 
     Font::Font(const char * file, size_t size) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         if (!g_freetypeLibrary.library)
             if (FT_Init_FreeType(&g_freetypeLibrary.library)) {
                 assert(false);
@@ -31,6 +36,8 @@ namespace kreogl {
     }
 
     const Font::Character * Font::getCharacter(unsigned long c) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         if (const auto it = characters.find(c); it != characters.end())
             return &it->second;
 
@@ -56,6 +63,8 @@ namespace kreogl {
     }
 
     glm::vec2 Font::getSizeAndGenerateCharacters(const std::string & text, float scaleX, float scaleY) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         glm::vec2 size{ 0.f, 0.f };
 
         for (const auto c : text) {

@@ -67,6 +67,23 @@ target_link_libraries(kreogl PUBLIC
 
 target_include_directories(kreogl PUBLIC third_party/polyvox/include)
 
+# profiling
+option(KREOGL_PROFILING OFF)
+if (KREOGL_PROFILING)
+	add_compile_definitions(KREOGL_PROFILING TRACY_ENABLE)
+
+	include(FetchContent)
+	FetchContent_Declare(
+			tracy
+			GIT_REPOSITORY https://github.com/wolfpld/tracy
+			GIT_TAG v0.8.2.1 # Oct 15 2022
+			GIT_PROGRESS TRUE
+			GIT_SHALLOW TRUE
+	)
+	FetchContent_MakeAvailable(tracy)
+	target_link_libraries(kreogl PUBLIC TracyClient)
+endif()
+
 option(KREOGL_EXAMPLE OFF)
 if (KREOGL_EXAMPLE)
     add_subdirectory(example)

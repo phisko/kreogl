@@ -4,6 +4,7 @@
 
 #include "kreogl/impl/RAII/ScopedGLFeature.hpp"
 #include "kreogl/impl/shaders/ShaderPipeline.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     Viewport::Viewport(const ConstructionParams & params) noexcept
@@ -13,6 +14,8 @@ namespace kreogl {
         , _zOrder(params.zOrder)
         , _gbuffer(params.resolution)
     {
+        KREOGL_PROFILING_SCOPE;
+
         glBindTexture(GL_TEXTURE_2D, _renderTexture);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, _resolution.x, _resolution.y, 0, GL_RGBA, GL_FLOAT, nullptr);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -31,11 +34,15 @@ namespace kreogl {
     }
 
     void Viewport::draw(const DrawParams & params) const noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         fillGBuffer(params);
         renderToTexture(params);
     }
 
     void Viewport::fillGBuffer(const DrawParams & params) const noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         _gbuffer.bindForWriting();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -44,6 +51,8 @@ namespace kreogl {
     }
 
     void Viewport::renderToTexture(const DrawParams & params) const noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         _gbuffer.bindForReading();
 
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _frameBuffer);
@@ -56,6 +65,8 @@ namespace kreogl {
     }
 
     void Viewport::setResolution(const glm::ivec2 &resolution) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         _resolution = resolution;
         _gbuffer.resize(_resolution);
 

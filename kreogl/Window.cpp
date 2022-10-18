@@ -9,11 +9,14 @@
 
 // kreogl
 #include "kreogl/impl/kreogl_init.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     Window::Window(const ConstructionParams & params) noexcept
         : _size(params.size)
     {
+        KREOGL_PROFILING_SCOPE;
+
         initGLFW();
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -48,6 +51,8 @@ namespace kreogl {
     }
 
     void Window::draw(const World & world, const ShaderPipeline & shaderPipeline) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         glfwMakeContextCurrent(_glfwWindow);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -64,10 +69,14 @@ namespace kreogl {
     }
 
     void Window::display() const noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         glfwSwapBuffers(_glfwWindow);
     }
 
     void Window::blitViewport(const Viewport & viewport) const noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         glBindFramebuffer(GL_READ_FRAMEBUFFER, viewport.getFrameBuffer());
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 
@@ -88,18 +97,22 @@ namespace kreogl {
     }
 
     bool Window::shouldClose() const noexcept {
+        KREOGL_PROFILING_SCOPE;
         return glfwWindowShouldClose(_glfwWindow);
     }
 
     void Window::pollEvents() noexcept {
+        KREOGL_PROFILING_SCOPE;
         glfwPollEvents();
     }
 
     void Window::addCamera(const Camera & camera) noexcept {
+        KREOGL_PROFILING_SCOPE;
         _cameras.push_back(&camera);
     }
 
     void Window::removeCamera(const Camera &camera) noexcept {
+        KREOGL_PROFILING_SCOPE;
         const auto it = std::ranges::find(_cameras, &camera);
         if (it != _cameras.end())
             _cameras.erase(it);

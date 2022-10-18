@@ -3,9 +3,12 @@
 #include "kreogl/Camera.hpp"
 #include "kreogl/impl/RAII/ScopedBindFramebuffer.hpp"
 #include "kreogl/impl/RAII/ScopedGLFeature.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     std::vector<UniformBase *> ShadowCubeShader::getUniforms() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         std::vector<UniformBase *> ret {
             &_glsl.lightPos,
             &_glsl.farPlane
@@ -18,11 +21,15 @@ namespace kreogl {
     }
 
     void ShadowCubeShader::addSourceFiles() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         addSourceFile(ShadowCubeGLSL::geom, GL_GEOMETRY_SHADER);
         addSourceFile(ShadowCubeGLSL::frag, GL_FRAGMENT_SHADER);
     }
 
     void ShadowCubeShader::draw(const PointLight & light, const DrawParams & params) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         light.shadowCube.setSize(light.shadowMapSize);
 
         glViewport(0, 0, light.shadowCube.getSize(), light.shadowCube.getSize());

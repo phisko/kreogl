@@ -6,9 +6,14 @@
 // stb
 #include <stb_image.h>
 
+// kreogl
+#include "kreogl/impl/kreogl_profiling.hpp"
+
 namespace kreogl {
     namespace {
         static void loadTexture(const void * data, ImageTexture & texture) noexcept {
+            KREOGL_PROFILING_SCOPE;
+
             texture.texture = kreogl::Texture{};
 
             GLenum format;
@@ -39,6 +44,8 @@ namespace kreogl {
     }
 
     ImageTexture::ImageTexture(const char * file) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         const auto data = stbi_load(file, &width, &height, &components, 0);
         if (data == nullptr) {
             assert(false);
@@ -50,6 +57,8 @@ namespace kreogl {
     }
 
     ImageTexture::ImageTexture(const void * data, unsigned int width, unsigned int height) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         static constexpr auto expectedChannels = 4;
 
         const bool mustLoadFromMemory = height == 0;
@@ -74,6 +83,8 @@ namespace kreogl {
     }
 
     bool ImageTexture::isSupportedFormat(const char * file) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         int x, y, comp;
         return stbi_info(file, &x, &y, &comp);
     }

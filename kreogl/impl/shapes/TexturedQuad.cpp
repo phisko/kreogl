@@ -1,9 +1,12 @@
 #include "TexturedQuad.hpp"
 
 #include <GL/glew.h>
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl::shapes {
     void drawTexturedQuad() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         static GLuint vao = 0;
         static GLuint vbo;
 

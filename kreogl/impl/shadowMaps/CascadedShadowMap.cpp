@@ -2,9 +2,12 @@
 
 #include <cassert>
 #include "kreogl/impl/RAII/ScopedBindFramebuffer.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     CascadedShadowMap::CascadedShadowMap() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         const ScopedBindFramebuffer bound(frameBuffer);
 
         for (const auto & texture : textures) {
@@ -27,6 +30,8 @@ namespace kreogl {
     }
 
     void CascadedShadowMap::setSize(int size) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         if (_size == size)
             return;
         _size = size;

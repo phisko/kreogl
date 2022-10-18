@@ -6,9 +6,12 @@
 #include "kreogl/impl/GBuffer.hpp"
 #include "kreogl/impl/RAII/ScopedGLFeature.hpp"
 #include "kreogl/impl/shapes/Quad.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     VolumetricSpotLightShader::VolumetricSpotLightShader() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         init("VolumetricSpotLightShader");
 
         useWithoutUniformCheck();
@@ -19,6 +22,8 @@ namespace kreogl {
     }
 
     void VolumetricSpotLightShader::addSourceFiles() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         addSourceFile(QuadGLSL::vert, GL_VERTEX_SHADER);
         addSourceFile(VolumetricLightingGLSL::frag, GL_FRAGMENT_SHADER);
         addSourceFile(PointLightGLSL::GetDirection::frag, GL_FRAGMENT_SHADER);
@@ -26,6 +31,8 @@ namespace kreogl {
     }
 
     std::vector<UniformBase *> VolumetricSpotLightShader::getUniforms() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         return {
             // VolumetricLightingGLSL
             &_glsl.gposition,
@@ -52,6 +59,8 @@ namespace kreogl {
     }
 
     void VolumetricSpotLightShader::draw(const DrawParams & params) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         auto uniformChecker = use(false);
 
         const ScopedGLFeature blend(GL_BLEND);

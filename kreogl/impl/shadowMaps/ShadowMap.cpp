@@ -1,9 +1,12 @@
 #include "ShadowMap.hpp"
 #include <cassert>
 #include "kreogl/impl/RAII/ScopedBindFramebuffer.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     ShadowMap::ShadowMap() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         const ScopedBindFramebuffer bound(frameBuffer);
 
         glBindTexture(GL_TEXTURE_2D, texture);
@@ -23,6 +26,8 @@ namespace kreogl {
     }
 
     void ShadowMap::setSize(int size) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         if (_size == size)
             return;
         _size = size;

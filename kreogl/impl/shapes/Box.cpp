@@ -1,9 +1,12 @@
 #include "Box.hpp"
 
 #include <GL/glew.h>
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl::shapes {
     void drawBox() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         static GLuint vao = -1;
         if (vao == -1) {
             static constexpr float vertices[] = {

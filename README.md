@@ -14,7 +14,7 @@ Now that I'm relatively satisfied with the final result (although it's far from 
 
 ## Usage
 
-Take a look at the [example code](example/main.cpp), which makes use of most available features.
+Take a look at the [example code](example/main.cpp), which makes use of most available features. The example can be built by setting the `KREOGL_EXAMPLE` CMake option.
 
 ## API
 
@@ -144,3 +144,7 @@ These are shaders that implement the [ShadowMapShader](kreogl/impl/shaders/shado
 * [PositionShadowCubeShader](kreogl/impl/shaders/shadowMap/PositionShadowCube/PositionShadowCubeShader.md)
 * [SkeletalShadowMapShader](kreogl/impl/shaders/shadowMap/SkeletalShadowMap/SkeletalShadowMapShader.md)
 * [SkeletalShadowCubeShader](kreogl/impl/shaders/shadowMap/SkeletalShadowCube/SkeletalShadowCubeShader.md)
+
+## Profiling
+
+The code is instrumented using [Tracy](https://github.com/wolfpld/tracy). Profiling can be enabled by setting the `KREOGL_PROFILING` CMake option.

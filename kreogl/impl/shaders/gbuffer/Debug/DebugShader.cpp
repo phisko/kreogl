@@ -7,19 +7,26 @@
 #include "kreogl/impl/shapes/Line.hpp"
 #include "kreogl/impl/shapes/Sphere.hpp"
 #include "kreogl/impl/shapes/Box.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     DebugShader::DebugShader() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         init("DebugShader");
     }
 
     void DebugShader::addSourceFiles() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         addSourceFile(DebugGLSL::vert, GL_VERTEX_SHADER);
         addSourceFile(DebugGLSL::frag, GL_FRAGMENT_SHADER);
         addSourceFile(ApplyTransparencyGLSL::frag, GL_FRAGMENT_SHADER);
     }
 
     std::vector<UniformBase *> DebugShader::getUniforms() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         return {
             &_glsl.proj,
             &_glsl.view,
@@ -31,6 +38,8 @@ namespace kreogl {
     }
 
     void DebugShader::draw(const DrawParams & params) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         auto uniformChecker = use(false);
 
         _glsl.view = params.camera.getViewMatrix();

@@ -8,6 +8,7 @@
 #include <assimp/postprocess.h>
 
 // kreogl
+#include "kreogl/impl/kreogl_profiling.hpp"
 #include "impl/AssImpAnimatedModel.hpp"
 #include "impl/AssImpAnimationFile.hpp"
 #include "impl/AssImpAnimationModel.hpp"
@@ -28,6 +29,8 @@ namespace kreogl::AssImp {
 
         struct impl {
             static AssImpModelData loadModelData(const char * file, const aiScene & scene) noexcept {
+                KREOGL_PROFILING_SCOPE;
+
                 AssImpModelData ret;
 
                 const auto dir = std::filesystem::path(file).parent_path().string();
@@ -37,6 +40,8 @@ namespace kreogl::AssImp {
             }
 
             static void processNode(AssImpModelData & modelData, const std::string & directory, const aiScene & scene, const aiNode & node) noexcept {
+                KREOGL_PROFILING_SCOPE;
+
                 for (const auto meshIndex : std::span(node.mMeshes, node.mNumMeshes)) {
                     const auto mesh = scene.mMeshes[meshIndex];
                     modelData.meshes.push_back(processMesh(*mesh, scene, directory));
@@ -47,6 +52,8 @@ namespace kreogl::AssImp {
             }
 
             static AssImpMeshData processMesh(const aiMesh & mesh, const aiScene & scene, const std::string & directory) noexcept {
+                KREOGL_PROFILING_SCOPE;
+
                 AssImpMeshData ret;
 
                 for (unsigned int i = 0; i < mesh.mNumVertices; ++i) {
@@ -133,6 +140,8 @@ namespace kreogl::AssImp {
             }
 
             static std::vector<kreogl::ImageTexture> loadTextures(const std::string & directory, const aiMaterial & material, aiTextureType type, const aiScene & scene) noexcept {
+                KREOGL_PROFILING_SCOPE;
+
                 std::vector<kreogl::ImageTexture> ret;
 
                 for (unsigned int i = 0; i < material.GetTextureCount(type); ++i) {
@@ -149,6 +158,8 @@ namespace kreogl::AssImp {
             }
 
             static AssImpSkeletonModel loadSkeleton(const aiScene & scene) noexcept {
+                KREOGL_PROFILING_SCOPE;
+
                 std::vector<const aiNode *> allNodes;
                 addNode(*scene.mRootNode, allNodes);
 
@@ -173,12 +184,16 @@ namespace kreogl::AssImp {
             }
 
             static void addNode(const aiNode & node, std::vector<const aiNode *> & allNodes) noexcept {
+                KREOGL_PROFILING_SCOPE;
+
                 allNodes.push_back(&node);
                 for (const auto child : std::span(node.mChildren, node.mNumChildren))
                     addNode(*child, allNodes);
             }
 
             static const aiNode * findNode(const std::vector<const aiNode *> & allNodes, const aiString & name) noexcept {
+                KREOGL_PROFILING_SCOPE;
+
                 const auto node = std::ranges::find_if(allNodes, [&name](const aiNode * node) noexcept {
                     return node->mName == name;
                 });
@@ -192,6 +207,8 @@ namespace kreogl::AssImp {
             }
 
             static std::vector<std::unique_ptr<AnimationModel>> loadAnimations(const char * sourceFile, const aiScene & scene) noexcept {
+                KREOGL_PROFILING_SCOPE;
+
                 std::vector<std::unique_ptr<AnimationModel>> ret;
 
                 for (const auto assimpAnim : std::span(scene.mAnimations, scene.mNumAnimations)) {
@@ -211,6 +228,8 @@ namespace kreogl::AssImp {
     }
 
     std::unique_ptr<AnimatedModel> loadAnimatedModel(const char * file) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         auto importer = std::make_unique<Assimp::Importer>();
 
         const auto scene = importer->ReadFile(file, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals /*| aiProcess_OptimizeMeshes*/ | aiProcess_JoinIdenticalVertices);
@@ -258,6 +277,8 @@ namespace kreogl::AssImp {
     }
 
     std::unique_ptr<AnimationFile> loadAnimationFile(const char * file) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         auto ret = std::make_unique<AssImpAnimationFile>();
 
         ret->importer = std::make_unique<Assimp::Importer>();

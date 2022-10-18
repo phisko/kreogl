@@ -6,8 +6,13 @@
 // stb
 #include "stb_image.h"
 
+// kreogl
+#include "kreogl/impl/kreogl_profiling.hpp"
+
 namespace kreogl {
     SkyboxTexture::SkyboxTexture(const char * left, const char * right, const char * top, const char * bottom, const char * front, const char * back) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         struct ImageFile {
             ImageFile(const char * file) noexcept {
                 data = stbi_load(file, &width, &height, &nrChannels, 0);

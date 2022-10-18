@@ -8,9 +8,12 @@
 #include "kreogl/impl/RAII/ScopedBindFramebuffer.hpp"
 #include "kreogl/impl/shaders/ShaderPipeline.hpp"
 #include "kreogl/impl/shaders/shadowMap/ShadowMapShader.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     SpotLightShader::SpotLightShader() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         init("SpotLightShader");
 
         useWithoutUniformCheck();
@@ -24,12 +27,16 @@ namespace kreogl {
     }
 
     void SpotLightShader::addSourceFiles() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         addSourceFile(PositionProjViewModelGLSL::vert, GL_VERTEX_SHADER);
         addSourceFile(SampleShadowMapGLSL::frag, GL_FRAGMENT_SHADER);
         addSourceFile(SpotLightGLSL::frag, GL_FRAGMENT_SHADER);
     }
 
     std::vector<UniformBase *> SpotLightShader::getUniforms() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         return {
             // PositionProjViewModelGLSL
             &_ppvmGLSL.proj,
@@ -62,6 +69,8 @@ namespace kreogl {
     }
 
     void SpotLightShader::draw(const DrawParams & params) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         useWithoutUniformCheck();
 
         const ScopedGLFeature cull(GL_CULL_FACE);
@@ -118,6 +127,8 @@ namespace kreogl {
     }
 
     void SpotLightShader::updateShadowMap(const SpotLight & light, const DrawParams & params) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         const ScopedBindFramebuffer bind(light.shadowMap.frameBuffer);
         glClear(GL_DEPTH_BUFFER_BIT);
 

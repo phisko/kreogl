@@ -1,8 +1,11 @@
 #include "PolyVox.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl::PolyVox {
     template<typename VertexData>
     Model loadModel(::PolyVox::RawVolume<VertexData> & volume) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         const auto encodedMesh = ::PolyVox::extractCubicMesh(&volume, volume.getEnclosingRegion());
         const auto mesh = ::PolyVox::decodeMesh(encodedMesh);
 
@@ -12,6 +15,8 @@ namespace kreogl::PolyVox {
 
     template<typename VertexData>
     Model loadModel(::PolyVox::RawVolume<VertexData> & volume, const VertexSpecification & vertexSpecification, const std::vector<size_t> & vertexAttributeOffsets) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         const auto encodedMesh = ::PolyVox::extractCubicMesh(&volume, volume.getEnclosingRegion());
         const auto mesh = ::PolyVox::decodeMesh(encodedMesh);
         return loadModel(mesh, vertexSpecification, vertexAttributeOffsets);
@@ -19,6 +24,8 @@ namespace kreogl::PolyVox {
 
     template<typename Mesh>
     Model loadModel(const Mesh & mesh, const VertexSpecification & vertexSpecification, const std::vector<size_t> & vertexAttributeOffsets) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         using VertexType = typename Mesh::VertexType;
         using IndexType = typename Mesh::IndexType;
         static_assert(std::is_same_v<IndexType, unsigned int>);

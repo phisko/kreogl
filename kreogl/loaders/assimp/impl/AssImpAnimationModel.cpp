@@ -9,11 +9,14 @@
 // kreogl
 #include "kreogl/animation/AnimatedObject.hpp"
 #include "kreogl/animation/AnimatedModel.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 #include "AssImpSkeletonModel.hpp"
 #include "AssImpToGLM.hpp"
 
 namespace kreogl {
     void AssImpAnimationModel::tick(float deltaTime, AnimatedObject & object) const noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         assert(assimpAnimation != nullptr);
 
         const auto & animatedModel = static_cast<const AnimatedModel &>(*object.model);
@@ -25,6 +28,8 @@ namespace kreogl {
     }
 
     void AssImpAnimationModel::incrementDeltaTime(float deltaTime, AnimatedObject & object) const noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         object.animation->currentTime += deltaTime * object.animation->speed;
         const auto wrappedTime = fmodf(object.animation->currentTime, totalTime);
         if (wrappedTime < object.animation->currentTime) { // We've looped
@@ -37,6 +42,8 @@ namespace kreogl {
 
     namespace {
         static const aiNodeAnim * getNodeAnim(const aiAnimation * anim, const char * name) noexcept {
+            KREOGL_PROFILING_SCOPE;
+
             for (const auto channel : std::span(anim->mChannels, anim->mNumChannels))
                 if (strcmp(channel->mNodeName.C_Str(), name) == 0)
                     return channel;
@@ -45,6 +52,8 @@ namespace kreogl {
 
         template<typename T>
         static unsigned int findPreviousIndex(T * arr, unsigned int size, float time) noexcept {
+            KREOGL_PROFILING_SCOPE;
+
             for (unsigned i = 0; i < size - 1; ++i) {
                 if (time < (float)arr[i + 1].mTime)
                     return i;
@@ -54,6 +63,8 @@ namespace kreogl {
 
         template<typename T, typename Func>
         static auto calculateInterpolatedValue(T * arr, unsigned int size, float time, Func func) noexcept {
+            KREOGL_PROFILING_SCOPE;
+
             if (size == 1)
                 return toglm(arr[0].mValue);
 
@@ -71,19 +82,24 @@ namespace kreogl {
         }
 
         static glm::vec3 calculateInterpolatedPosition(const aiNodeAnim * nodeAnim, float time) noexcept {
+            KREOGL_PROFILING_SCOPE;
             return calculateInterpolatedValue(nodeAnim->mPositionKeys, nodeAnim->mNumPositionKeys, time, [](const glm::vec3 & v1, const glm::vec3 & v2, float f) noexcept { return glm::mix(v1, v2, f); });
         }
 
         static glm::quat calculateInterpolatedRotation(const aiNodeAnim * nodeAnim, float time) noexcept {
+            KREOGL_PROFILING_SCOPE;
             return calculateInterpolatedValue(nodeAnim->mRotationKeys, nodeAnim->mNumRotationKeys, time, glm::slerp<float, glm::defaultp>);
         }
 
         static glm::vec3 calculateInterpolatedScale(const aiNodeAnim * nodeAnim, float time) noexcept {
+            KREOGL_PROFILING_SCOPE;
             return calculateInterpolatedValue(nodeAnim->mScalingKeys, nodeAnim->mNumScalingKeys, time, [](const glm::vec3 & v1, const glm::vec3 & v2, float f) noexcept { return glm::mix(v1, v2, f); });
         }
     }
 
     void AssImpAnimationModel::updateBoneMats(const aiNode & node, float time, AnimatedObject & object, const glm::mat4 & parentTransform, bool applyMoverBehavior) const noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         glm::mat4 totalTransform = parentTransform * toglm(node.mTransformation);
         if (const auto nodeAnim = getNodeAnim(assimpAnimation, node.mName.C_Str())) {
             glm::mat4 mat{ 1.f };

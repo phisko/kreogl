@@ -4,9 +4,12 @@
 #include "kreogl/Camera.hpp"
 #include "kreogl/World.hpp"
 #include "kreogl/impl/shapes/TexturedQuad.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     SpriteShader::SpriteShader() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         init("SpriteShader");
 
         useWithoutUniformCheck();
@@ -14,12 +17,16 @@ namespace kreogl {
     }
 
     void SpriteShader::addSourceFiles() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         addSourceFile(SpriteGLSL::vert, GL_VERTEX_SHADER);
         addSourceFile(SpriteGLSL::frag, GL_FRAGMENT_SHADER);
         addSourceFile(ApplyTransparencyGLSL::frag, GL_FRAGMENT_SHADER);
     }
 
     std::vector<UniformBase *> SpriteShader::getUniforms() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         return {
             &_glsl.proj,
             &_glsl.view,
@@ -32,6 +39,8 @@ namespace kreogl {
     }
 
     void SpriteShader::draw(const DrawParams & params) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         auto uniformChecker = use(false);
 
         _glsl.viewPos = params.camera.getPosition();
@@ -53,6 +62,8 @@ namespace kreogl {
     }
 
     void SpriteShader::draw(const DrawParams & params, const Sprite & sprite) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         _glsl.model = sprite.transform;
         _glsl.color = sprite.color;
         _glsl.userData = sprite.userData;

@@ -3,10 +3,13 @@
 #include "kreogl/Camera.hpp"
 #include "kreogl/impl/RAII/ScopedBindFramebuffer.hpp"
 #include "kreogl/impl/RAII/ScopedGLFeature.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     template<typename T, typename Func>
     void ShadowMapShader::drawImpl(T & depthMap, Func && draw, const DrawParams & params) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         glViewport(0, 0, depthMap.getSize(), depthMap.getSize());
         glCullFace(GL_FRONT);
 
@@ -25,6 +28,8 @@ namespace kreogl {
     }
 
     void ShadowMapShader::draw(const DirectionalLight & light, const DrawParams & params) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         light.cascadedShadowMap.setSize(light.shadowMapSize);
 
         drawImpl(light.cascadedShadowMap, [&]() noexcept {
@@ -41,6 +46,8 @@ namespace kreogl {
     }
 
     void ShadowMapShader::draw(const SpotLight & light, const DrawParams & params) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         light.shadowMap.setSize(light.shadowMapSize);
 
         drawImpl(light.shadowMap, [&]() noexcept {
