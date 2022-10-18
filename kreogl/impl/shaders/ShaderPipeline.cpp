@@ -3,6 +3,9 @@
 // stl
 #include <algorithm>
 
+// kreogl
+#include "kreogl/impl/kreogl_profiling.hpp"
+
 // shaders
 #ifdef KREOGL_DEFAULT_SHADERS
 // lighting
@@ -37,6 +40,8 @@ namespace kreogl {
 #ifdef KREOGL_DEFAULT_SHADERS
     const ShaderPipeline & ShaderPipeline::getDefaultShaders() noexcept {
         static const ShaderPipeline defaultShaders = []() noexcept {
+            KREOGL_PROFILING_SCOPE;
+
             ShaderPipeline pipeline;
 
             // Lighting
@@ -74,10 +79,14 @@ namespace kreogl {
 #endif
 
     void ShaderPipeline::addShader(ShaderStep step, Shader & shader) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         _shadersPerStep[step].push_back(&shader);
     }
 
     void ShaderPipeline::removeShader(ShaderStep step, const Shader & shader) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         const auto shaders = _shadersPerStep.find(step);
         if (shaders == _shadersPerStep.end())
             return;
@@ -88,6 +97,8 @@ namespace kreogl {
     }
 
     void ShaderPipeline::runShaders(ShaderStep step, const DrawParams & params) const noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         const auto it = _shadersPerStep.find(step);
         if (it == _shadersPerStep.end())
             return;
@@ -98,6 +109,8 @@ namespace kreogl {
     }
 
     const std::vector<Shader *> * ShaderPipeline::getShaders(ShaderStep step) const noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         const auto it = _shadersPerStep.find(step);
         if (it == _shadersPerStep.end())
             return nullptr;

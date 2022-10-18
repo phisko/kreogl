@@ -4,6 +4,7 @@
 #include "kreogl/impl/shaders/helpers/ApplyTransparency/ApplyTransparencyGLSL.hpp"
 #include "kreogl/Camera.hpp"
 #include "kreogl/World.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     namespace {
@@ -12,6 +13,8 @@ namespace kreogl {
     }
 
     SkeletalTexturedShader::SkeletalTexturedShader() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         init("SkeletalTexturedShader");
 
         useWithoutUniformCheck();
@@ -20,12 +23,16 @@ namespace kreogl {
     }
 
     void SkeletalTexturedShader::addSourceFiles() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         addSourceFile(SkeletalGLSL::vert, GL_VERTEX_SHADER);
         addSourceFile(SkeletalGLSL::frag, GL_FRAGMENT_SHADER);
         addSourceFile(ApplyTransparencyGLSL::frag, GL_FRAGMENT_SHADER);
     }
 
     std::vector<UniformBase *> SkeletalTexturedShader::getUniforms() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
          return {
             &_glsl.model,
             &_glsl.view,
@@ -42,6 +49,8 @@ namespace kreogl {
     }
 
     void SkeletalTexturedShader::draw(const DrawParams & params) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         auto uniformChecker = use(false);
         _glsl.view = params.camera.getViewMatrix();
         _glsl.proj = params.camera.getProjMatrix();
@@ -57,10 +66,14 @@ namespace kreogl {
     }
 
     void SkeletalTexturedShader::setMeshUniforms(const AnimatedModel & model, unsigned int meshIndex) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         bindTextures(model.meshTextures[meshIndex]);
     }
 
     void SkeletalTexturedShader::bindTextures(const AnimatedModel::MeshTextures & textures) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         // Diffuse
         const bool hasTexture = !textures.diffuseTextures.empty();
         _glsl.hasTexture = hasTexture;

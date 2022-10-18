@@ -3,9 +3,12 @@
 #include "kreogl/Camera.hpp"
 #include "kreogl/World.hpp"
 #include "kreogl/impl/RAII/ScopedGLFeature.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     SkyboxShader::SkyboxShader() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         init("SkyboxShader");
 
         useWithoutUniformCheck();
@@ -13,11 +16,15 @@ namespace kreogl {
     }
 
     void SkyboxShader::addSourceFiles() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         addSourceFile(SkyboxGLSL::vert, GL_VERTEX_SHADER);
         addSourceFile(SkyboxGLSL::frag, GL_FRAGMENT_SHADER);
     }
 
     std::vector<UniformBase *> SkyboxShader::getUniforms() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         return {
             &_glsl.proj,
             &_glsl.view,
@@ -27,6 +34,8 @@ namespace kreogl {
     }
 
     void SkyboxShader::draw(const DrawParams & params) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         if (!params.world.skybox.texture.texture)
             return;
 
@@ -57,6 +66,8 @@ namespace kreogl {
     }
 
     void SkyboxShader::drawSkyBox() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         static GLuint vao = 0;
         static GLuint vbo;
         if (vao == 0) {

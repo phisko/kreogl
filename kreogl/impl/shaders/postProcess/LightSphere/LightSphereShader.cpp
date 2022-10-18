@@ -4,18 +4,25 @@
 #include "kreogl/World.hpp"
 #include "kreogl/impl/shapes/Sphere.hpp"
 #include "kreogl/impl/RAII/ScopedGLFeature.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     LightSphereShader::LightSphereShader() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         init("LightSphereShader");
     }
 
     void LightSphereShader::addSourceFiles() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         addSourceFile(PositionProjViewModelGLSL::vert, GL_VERTEX_SHADER);
         addSourceFile(ColorGLSL::frag, GL_FRAGMENT_SHADER);
     }
 
     std::vector<UniformBase *> LightSphereShader::getUniforms() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         return {
             &_glsl.proj,
             &_glsl.view,
@@ -25,6 +32,8 @@ namespace kreogl {
     }
 
     void LightSphereShader::draw(const DrawParams & params) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         const ScopedGLFeature depth(GL_DEPTH_TEST);
         const ScopedGLFeature cull(GL_CULL_FACE);
 
@@ -56,6 +65,8 @@ namespace kreogl {
     }
 
     void LightSphereShader::drawLight(const Light & light, const glm::vec3 & pos) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         glm::mat4 model{ 1.f };
         model = glm::translate(model, pos);
         model = glm::scale(model, glm::vec3(light.lightSphereSize));

@@ -3,6 +3,7 @@
 #include <cmath>
 #include <vector>
 #include <GL/glew.h>
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl::shapes {
     namespace {
@@ -48,6 +49,8 @@ namespace kreogl::shapes {
     }
 
     void drawSphere() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         static constexpr auto ndiv = 5;
         static const auto radius = .5f;
 

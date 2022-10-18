@@ -2,9 +2,12 @@
 
 #include <cassert>
 #include "kreogl/impl/RAII/ScopedBindFramebuffer.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     ShadowCube::ShadowCube() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         const ScopedBindFramebuffer bound(frameBuffer);
 
         glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
@@ -26,6 +29,8 @@ namespace kreogl {
     }
 
     void ShadowCube::setSize(int size) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         if (_size == size)
             return;
         _size = size;

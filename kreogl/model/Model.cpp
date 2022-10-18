@@ -1,10 +1,16 @@
 #include "Model.hpp"
 
+// stl
 #include <iostream>
 #include <cassert>
 
+// kreogl
+#include "kreogl/impl/kreogl_profiling.hpp"
+
 namespace kreogl {
     static void registerVertexAttribute(size_t vertexSize, size_t location, const VertexSpecification::Attribute & attribute, std::ptrdiff_t offset) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         // register vertex attributes
 
         glEnableVertexAttribArray((GLuint)location);
@@ -15,6 +21,8 @@ namespace kreogl {
     }
 
     Mesh::Mesh(const MeshData &data, const ModelData & model, const VertexSpecification & vertexSpecification) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         glBindVertexArray(vertexArray);
 
         glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
@@ -33,6 +41,8 @@ namespace kreogl {
     }
 
     void Mesh::draw() const noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         glBindVertexArray(vertexArray);
         glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
         glDrawElements(GL_TRIANGLES, (GLsizei)nbIndices, indexType, nullptr);
@@ -41,12 +51,16 @@ namespace kreogl {
     Model::Model(const VertexSpecification & vertexSpecification, const ModelData &data) noexcept
         : vertexSpecification(vertexSpecification)
     {
+        KREOGL_PROFILING_SCOPE;
+
         meshes.clear();
         for (const auto & meshData : data.meshes)
             meshes.emplace_back(meshData, data, vertexSpecification);
     }
 
     void Model::draw() const noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         for (const auto & mesh : meshes)
             mesh.draw();
     }

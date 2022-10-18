@@ -7,6 +7,7 @@
 #include "kreogl/animation/AnimatedObject.hpp"
 #include "kreogl/loaders/assimp/AssImp.hpp"
 #include "kreogl/loaders/polyvox/PolyVox.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 // polyvox
 #include "PolyVox/RawVolume.h"
@@ -434,6 +435,8 @@ int main(int ac, const char ** av) {
         window.display();
 
         previousTime = now;
+
+        KREOGL_PROFILING_FRAME;
     }
 
     return 0;

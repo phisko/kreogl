@@ -1,9 +1,12 @@
 #include "Line.hpp"
 
 #include <GL/glew.h>
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl::shapes {
     void drawLine(const glm::vec3 & start, const glm::vec3 & end) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         static GLuint vao = -1;
         static GLuint vbo;
 

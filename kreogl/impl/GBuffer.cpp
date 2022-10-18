@@ -5,10 +5,14 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
+#include "kreogl/impl/kreogl_profiling.hpp"
+
 namespace kreogl {
     GBuffer::GBuffer(const glm::ivec2 &size) noexcept
         : _size(size)
     {
+        KREOGL_PROFILING_SCOPE;
+
         _textures.resize((int)Texture::Count);
         _pbos.resize((int)Texture::Count);
 
@@ -42,6 +46,8 @@ namespace kreogl {
     }
 
     void GBuffer::resize(const glm::ivec2 &size) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         if (_size == size)
             return;
 
@@ -70,10 +76,14 @@ namespace kreogl {
     }
 
     void GBuffer::bindForWriting() const noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _frameBuffer);
     }
 
     void GBuffer::bindForReading() const noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         glBindFramebuffer(GL_READ_FRAMEBUFFER, _frameBuffer);
         for (unsigned int i = 0; i < _textures.size(); ++i) {
             glActiveTexture(GL_TEXTURE0 + i);
@@ -83,17 +93,23 @@ namespace kreogl {
     }
 
     GBuffer::MappedTexture::MappedTexture(GLuint pbo) noexcept : _pbo(pbo) {
+        KREOGL_PROFILING_SCOPE;
+
         glBindBuffer(GL_PIXEL_PACK_BUFFER, pbo);
         _data = (const float *)glMapBuffer(GL_PIXEL_PACK_BUFFER, GL_READ_ONLY);
     }
 
     GBuffer::MappedTexture::~MappedTexture() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         glBindBuffer(GL_PIXEL_PACK_BUFFER, _pbo);
         glUnmapBuffer(GL_PIXEL_PACK_BUFFER);
         glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
     }
 
     GBuffer::MappedTexture GBuffer::getMappedTexture(size_t textureIndex) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         auto & pbo = _pbos[textureIndex];
         if (!pbo.init) {
             pbo.init = true;

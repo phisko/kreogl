@@ -8,9 +8,12 @@
 #include "kreogl/impl/RAII/ScopedGLFeature.hpp"
 #include "kreogl/impl/shaders/ShaderPipeline.hpp"
 #include "kreogl/impl/shaders/shadowMap/ShadowCubeShader.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     PointLightShader::PointLightShader() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         init("PointLightShader");
 
 #ifndef NDEBUG
@@ -32,12 +35,16 @@ namespace kreogl {
     }
 
     void PointLightShader::addSourceFiles() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         addSourceFile(PositionProjViewModelGLSL::vert, GL_VERTEX_SHADER);
         addSourceFile(PointLightGLSL::frag, GL_FRAGMENT_SHADER);
         addSourceFile(SampleShadowCubeGLSL::frag, GL_FRAGMENT_SHADER);
     }
 
     std::vector<UniformBase *> PointLightShader::getUniforms() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         return {
             // PositionProjViewModelGLSL
             &_ppvmGLSL.proj,
@@ -68,6 +75,8 @@ namespace kreogl {
     }
 
     void PointLightShader::draw(const DrawParams &params) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         useWithoutUniformCheck();
 
         const ScopedGLFeature cull(GL_CULL_FACE);
@@ -120,6 +129,8 @@ namespace kreogl {
     }
 
     void PointLightShader::updateShadowMap(const PointLight & light, const DrawParams & params) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         const ScopedBindFramebuffer bind(light.shadowCube.frameBuffer);
         glClear(GL_DEPTH_BUFFER_BIT);
 

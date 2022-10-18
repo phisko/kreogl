@@ -1,10 +1,16 @@
 #include "DirectionalLight.hpp"
-#include "kreogl/Camera.hpp"
 
+// stl
 #include <array>
+
+// kreogl
+#include "kreogl/Camera.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     static glm::vec3 getCorrectDirection(const glm::vec3 & dir) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         const auto normalized = glm::normalize(dir);
         return normalized.y == 1.f ?
                glm::vec3(.001f, .999f, 0.f) :
@@ -20,6 +26,8 @@ namespace kreogl {
     };
 
     static CascadeBounds getCascadeBoundsWorldSpace(const glm::mat4 & proj, const glm::mat4 & view) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         const auto inv = glm::inverse(proj * view);
 
         const glm::vec3 ndcCorners[] = {
@@ -50,6 +58,8 @@ namespace kreogl {
 
     // based on https://learnopengl.com/Guest-Articles/2021/CSM
     glm::mat4 DirectionalLight::getLightSpaceMatrixForCascade(const DrawParams & params, size_t index) const noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         const auto nearPlane = index == 0 ? params.camera.getNearPlane() : std::max(params.camera.getNearPlane(), cascadeEnds[index - 1]);
         const auto farPlane = std::min(params.camera.getFarPlane(), cascadeEnds[index]);
 

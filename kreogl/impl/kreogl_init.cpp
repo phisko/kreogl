@@ -7,8 +7,13 @@
 // stl
 #include <iostream>
 
+// kreogl
+#include "kreogl/impl/kreogl_profiling.hpp"
+
 namespace kreogl {
     bool initGLFW() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         static bool s_isInit = false;
         if (s_isInit)
             return true;
@@ -27,6 +32,8 @@ namespace kreogl {
     }
 
     bool initGlew() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         static bool s_isInit = false;
         if (s_isInit)
             return true;

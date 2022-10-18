@@ -1,9 +1,12 @@
 #include "Shader.hpp"
 
 #include <iostream>
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     void Shader::init(const std::string & name) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         _program = glCreateProgram();
 #ifndef NDEBUG
         glObjectLabel(GL_PROGRAM, _program, (GLsizei)name.size(), name.c_str());
@@ -15,6 +18,8 @@ namespace kreogl {
     }
 
     void Shader::addSourceFile(const char *glsl, GLenum type) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         const auto shader = glCreateShader(type);
         glShaderSource(shader, 1, &glsl, nullptr);
         glCompileShader(shader);
@@ -40,6 +45,8 @@ namespace kreogl {
 
 #ifndef NDEBUG
     Shader::UniformUseChecker::~UniformUseChecker() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         if (!shouldCheck)
             return;
 
@@ -50,6 +57,8 @@ namespace kreogl {
 #endif
 
     Shader::UniformUseChecker Shader::use(bool shouldCheck) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         useWithoutUniformCheck();
         return {
 #ifndef NDEBUG
@@ -60,10 +69,14 @@ namespace kreogl {
     }
 
     void Shader::useWithoutUniformCheck() const noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         glUseProgram(_program);
     }
 
     void Shader::link() const noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         glLinkProgram(_program);
 #ifndef NDEBUG
         {
@@ -82,6 +95,8 @@ namespace kreogl {
     }
 
     void Shader::getUniformLocations() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         for (const auto uniform: _uniforms) {
             uniform->location = glGetUniformLocation(_program, uniform->name.c_str());
 #ifndef NDEBUG

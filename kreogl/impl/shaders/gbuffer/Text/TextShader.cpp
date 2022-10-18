@@ -5,9 +5,12 @@
 #include "kreogl/Camera.hpp"
 #include "kreogl/World.hpp"
 #include "FontLibrary.hpp"
+#include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
     TextShader::TextShader() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         init("TextShader");
 
         useWithoutUniformCheck();
@@ -23,12 +26,16 @@ namespace kreogl {
     }
 
     void TextShader::addSourceFiles() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         addSourceFile(TextGLSL::vert, GL_VERTEX_SHADER);
         addSourceFile(TextGLSL::frag, GL_FRAGMENT_SHADER);
         addSourceFile(ApplyTransparencyGLSL::frag, GL_FRAGMENT_SHADER);
     }
 
     std::vector<UniformBase *> TextShader::getUniforms() noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         return {
             &_glsl.model,
             &_glsl.view,
@@ -41,6 +48,8 @@ namespace kreogl {
     }
 
     void TextShader::draw(const DrawParams & params) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         auto uniformChecker = use(false);
 
         _glsl.viewPos = params.camera.getPosition();
@@ -65,6 +74,8 @@ namespace kreogl {
     }
 
     void TextShader::draw(const DrawParams & params, const Text & text) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
         auto & fontFamily = _fonts.getFontFamily(text.font);
         const auto font = fontFamily.getFont(text.fontSize);
         if (!font) {
