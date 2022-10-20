@@ -37,13 +37,15 @@ file(GLOB src
 # shaders
 option(KREOGL_DEFAULT_SHADERS "Enable kreogl default shaders" ON)
 if (KREOGL_DEFAULT_SHADERS)
-	add_compile_definitions(KREOGL_DEFAULT_SHADERS)
 	file(GLOB_RECURSE shadersSrc kreogl/impl/shaders/*/*.cpp kreogl/impl/shaders/*/*.hpp)
 	set(src ${src} ${shadersSrc})
 endif()
 
 add_library(kreogl STATIC ${src})
 target_include_directories(kreogl PUBLIC .)
+if (KREOGL_DEFAULT_SHADERS)
+	target_compile_definitions(kreogl PUBLIC KREOGL_DEFAULT_SHADERS)
+endif()
 
 # dependencies
 putils_conan(
