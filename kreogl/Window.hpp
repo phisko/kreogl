@@ -7,6 +7,7 @@
 #include "Camera.hpp"
 
 #include "kreogl/impl/shaders/ShaderPipeline.hpp"
+#include "kreogl/impl/RAII/WindowHandle.hpp"
 
 struct GLFWwindow;
 
@@ -23,8 +24,8 @@ namespace kreogl {
             ConstructionParams() noexcept {}
         };
 
-        Window(const ConstructionParams & params = ConstructionParams{}) noexcept;
-        ~Window() noexcept;
+        Window(const ConstructionParams & params = {}) noexcept;
+        Window(GLFWwindow & glfwWindow) noexcept;
 
         // base API
     public:
@@ -49,14 +50,15 @@ namespace kreogl {
         const std::vector<const Camera *> & getCameras() const noexcept { return _cameras; }
 
     public:
-        GLFWwindow * getGLFWwindow() const noexcept { return _glfwWindow; }
+        GLFWwindow * getGLFWwindow() const noexcept { return _glfwWindow.window; }
 
     private:
+        void init(GLFWwindow * glfwWindow) noexcept;
         void blitViewport(const Viewport & viewport) const noexcept;
 
     private:
-        glm::ivec2 _size;
-        GLFWwindow * _glfwWindow;
+        glm::ivec2 _size = { 0, 0 };
+        WindowHandle _glfwWindow;
 
     private:
         // cameras
