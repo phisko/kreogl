@@ -19,6 +19,7 @@ namespace kreogl {
 
         MoverBehavior positionMoverBehavior = MoverBehavior::UpdateBones;
         MoverBehavior rotationMoverBehavior = MoverBehavior::UpdateBones;
+        MoverBehavior scaleMoverBehavior = MoverBehavior::None;
 
         struct MovementUpToFrame {
             glm::vec3 position{ 0.f };

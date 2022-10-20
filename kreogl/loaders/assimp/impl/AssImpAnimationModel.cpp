@@ -142,7 +142,18 @@ namespace kreogl {
                         break;
                 }
 
-                mat = glm::scale(mat, scale);
+                switch (object.animation->scaleMoverBehavior) {
+                    case Animation::MoverBehavior::UpdateTransform: {
+                        break;
+                    }
+                    case Animation::MoverBehavior::UpdateBones: {
+                        mat = glm::scale(mat, scale);
+                        break;
+                    }
+                    case Animation::MoverBehavior::None:
+                    default:
+                        break;
+                }
 
                 movementUpToLastFrame = {
                     .position = posInWorldSpace,
