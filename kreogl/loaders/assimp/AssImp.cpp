@@ -227,6 +227,12 @@ namespace kreogl::AssImp {
         };
     }
 
+    bool isSupportedFileFormat(const char * file) noexcept {
+        Assimp::Importer importer;
+        const auto extension = std::filesystem::path(file).extension().string();
+        return importer.IsExtensionSupported(extension);
+    }
+
     std::unique_ptr<AnimatedModel> loadAnimatedModel(const char * file) noexcept {
         KREOGL_PROFILING_SCOPE;
 
