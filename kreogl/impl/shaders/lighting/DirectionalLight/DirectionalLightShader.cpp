@@ -90,7 +90,7 @@ namespace kreogl {
             if (light->castShadows)
                 updateShadowMap(*light, params);
 
-            const auto uniformChecker = use();
+            useWithoutUniformCheck(); // All cascades might not be used
             _glsl.color = light->color;
             _glsl.direction = light->direction;
             _glsl.ambientStrength = light->ambientStrength;
