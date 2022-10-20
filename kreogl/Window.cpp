@@ -31,23 +31,28 @@ namespace kreogl {
 
         // TODO: add fullscreen param
 
-        _glfwWindow = glfwCreateWindow(params.size.x, params.size.y, params.name, nullptr, nullptr);
-        glfwSetWindowAspectRatio(_glfwWindow, params.size.x, params.size.y);
+        init(glfwCreateWindow(params.size.x, params.size.y, params.name, nullptr, nullptr));
+    }
 
+    Window::Window(GLFWwindow & glfwWindow) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
+        init(&glfwWindow);
+    }
+
+    void Window::init(GLFWwindow * glfwWindow) noexcept {
+        KREOGL_PROFILING_SCOPE;
+
+        _glfwWindow.window = glfwWindow;
+        glfwGetWindowSize(_glfwWindow, &_size.x, &_size.y);
         glfwMakeContextCurrent(_glfwWindow);
-
         initGlew();
-
         _defaultCamera = std::make_unique<Camera>(Camera::ConstructionParams{
             .viewport = {
-                .resolution = params.size
+                .resolution = _size
             }
         });
         _cameras.emplace_back(_defaultCamera.get());
-    }
-
-    Window::~Window() noexcept {
-        glfwDestroyWindow(_glfwWindow);
     }
 
     void Window::draw(const World & world, const ShaderPipeline & shaderPipeline) noexcept {
