@@ -41,20 +41,24 @@ namespace kreogl {
         // Perhaps we're drawing the sphere "backwards"?
         glCullFace(GL_FRONT);
 
-        const auto uniformChecker = use();
+        auto uniformChecker = use(false);
 
         _glsl.proj = params.camera.getProjMatrix();
         _glsl.view = params.camera.getViewMatrix();
 
         for (const auto light : params.world.getDirectionalLights()) {
+            uniformChecker.shouldCheck = true;
             const auto pos = params.camera.getPosition() - light->direction * light->lightSphereDistance;
             drawLight(*light, pos);
         }
 
-        for (const auto light : params.world.getPointLights())
+        for (const auto light : params.world.getPointLights()) {
+            uniformChecker.shouldCheck = true;
             drawLight(*light, light->position);
+        }
 
         for (const auto light : params.world.getSpotLights()) {
+            uniformChecker.shouldCheck = true;
             const auto lightToCamera = light->position - params.camera.getPosition();
             const bool towardsCamera = glm::dot(lightToCamera, light->direction) < 0;
             if (towardsCamera)

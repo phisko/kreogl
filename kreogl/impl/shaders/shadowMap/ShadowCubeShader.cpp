@@ -38,7 +38,7 @@ namespace kreogl {
         const ScopedBindFramebuffer bound(light.shadowCube.frameBuffer);
         const ScopedGLFeature depth(GL_DEPTH_TEST);
 
-        const auto uniformChecker = use();
+        useWithoutUniformCheck(); // We'd need to pass the checker to drawObjects
 
         static struct {
             glm::vec3 target;
