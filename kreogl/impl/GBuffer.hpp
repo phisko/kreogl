@@ -46,6 +46,9 @@ namespace kreogl {
         const kreogl::Texture & getTexture(Texture texture) const noexcept { return _textures[(int)texture]; }
         GLuint getFrameBuffer() const noexcept { return _frameBuffer; }
 
+	public:
+		static constexpr auto TEXTURE_COMPONENTS = 4;
+
     private:
         FrameBuffer _frameBuffer;
         kreogl::Texture _depthTexture;
