@@ -66,7 +66,7 @@ namespace kreogl {
         for (const auto & pbo : _pbos) {
             if (!pbo.init)
                 continue;
-            const auto pixelSize = _size.x * _size.y * sizeof(float) * 4 /*GL_RGBA32F*/;
+            const auto pixelSize = _size.x * _size.y * sizeof(float) * TEXTURE_COMPONENTS /*GL_RGBA32F*/;
             glBindBuffer(GL_PIXEL_PACK_BUFFER, pbo.forRead);
             glBufferData(GL_PIXEL_PACK_BUFFER, pixelSize, 0, GL_STREAM_READ);
             glBindBuffer(GL_PIXEL_PACK_BUFFER, pbo.forWrite);
@@ -114,7 +114,7 @@ namespace kreogl {
         if (!pbo.init) {
             pbo.init = true;
 
-            const auto size = _size.x * _size.y * sizeof(float) * 4 /*GL_RGBA*/;
+            const auto size = _size.x * _size.y * sizeof(float) * TEXTURE_COMPONENTS /*GL_RGBA*/;
             glBindBuffer(GL_PIXEL_PACK_BUFFER, pbo.forRead);
             glBufferData(GL_PIXEL_PACK_BUFFER, GLsizeiptr(size), nullptr, GL_STREAM_READ);
             glBindBuffer(GL_PIXEL_PACK_BUFFER, pbo.forWrite);
