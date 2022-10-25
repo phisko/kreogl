@@ -107,10 +107,10 @@ namespace kreogl {
         glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
     }
 
-    GBuffer::MappedTexture GBuffer::getMappedTexture(size_t textureIndex) noexcept {
+    GBuffer::MappedTexture GBuffer::getMappedTexture(Texture texture) noexcept {
         KREOGL_PROFILING_SCOPE;
 
-        auto & pbo = _pbos[textureIndex];
+        auto & pbo = _pbos[int(texture)];
         if (!pbo.init) {
             pbo.init = true;
 
@@ -126,7 +126,7 @@ namespace kreogl {
 
             std::swap(pbo.forRead.get(), pbo.forWrite.get());
 
-            glBindTexture(GL_TEXTURE_2D, _textures[textureIndex]);
+            glBindTexture(GL_TEXTURE_2D, _textures[int(texture)]);
             glBindBuffer(GL_PIXEL_PACK_BUFFER, pbo.forWrite);
             glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_FLOAT, nullptr);
         }

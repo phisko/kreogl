@@ -40,7 +40,7 @@ namespace kreogl {
             const float * _data;
         };
 
-        MappedTexture getMappedTexture(size_t textureIndex) noexcept;
+        MappedTexture getMappedTexture(Texture texture) noexcept;
 
     public:
         const kreogl::Texture & getTexture(Texture texture) const noexcept { return _textures[(int)texture]; }
