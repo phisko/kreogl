@@ -40,7 +40,7 @@ namespace kreogl {
             const float * _data;
         };
 
-        MappedTexture getMappedTexture(Texture texture) noexcept;
+        MappedTexture getMappedTexture(Texture texture) const noexcept;
 
     public:
         const kreogl::Texture & getTexture(Texture texture) const noexcept { return _textures[(int)texture]; }
@@ -62,6 +62,6 @@ namespace kreogl {
             bool init = false;
             mutable bool upToDate = false; // gets invalidated in bindForReading
         };
-        std::vector<PBO> _pbos;
+        mutable std::vector<PBO> _pbos;
     };
 }

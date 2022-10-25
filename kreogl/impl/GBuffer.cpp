@@ -107,7 +107,7 @@ namespace kreogl {
         glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
     }
 
-    GBuffer::MappedTexture GBuffer::getMappedTexture(Texture texture) noexcept {
+    GBuffer::MappedTexture GBuffer::getMappedTexture(Texture texture) const noexcept {
         KREOGL_PROFILING_SCOPE;
 
         auto & pbo = _pbos[int(texture)];
