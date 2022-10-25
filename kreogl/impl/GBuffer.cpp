@@ -133,4 +133,12 @@ namespace kreogl {
 
         return MappedTexture{ pbo.forRead };
     }
+
+	glm::vec4 GBuffer::readPixel(GBuffer::Texture texture, const glm::ivec2 & pixel) const noexcept {
+		assert(pixel.x >= 0 && pixel.x < _size.x && pixel.y >= 0 && pixel.y < _size.y);
+		const auto indexForPixel = (pixel.x + (_size.y - pixel.y) * _size.x) * TEXTURE_COMPONENTS;
+		const auto mappedTexture = getMappedTexture(texture);
+		const auto pixelData = mappedTexture.getData() + indexForPixel;
+		return { pixelData[0], pixelData[1], pixelData[2], pixelData[3] };
+	}
 }

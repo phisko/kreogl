@@ -42,6 +42,8 @@ namespace kreogl {
 
         MappedTexture getMappedTexture(Texture texture) const noexcept;
 
+		glm::vec4 readPixel(Texture texture, const glm::ivec2 & pixel) const noexcept;
+
     public:
         const kreogl::Texture & getTexture(Texture texture) const noexcept { return _textures[(int)texture]; }
         GLuint getFrameBuffer() const noexcept { return _frameBuffer; }
