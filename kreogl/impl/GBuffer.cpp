@@ -116,9 +116,9 @@ namespace kreogl {
 
             const auto size = _size.x * _size.y * sizeof(float) * 4 /*GL_RGBA*/;
             glBindBuffer(GL_PIXEL_PACK_BUFFER, pbo.forRead);
-            glBufferData(GL_PIXEL_PACK_BUFFER, size, nullptr, GL_STREAM_READ);
+            glBufferData(GL_PIXEL_PACK_BUFFER, GLsizeiptr(size), nullptr, GL_STREAM_READ);
             glBindBuffer(GL_PIXEL_PACK_BUFFER, pbo.forWrite);
-            glBufferData(GL_PIXEL_PACK_BUFFER, size, nullptr, GL_STREAM_READ);
+            glBufferData(GL_PIXEL_PACK_BUFFER, GLsizeiptr(size), nullptr, GL_STREAM_READ);
         }
 
         if (!pbo.upToDate) {
