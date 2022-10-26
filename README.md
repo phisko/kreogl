@@ -14,7 +14,11 @@ Now that I'm relatively satisfied with the final result (although it's far from 
 
 ## Usage
 
-Take a look at the [example code](example/main.cpp), which makes use of most available features. The example can be built by setting the `KREOGL_EXAMPLE` CMake option.
+Take a look at the [example code](example). There are two examples:
+* [a simple one](example/simple_main.cpp) which shows how to quickly draw and animate a model
+* [a more complex one](example/complex_main.cpp), which makes use of most available features but may be a bit harder to follow
+
+The examples can be built by setting the `KREOGL_EXAMPLE` CMake option.
 
 ## API
 
