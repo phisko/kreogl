@@ -48,6 +48,9 @@ namespace kreogl {
         glEnable(GL_DEBUG_OUTPUT);
         glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
         glDebugMessageCallback([](GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, const void * userParam) {
+			if (id == 131154) // Pixel-path performance warning: Pixel transfer is synchronized with 3D rendering
+				return;
+
             const char * severityString;
             if (severity == GL_DEBUG_SEVERITY_MEDIUM)
                 severityString = "warning";
