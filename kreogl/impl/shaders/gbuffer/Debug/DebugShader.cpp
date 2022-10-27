@@ -55,7 +55,7 @@ namespace kreogl {
 
             switch (element->type) {
                 case DebugElement::Type::Line:
-                    kreogl::shapes::drawLine(glm::vec3{ 0.f }, element->lineEnd);
+                    kreogl::shapes::drawLine(element->lineStart, element->lineEnd);
                     break;
                 case DebugElement::Type::Sphere:
                     kreogl::shapes::drawSphere();

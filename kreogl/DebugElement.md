@@ -48,10 +48,11 @@ glm::vec4 userData{ 0.f };
 
 The user data to be written to the [GBuffer](impl/GBuffer.md).
 
-### lineEnd
+### lineStart, lineEnd
 
 ```cpp
+glm::vec3 lineStart{ 0.f, 0.f, 0.f };
 glm::vec3 lineEnd{ 0.f, 0.f, 1.f };
 ```
 
-The end point to be used when drawing a `Line`-type element.
+The start and end points (relative to `transform`) to be used when drawing a `Line`-type element.
