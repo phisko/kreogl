@@ -14,7 +14,6 @@ namespace kreogl {
         KREOGL_PROFILING_SCOPE;
 
         _textures.resize((int)Texture::Count);
-        _pbos.resize((int)Texture::Count);
 
         std::vector<GLenum> attachments;
 
@@ -62,17 +61,6 @@ namespace kreogl {
 
         glBindTexture(GL_TEXTURE_2D, _depthTexture);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, size.x, size.y, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
-
-        for (const auto & pbo : _pbos) {
-            if (!pbo.init)
-                continue;
-            const auto pixelSize = _size.x * _size.y * sizeof(float) * TEXTURE_COMPONENTS /*GL_RGBA32F*/;
-            glBindBuffer(GL_PIXEL_PACK_BUFFER, pbo.forRead);
-            glBufferData(GL_PIXEL_PACK_BUFFER, pixelSize, 0, GL_STREAM_READ);
-            glBindBuffer(GL_PIXEL_PACK_BUFFER, pbo.forWrite);
-            glBufferData(GL_PIXEL_PACK_BUFFER, pixelSize, 0, GL_STREAM_READ);
-            glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
-        }
     }
 
     void GBuffer::bindForWriting() const noexcept {
@@ -88,57 +76,30 @@ namespace kreogl {
         for (unsigned int i = 0; i < _textures.size(); ++i) {
             glActiveTexture(GL_TEXTURE0 + i);
             glBindTexture(GL_TEXTURE_2D, _textures[i]);
-            _pbos[i].upToDate = false;
         }
     }
 
-    GBuffer::MappedTexture::MappedTexture(GLuint pbo) noexcept : _pbo(pbo) {
-        KREOGL_PROFILING_SCOPE;
+	void GBuffer::getTextureContent(GBuffer::Texture texture, void * content) const noexcept {
+		KREOGL_PROFILING_SCOPE;
 
-        glBindBuffer(GL_PIXEL_PACK_BUFFER, pbo);
-        _data = (const float *)glMapBuffer(GL_PIXEL_PACK_BUFFER, GL_READ_ONLY);
-    }
-
-    GBuffer::MappedTexture::~MappedTexture() noexcept {
-        KREOGL_PROFILING_SCOPE;
-
-        glBindBuffer(GL_PIXEL_PACK_BUFFER, _pbo);
-        glUnmapBuffer(GL_PIXEL_PACK_BUFFER);
-        glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
-    }
-
-    GBuffer::MappedTexture GBuffer::getMappedTexture(Texture texture) const noexcept {
-        KREOGL_PROFILING_SCOPE;
-
-        auto & pbo = _pbos[int(texture)];
-        if (!pbo.init) {
-            pbo.init = true;
-
-            const auto size = _size.x * _size.y * sizeof(float) * TEXTURE_COMPONENTS /*GL_RGBA*/;
-            glBindBuffer(GL_PIXEL_PACK_BUFFER, pbo.forRead);
-            glBufferData(GL_PIXEL_PACK_BUFFER, GLsizeiptr(size), nullptr, GL_STREAM_READ);
-            glBindBuffer(GL_PIXEL_PACK_BUFFER, pbo.forWrite);
-            glBufferData(GL_PIXEL_PACK_BUFFER, GLsizeiptr(size), nullptr, GL_STREAM_READ);
-        }
-
-        if (!pbo.upToDate) {
-            pbo.upToDate = true;
-
-            std::swap(pbo.forRead.get(), pbo.forWrite.get());
-
-            glBindTexture(GL_TEXTURE_2D, _textures[int(texture)]);
-            glBindBuffer(GL_PIXEL_PACK_BUFFER, pbo.forWrite);
-            glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_FLOAT, nullptr);
-        }
-
-        return MappedTexture{ pbo.forRead };
-    }
+		// Profiling results:
+		// 		glReadPixels: 1ms
+		//		glGetTexImage: 3.5ms
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, _frameBuffer);
+		glReadBuffer(GL_COLOR_ATTACHMENT0 + int(texture));
+		glReadPixels(0, 0, _size.x, _size.y, GL_RGBA, GL_FLOAT, content);
+	}
 
 	glm::vec4 GBuffer::readPixel(GBuffer::Texture texture, const glm::ivec2 & pixel) const noexcept {
+		KREOGL_PROFILING_SCOPE;
+
 		assert(pixel.x >= 0 && pixel.x < _size.x && pixel.y >= 0 && pixel.y < _size.y);
-		const auto indexForPixel = (pixel.x + (_size.y - pixel.y) * _size.x) * TEXTURE_COMPONENTS;
-		const auto mappedTexture = getMappedTexture(texture);
-		const auto pixelData = mappedTexture.getData() + indexForPixel;
-		return { pixelData[0], pixelData[1], pixelData[2], pixelData[3] };
+
+		static std::vector<glm::vec4> pixels;
+		pixels.resize(_size.x * _size.y);
+		getTextureContent(texture, pixels.data());
+
+		const auto pixelIndex = pixel.x + (_size.y - pixel.y) * _size.x;
+		return pixels[pixelIndex];
 	}
 }

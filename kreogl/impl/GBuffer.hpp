@@ -23,25 +23,14 @@ namespace kreogl {
 
     public:
         void resize(const glm::ivec2 & size) noexcept;
+		const glm::ivec2 & getSize() const noexcept { return _size; }
 
     public:
         void bindForWriting() const noexcept;
         void bindForReading() const noexcept;
 
     public:
-        struct MappedTexture {
-            MappedTexture(GLuint pbo) noexcept;
-            ~MappedTexture() noexcept;
-
-            const float * getData() const noexcept { return _data; }
-
-        private:
-            GLuint _pbo;
-            const float * _data;
-        };
-
-        MappedTexture getMappedTexture(Texture texture) const noexcept;
-
+		void getTextureContent(Texture texture, void * content) const noexcept;
 		glm::vec4 readPixel(Texture texture, const glm::ivec2 & pixel) const noexcept;
 
     public:
@@ -57,13 +46,5 @@ namespace kreogl {
         glm::ivec2 _size;
 
         std::vector<kreogl::Texture> _textures;
-
-        struct PBO {
-            Buffer forWrite;
-            Buffer forRead;
-            bool init = false;
-            mutable bool upToDate = false; // gets invalidated in bindForReading
-        };
-        mutable std::vector<PBO> _pbos;
     };
 }
