@@ -1,7 +1,7 @@
 #include "ColorGLSL.hpp"
 
 namespace kreogl {
-    const char * ColorGLSL::frag = R"(
+	const char * ColorGLSL::frag = R"(
 #version 330
 
 uniform vec4 color;

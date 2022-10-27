@@ -1,7 +1,7 @@
 #include "ApplyTransparencyGLSL.hpp"
 
 namespace kreogl {
-    const char * ApplyTransparencyGLSL::frag = R"(
+	const char * ApplyTransparencyGLSL::frag = R"(
 #version 330
 
 void applyTransparency(float alpha) {

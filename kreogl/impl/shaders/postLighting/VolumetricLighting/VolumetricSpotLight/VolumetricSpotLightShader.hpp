@@ -8,18 +8,18 @@
 #include "kreogl/impl/shaders/postLighting/VolumetricLighting/VolumetricLightingGLSL.hpp"
 
 namespace kreogl {
-    class VolumetricSpotLightShader : public Shader, public Singleton<VolumetricSpotLightShader> {
-    public:
-        VolumetricSpotLightShader() noexcept;
+	class VolumetricSpotLightShader : public Shader, public Singleton<VolumetricSpotLightShader> {
+	public:
+		VolumetricSpotLightShader() noexcept;
 
-    private:
-        void draw(const DrawParams & params) noexcept override;
-        void addSourceFiles() noexcept override;
-        std::vector<UniformBase *> getUniforms() noexcept override;
+	private:
+		void draw(const DrawParams & params) noexcept override;
+		void addSourceFiles() noexcept override;
+		std::vector<UniformBase *> getUniforms() noexcept override;
 
-    private:
-        VolumetricLightingGLSL _glsl;
-        PointLightGLSL::GetDirection _pointLightGLSL;
-        SampleShadowMapGLSL _shadowMapGLSL;
-    };
+	private:
+		VolumetricLightingGLSL _glsl;
+		PointLightGLSL::GetDirection _pointLightGLSL;
+		SampleShadowMapGLSL _shadowMapGLSL;
+	};
 }

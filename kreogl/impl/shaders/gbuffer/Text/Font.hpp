@@ -14,29 +14,29 @@
 #include "kreogl/impl/RAII/Texture.hpp"
 
 namespace kreogl {
-    class Font {
-    public:
-        Font(const char * file, size_t size) noexcept;
+	class Font {
+	public:
+		Font(const char * file, size_t size) noexcept;
 
-        struct Character {
-            Texture texture;
-            glm::ivec2 size;
-            glm::ivec2 bearing;
-            GLuint advance;
-        };
+		struct Character {
+			Texture texture;
+			glm::ivec2 size;
+			glm::ivec2 bearing;
+			GLuint advance;
+		};
 
-        const Character * getCharacter(unsigned long c) noexcept;
-        glm::vec2 getSizeAndGenerateCharacters(const std::string & text, float scaleX, float scaleY) noexcept;
+		const Character * getCharacter(unsigned long c) noexcept;
+		glm::vec2 getSizeAndGenerateCharacters(const std::string & text, float scaleX, float scaleY) noexcept;
 
-    private:
-        FT_Face face = nullptr;
-        std::unordered_map<unsigned long, Character> characters;
+	private:
+		FT_Face face = nullptr;
+		std::unordered_map<unsigned long, Character> characters;
 
-        struct FreeTypeLibrary {
-            ~FreeTypeLibrary() noexcept;
-            FT_Library library;
-        };
+		struct FreeTypeLibrary {
+			~FreeTypeLibrary() noexcept;
+			FT_Library library;
+		};
 
-        static FreeTypeLibrary g_freetypeLibrary;
-    };
+		static FreeTypeLibrary g_freetypeLibrary;
+	};
 }

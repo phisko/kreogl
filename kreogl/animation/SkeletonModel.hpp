@@ -4,13 +4,13 @@
 #include <vector>
 
 namespace kreogl {
-    struct SkeletonModel {
-        virtual ~SkeletonModel() noexcept = default;
+	struct SkeletonModel {
+		virtual ~SkeletonModel() noexcept = default;
 
-        struct Mesh {
-            std::vector<std::string> boneNames;
-        };
+		struct Mesh {
+			std::vector<std::string> boneNames;
+		};
 
-        std::vector<Mesh> meshes;
-    };
+		std::vector<Mesh> meshes;
+	};
 }

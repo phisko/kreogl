@@ -4,16 +4,16 @@
 #include "kreogl/impl/RAII/Texture.hpp"
 
 namespace kreogl {
-    struct ShadowCube {
-        ShadowCube() noexcept;
+	struct ShadowCube {
+		ShadowCube() noexcept;
 
-        FrameBuffer frameBuffer;
-        Texture texture;
+		FrameBuffer frameBuffer;
+		Texture texture;
 
-        void setSize(int size) noexcept;
-        int getSize() const noexcept { return _size; }
+		void setSize(int size) noexcept;
+		int getSize() const noexcept { return _size; }
 
-    private:
-        int _size = -1;
-    };
+	private:
+		int _size = -1;
+	};
 }

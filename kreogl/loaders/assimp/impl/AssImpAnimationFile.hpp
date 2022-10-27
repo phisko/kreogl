@@ -10,7 +10,7 @@
 #include "kreogl/animation/AnimationFile.hpp"
 
 namespace kreogl {
-    struct AssImpAnimationFile : AnimationFile {
-        std::unique_ptr<Assimp::Importer> importer = nullptr;
-    };
+	struct AssImpAnimationFile : AnimationFile {
+		std::unique_ptr<Assimp::Importer> importer = nullptr;
+	};
 }

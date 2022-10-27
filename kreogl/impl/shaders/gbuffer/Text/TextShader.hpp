@@ -11,22 +11,22 @@
 #include "kreogl/impl/RAII/VertexArray.hpp"
 
 namespace kreogl {
-    class TextShader : public Shader, public Singleton<TextShader> {
-    public:
-        TextShader() noexcept;
+	class TextShader : public Shader, public Singleton<TextShader> {
+	public:
+		TextShader() noexcept;
 
-    private:
-        void draw(const DrawParams & params) noexcept override;
-        void addSourceFiles() noexcept override;
-        std::vector<UniformBase *> getUniforms() noexcept override;
+	private:
+		void draw(const DrawParams & params) noexcept override;
+		void addSourceFiles() noexcept override;
+		std::vector<UniformBase *> getUniforms() noexcept override;
 
-    private:
-        void draw(const DrawParams & params, const Text & text) noexcept;
+	private:
+		void draw(const DrawParams & params, const Text & text) noexcept;
 
-    private:
-        TextGLSL _glsl;
-        Buffer _vbo;
-        VertexArray _vao;
-        FontLibrary _fonts;
-    };
+	private:
+		TextGLSL _glsl;
+		Buffer _vbo;
+		VertexArray _vao;
+		FontLibrary _fonts;
+	};
 }

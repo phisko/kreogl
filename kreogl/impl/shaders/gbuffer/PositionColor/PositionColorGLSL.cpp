@@ -1,7 +1,7 @@
 #include "PositionColorGLSL.hpp"
 
 namespace kreogl {
-    const char * PositionColorGLSL::vert = R"(
+	const char * PositionColorGLSL::vert = R"(
 #version 330
 
 layout (location = 0) in vec3 position;
@@ -24,7 +24,7 @@ void main() {
 	gl_Position = proj * view * WorldPosition;
 })";
 
-    const char * PositionColorGLSL::frag = R"(
+	const char * PositionColorGLSL::frag = R"(
 #version 330
 
 in vec4 WorldPosition;

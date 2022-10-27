@@ -7,10 +7,10 @@
 #include "Animation.hpp"
 
 namespace kreogl {
-    struct AnimatedObject : Object {
-        Skeleton skeleton;
-        std::optional<Animation> animation;
+	struct AnimatedObject : Object {
+		Skeleton skeleton;
+		std::optional<Animation> animation;
 
-        void tickAnimation(float deltaTime) noexcept;
-    };
+		void tickAnimation(float deltaTime) noexcept;
+	};
 }

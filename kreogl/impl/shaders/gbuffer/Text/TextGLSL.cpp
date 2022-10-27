@@ -1,7 +1,7 @@
 #include "TextGLSL.hpp"
 
 namespace kreogl {
-    const char * TextGLSL::vert = R"(
+	const char * TextGLSL::vert = R"(
 #version 330 core
 
 layout (location = 0) in vec4 vertex; // vec2 pos, vec2 tex
@@ -23,7 +23,7 @@ void main() {
     gl_Position = proj * view * WorldPosition;
 })";
 
-    const char * TextGLSL::frag = R"(
+	const char * TextGLSL::frag = R"(
 #version 330 core
 
 uniform sampler2D tex;

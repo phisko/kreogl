@@ -1,7 +1,7 @@
 #include "VolumetricLightingGLSL.hpp"
 
 namespace kreogl {
-    const char * VolumetricLightingGLSL::frag = R"(
+	const char * VolumetricLightingGLSL::frag = R"(
 #version 330
 
 uniform sampler2D gposition;

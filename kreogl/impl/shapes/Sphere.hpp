@@ -1,5 +1,5 @@
 #pragma once
 
 namespace kreogl::shapes {
-    void drawSphere() noexcept;
+	void drawSphere() noexcept;
 }

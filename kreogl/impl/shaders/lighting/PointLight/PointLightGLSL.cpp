@@ -1,7 +1,7 @@
 #include "PointLightGLSL.hpp"
 
 namespace kreogl {
-    const char * PointLightGLSL::frag = R"(
+	const char * PointLightGLSL::frag = R"(
 #version 330
 
 uniform sampler2D gposition;
@@ -66,7 +66,7 @@ void main() {
 	outputColor = vec4(calcPointLight(worldPos, normal, diffuse, specular), 1.0);
 })";
 
-    const char * PointLightGLSL::GetDirection::frag = R"(
+	const char * PointLightGLSL::GetDirection::frag = R"(
 #version 330
 
 uniform vec3 position;

@@ -4,21 +4,21 @@
 #include "kreogl/impl/shadowMaps/ShadowCube.hpp"
 
 namespace kreogl {
-    struct ShadowCubeGLSL {
-        static const char * geom;
+	struct ShadowCubeGLSL {
+		static const char * geom;
 
-        Uniform<glm::mat4> lightSpaceMatrices[6];
+		Uniform<glm::mat4> lightSpaceMatrices[6];
 
-        static const char * frag;
+		static const char * frag;
 
-        Uniform<glm::vec3> lightPos{ "lightPos" };
-        Uniform<float> farPlane{ "farPlane" };
+		Uniform<glm::vec3> lightPos{ "lightPos" };
+		Uniform<float> farPlane{ "farPlane" };
 
-        ShadowCubeGLSL() noexcept {
-            for (size_t i = 0; i < 6; ++i) {
-                const auto index = std::to_string(i);
-                lightSpaceMatrices[i].name = "lightSpaceMatrices[" + index + "]";
-            }
-        }
-    };
+		ShadowCubeGLSL() noexcept {
+			for (size_t i = 0; i < 6; ++i) {
+				const auto index = std::to_string(i);
+				lightSpaceMatrices[i].name = "lightSpaceMatrices[" + index + "]";
+			}
+		}
+	};
 }

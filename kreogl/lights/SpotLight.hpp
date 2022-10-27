@@ -5,13 +5,13 @@
 #include "kreogl/impl/DrawParams.hpp"
 
 namespace kreogl {
-    struct SpotLight : PointLight {
-        glm::vec3 direction;
-        float cutOff = .91f;
-        float outerCutOff = .82f;
+	struct SpotLight : PointLight {
+		glm::vec3 direction;
+		float cutOff = .91f;
+		float outerCutOff = .82f;
 
-        mutable ShadowMap shadowMap;
+		mutable ShadowMap shadowMap;
 
-        glm::mat4 getLightSpaceMatrix() const noexcept;
-    };
+		glm::mat4 getLightSpaceMatrix() const noexcept;
+	};
 }

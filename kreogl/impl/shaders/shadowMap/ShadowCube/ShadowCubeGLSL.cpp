@@ -1,7 +1,7 @@
 #include "ShadowCubeGLSL.hpp"
 
 namespace kreogl {
-    const char * ShadowCubeGLSL::geom = R"(
+	const char * ShadowCubeGLSL::geom = R"(
 #version 330
 
 layout (triangles) in;
@@ -23,7 +23,7 @@ void main() {
 }
 )";
 
-    const char * ShadowCubeGLSL::frag = R"(
+	const char * ShadowCubeGLSL::frag = R"(
 #version 330
 
 in vec4 FragPos;

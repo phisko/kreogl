@@ -6,13 +6,13 @@
 #include "kreogl/Object.hpp"
 
 namespace kreogl {
-    class SkeletalShader {
-    public:
-        void uploadDefaultBones() noexcept;
-        void drawObject(const Object & object) noexcept;
-        virtual void setMeshUniforms(const AnimatedModel & model, unsigned int meshIndex) noexcept {}
+	class SkeletalShader {
+	public:
+		void uploadDefaultBones() noexcept;
+		void drawObject(const Object & object) noexcept;
+		virtual void setMeshUniforms(const AnimatedModel & model, unsigned int meshIndex) noexcept {}
 
-    protected:
-        SkeletalGLSL _glsl;
-    };
+	protected:
+		SkeletalGLSL _glsl;
+	};
 }

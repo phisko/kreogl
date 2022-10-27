@@ -1,7 +1,7 @@
 #include "DirectionalLightGLSL.hpp"
 
 namespace kreogl {
-    const char * DirectionalLightGLSL::frag = R"(
+	const char * DirectionalLightGLSL::frag = R"(
 #version 330
 
 uniform sampler2D gposition;
@@ -84,7 +84,7 @@ void main() {
 	}
 })";
 
-    const char * DirectionalLightGLSL::GetDirection::frag = R"(
+	const char * DirectionalLightGLSL::GetDirection::frag = R"(
 #version 330
 
 uniform vec3 direction;

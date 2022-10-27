@@ -10,16 +10,16 @@
 #include <assimp/scene.h>
 
 namespace kreogl {
-    struct AssImpSkeletonModel : SkeletonModel {
-        struct Mesh {
-            struct Bone {
-                const aiNode * node = nullptr;
-                glm::mat4 offset{ 1.f };
-            };
-            std::vector<Bone> bones;
-        };
+	struct AssImpSkeletonModel : SkeletonModel {
+		struct Mesh {
+			struct Bone {
+				const aiNode * node = nullptr;
+				glm::mat4 offset{ 1.f };
+			};
+			std::vector<Bone> bones;
+		};
 
-        const aiNode * rootNode = nullptr;
-        std::vector<Mesh> assimpMeshes;
-    };
+		const aiNode * rootNode = nullptr;
+		std::vector<Mesh> assimpMeshes;
+	};
 }
