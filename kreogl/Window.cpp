@@ -58,20 +58,30 @@ namespace kreogl {
     void Window::draw(const World & world, const ShaderPipeline & shaderPipeline) noexcept {
         KREOGL_PROFILING_SCOPE;
 
-        glfwMakeContextCurrent(_glfwWindow);
+		prepareForDraw();
+        for (const auto camera : _cameras)
+			drawWorldToCamera(world, *camera, shaderPipeline);
+    }
+
+	void Window::prepareForDraw() noexcept {
+		KREOGL_PROFILING_SCOPE;
+
+		glfwMakeContextCurrent(_glfwWindow);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        std::ranges::sort(_cameras, [](const Camera * lhs, const Camera * rhs) noexcept {
-            return lhs->getViewport().getZOrder() < rhs->getViewport().getZOrder();
-        });
+		std::ranges::sort(_cameras, [](const Camera * lhs, const Camera * rhs) noexcept {
+			return lhs->getViewport().getZOrder() < rhs->getViewport().getZOrder();
+		});
+	}
 
-        for (const auto camera : _cameras) {
-            const auto & viewport = camera->getViewport();
-            viewport.draw({ world, *camera, shaderPipeline });
-            blitViewport(viewport);
-        }
-    }
+	void Window::drawWorldToCamera(const World & world, const Camera & camera, const ShaderPipeline & shaderPipeline) noexcept {
+		KREOGL_PROFILING_SCOPE;
+
+		const auto & viewport = camera.getViewport();
+		viewport.draw({ world, camera, shaderPipeline });
+		blitViewport(viewport);
+	}
 
     void Window::display() const noexcept {
         KREOGL_PROFILING_SCOPE;

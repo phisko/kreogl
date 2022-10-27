@@ -70,3 +70,20 @@ GLFWwindow * getGLFWwindow() const noexcept;
 
 Returns the handle to the underlying GLFW window.
 
+## Detailed draw functions
+
+### prepareForDraw
+
+```cpp
+void prepareForDraw() noexcept;
+```
+
+Runs the premilinary steps to draw a new frame.
+
+### drawWorldToCamera
+
+```cpp
+void drawWorldToCamera(const class World & world, const Camera & camera, const ShaderPipeline & shaderPipeline = ShaderPipeline::getDefaultShaders()) noexcept;
+```
+
+Draws `world` into `camera` and blits its viewport onto the screen.

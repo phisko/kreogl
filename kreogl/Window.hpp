@@ -42,6 +42,18 @@ namespace kreogl {
         // polls events for all windows
         static void pollEvents() noexcept;
 
+        // detailed draw
+    public:
+        void prepareForDraw() noexcept;
+        void drawWorldToCamera(
+            const class World & world,
+            const Camera & camera,
+            const ShaderPipeline & shaderPipeline
+#ifdef KREOGL_DEFAULT_SHADERS
+            = ShaderPipeline::getDefaultShaders()
+#endif
+        ) noexcept;
+
         // cameras
     public:
         Camera & getDefaultCamera() noexcept { return *_defaultCamera; }
