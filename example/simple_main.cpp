@@ -17,7 +17,8 @@ int main(int ac, const char ** av) {
 	window.getDefaultCamera().setPosition({ 0.f, 0.f, -5.f }); // Move the camera back to see the centered scene
 
 	kreogl::World world; // The world that will be used to draw into the window
-	world.skybox.texture = kreogl::SkyboxTexture{ // Set the skybox
+
+	const kreogl::SkyboxTexture skyboxTexture{ // Load the skybox
 		"resources/skybox/left.jpg",
 		"resources/skybox/right.jpg",
 		"resources/skybox/top.jpg",
@@ -25,6 +26,7 @@ int main(int ac, const char ** av) {
 		"resources/skybox/front.jpg",
 		"resources/skybox/back.jpg",
 	};
+	world.skybox.texture = &skyboxTexture; // Add it to the world
 
 	kreogl::DirectionalLight light; // Create a light
 	world.add(light); // Add it to the world
