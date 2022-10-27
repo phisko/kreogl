@@ -36,7 +36,7 @@ namespace kreogl {
     void SkyboxShader::draw(const DrawParams & params) noexcept {
         KREOGL_PROFILING_SCOPE;
 
-        if (!params.world.skybox.texture.texture)
+        if (!params.world.skybox.texture || !params.world.skybox.texture->texture)
             return;
 
         const auto uniformChecker = use();
@@ -59,7 +59,7 @@ namespace kreogl {
 
         _glsl.color = params.world.skybox.color;
 
-        glBindTexture(GL_TEXTURE_CUBE_MAP, *params.world.skybox.texture.texture);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, *params.world.skybox.texture->texture);
         drawSkyBox();
 
         glDepthFunc(GL_LESS);

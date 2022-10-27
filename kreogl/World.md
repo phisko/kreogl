@@ -39,7 +39,7 @@ This is because `Object`s are mapped according to their [model](model/Model.md)'
 
 ```cpp
 struct Skybox {
-	SkyboxTexture texture;
+	const SkyboxTexture * texture = nullptr;
 	glm::vec4 color{ 1.f };
 };
 Skybox skybox;
