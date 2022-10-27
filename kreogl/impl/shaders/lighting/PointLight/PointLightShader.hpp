@@ -8,21 +8,21 @@
 #include "kreogl/impl/shaders/Singleton.hpp"
 
 namespace kreogl {
-    class PointLightShader : public Shader, public Singleton<PointLightShader> {
-    public:
-        PointLightShader() noexcept;
+	class PointLightShader : public Shader, public Singleton<PointLightShader> {
+	public:
+		PointLightShader() noexcept;
 
-    private:
-        void draw(const DrawParams & params) noexcept override;
-        void addSourceFiles() noexcept override;
-        std::vector<UniformBase *> getUniforms() noexcept override;
+	private:
+		void draw(const DrawParams & params) noexcept override;
+		void addSourceFiles() noexcept override;
+		std::vector<UniformBase *> getUniforms() noexcept override;
 
-    private:
-        void updateShadowMap(const struct PointLight & light, const DrawParams & params) noexcept;
+	private:
+		void updateShadowMap(const struct PointLight & light, const DrawParams & params) noexcept;
 
-    private:
-        PositionProjViewModelGLSL _ppvmGLSL;
-        PointLightGLSL _glsl;
-        SampleShadowCubeGLSL _shadowCubeGLSL;
-    };
+	private:
+		PositionProjViewModelGLSL _ppvmGLSL;
+		PointLightGLSL _glsl;
+		SampleShadowCubeGLSL _shadowCubeGLSL;
+	};
 }

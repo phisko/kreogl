@@ -1,7 +1,7 @@
 #include "SkyboxGLSL.hpp"
 
 namespace kreogl {
-    const char * SkyboxGLSL::vert = R"(
+	const char * SkyboxGLSL::vert = R"(
 #version 330 core
 layout (location = 0) in vec3 pos;
 
@@ -16,7 +16,7 @@ void main() {
     gl_Position = projectedPos.xyww;
 })";
 
-    const char * SkyboxGLSL::frag = R"(
+	const char * SkyboxGLSL::frag = R"(
 #version 330 core
 out vec4 FragColor;
 

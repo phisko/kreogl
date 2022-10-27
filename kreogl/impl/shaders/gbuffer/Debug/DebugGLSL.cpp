@@ -1,9 +1,9 @@
 #include "DebugGLSL.hpp"
 
 namespace kreogl {
-    // Copied from PositionColorGLSL::vert
-    // Removed the `color` vertex attribute and output
-    const char * DebugGLSL::vert = R"(
+	// Copied from PositionColorGLSL::vert
+	// Removed the `color` vertex attribute and output
+	const char * DebugGLSL::vert = R"(
 #version 330
 
 layout (location = 0) in vec3 position;
@@ -23,11 +23,11 @@ void main() {
 	gl_Position = proj * view * WorldPosition;
 })";
 
-    // Copied from PositionColorGLSL::frag
-    // Removed the `color` input
-    // Set ShouldIgnoreLighting to 1
-    // Set specular to 0
-    const char * DebugGLSL::frag = R"(
+	// Copied from PositionColorGLSL::frag
+	// Removed the `color` input
+	// Set ShouldIgnoreLighting to 1
+	// Set specular to 0
+	const char * DebugGLSL::frag = R"(
 #version 330
 
 in vec4 WorldPosition;

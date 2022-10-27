@@ -7,6 +7,6 @@
 #include "kreogl/impl/shaders/ShaderStep.hpp"
 
 namespace kreogl {
-    bool initGLFW() noexcept;
-    bool initGlew() noexcept;
+	bool initGLFW() noexcept;
+	bool initGlew() noexcept;
 }

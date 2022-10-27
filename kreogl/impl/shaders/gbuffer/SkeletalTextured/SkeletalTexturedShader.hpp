@@ -7,17 +7,17 @@
 #include "kreogl/animation/AnimatedModel.hpp"
 
 namespace kreogl {
-    class SkeletalTexturedShader : public Shader, public SkeletalShader, public Singleton<SkeletalTexturedShader> {
-    public:
-        SkeletalTexturedShader() noexcept;
+	class SkeletalTexturedShader : public Shader, public SkeletalShader, public Singleton<SkeletalTexturedShader> {
+	public:
+		SkeletalTexturedShader() noexcept;
 
-    private:
-        void draw(const DrawParams & params) noexcept override;
-        void addSourceFiles() noexcept override;
-        std::vector<UniformBase *> getUniforms() noexcept override;
+	private:
+		void draw(const DrawParams & params) noexcept override;
+		void addSourceFiles() noexcept override;
+		std::vector<UniformBase *> getUniforms() noexcept override;
 
-    private:
-        void setMeshUniforms(const AnimatedModel & model, unsigned int meshIndex) noexcept override;
-        void bindTextures(const AnimatedModel::MeshTextures & textures) noexcept;
-    };
+	private:
+		void setMeshUniforms(const AnimatedModel & model, unsigned int meshIndex) noexcept override;
+		void bindTextures(const AnimatedModel::MeshTextures & textures) noexcept;
+	};
 }

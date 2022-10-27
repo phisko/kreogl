@@ -4,21 +4,20 @@ project(kreogl HOMEPAGE_URL "https://github.com/phisko/kreogl")
 cmake_policy(VERSION 3.13) # options shouldn't clear variables
 
 set(CMAKE_CXX_STANDARD 20)
-if (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DNOMINMAX")
+
+if(MSVC)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DNOMINMAX")
 endif()
 
 #
 # CMake helpers
 #
-
 add_subdirectory(cmake_helpers)
 include(conan_helper)
 
 #
 # Library
 #
-
 file(GLOB src
 	kreogl/*.cpp kreogl/*.hpp
 	kreogl/animation/*.cpp kreogl/animation/*.hpp
@@ -36,14 +35,16 @@ file(GLOB src
 
 # shaders
 option(KREOGL_DEFAULT_SHADERS "Enable kreogl default shaders" ON)
-if (KREOGL_DEFAULT_SHADERS)
+
+if(KREOGL_DEFAULT_SHADERS)
 	file(GLOB_RECURSE shadersSrc kreogl/impl/shaders/*/*.cpp kreogl/impl/shaders/*/*.hpp)
 	set(src ${src} ${shadersSrc})
 endif()
 
 add_library(kreogl STATIC ${src})
 target_include_directories(kreogl PUBLIC .)
-if (KREOGL_DEFAULT_SHADERS)
+
+if(KREOGL_DEFAULT_SHADERS)
 	target_compile_definitions(kreogl PUBLIC KREOGL_DEFAULT_SHADERS)
 endif()
 
@@ -71,22 +72,24 @@ target_include_directories(kreogl PUBLIC third_party/polyvox/include)
 
 # profiling
 option(KREOGL_PROFILING OFF)
-if (KREOGL_PROFILING)
+
+if(KREOGL_PROFILING)
 	add_compile_definitions(KREOGL_PROFILING TRACY_ENABLE)
 
 	include(FetchContent)
 	FetchContent_Declare(
-			tracy
-			GIT_REPOSITORY https://github.com/wolfpld/tracy
-			GIT_TAG v0.8.2.1 # Oct 15 2022
-			GIT_PROGRESS TRUE
-			GIT_SHALLOW TRUE
+		tracy
+		GIT_REPOSITORY https://github.com/wolfpld/tracy
+		GIT_TAG v0.8.2.1 # Oct 15 2022
+		GIT_PROGRESS TRUE
+		GIT_SHALLOW TRUE
 	)
 	FetchContent_MakeAvailable(tracy)
 	target_link_libraries(kreogl PUBLIC TracyClient)
 endif()
 
 option(KREOGL_EXAMPLE OFF)
-if (KREOGL_EXAMPLE)
-    add_subdirectory(example)
+
+if(KREOGL_EXAMPLE)
+	add_subdirectory(example)
 endif()

@@ -5,16 +5,16 @@
 #include "kreogl/impl/shaders/Singleton.hpp"
 
 namespace kreogl {
-    class PositionColorShader : public Shader, public Singleton<PositionColorShader> {
+	class PositionColorShader : public Shader, public Singleton<PositionColorShader> {
 	public:
-        PositionColorShader() noexcept;
+		PositionColorShader() noexcept;
 
-    private:
-        void draw(const DrawParams & params) noexcept override;
-        void addSourceFiles() noexcept override;
-        std::vector<UniformBase *> getUniforms() noexcept override;
+	private:
+		void draw(const DrawParams & params) noexcept override;
+		void addSourceFiles() noexcept override;
+		std::vector<UniformBase *> getUniforms() noexcept override;
 
-    private:
-        PositionColorGLSL _glsl;
-    };
+	private:
+		PositionColorGLSL _glsl;
+	};
 }

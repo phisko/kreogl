@@ -10,63 +10,63 @@
 #include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
-    DebugShader::DebugShader() noexcept {
-        KREOGL_PROFILING_SCOPE;
+	DebugShader::DebugShader() noexcept {
+		KREOGL_PROFILING_SCOPE;
 
-        init("DebugShader");
-    }
+		init("DebugShader");
+	}
 
-    void DebugShader::addSourceFiles() noexcept {
-        KREOGL_PROFILING_SCOPE;
+	void DebugShader::addSourceFiles() noexcept {
+		KREOGL_PROFILING_SCOPE;
 
-        addSourceFile(DebugGLSL::vert, GL_VERTEX_SHADER);
-        addSourceFile(DebugGLSL::frag, GL_FRAGMENT_SHADER);
-        addSourceFile(ApplyTransparencyGLSL::frag, GL_FRAGMENT_SHADER);
-    }
+		addSourceFile(DebugGLSL::vert, GL_VERTEX_SHADER);
+		addSourceFile(DebugGLSL::frag, GL_FRAGMENT_SHADER);
+		addSourceFile(ApplyTransparencyGLSL::frag, GL_FRAGMENT_SHADER);
+	}
 
-    std::vector<UniformBase *> DebugShader::getUniforms() noexcept {
-        KREOGL_PROFILING_SCOPE;
+	std::vector<UniformBase *> DebugShader::getUniforms() noexcept {
+		KREOGL_PROFILING_SCOPE;
 
-        return {
-            &_glsl.proj,
-            &_glsl.view,
-            &_glsl.model,
-            &_glsl.viewPos,
-            &_glsl.color,
-            &_glsl.userData
-        };
-    }
+		return {
+			&_glsl.proj,
+			&_glsl.view,
+			&_glsl.model,
+			&_glsl.viewPos,
+			&_glsl.color,
+			&_glsl.userData
+		};
+	}
 
-    void DebugShader::draw(const DrawParams & params) noexcept {
-        KREOGL_PROFILING_SCOPE;
+	void DebugShader::draw(const DrawParams & params) noexcept {
+		KREOGL_PROFILING_SCOPE;
 
-        auto uniformChecker = use(false);
+		auto uniformChecker = use(false);
 
-        _glsl.view = params.camera.getViewMatrix();
-        _glsl.proj = params.camera.getProjMatrix();
-        _glsl.viewPos = params.camera.getPosition();
+		_glsl.view = params.camera.getViewMatrix();
+		_glsl.proj = params.camera.getProjMatrix();
+		_glsl.viewPos = params.camera.getPosition();
 
-        for (const auto element : params.world.getDebugElements()) {
-            uniformChecker.shouldCheck = true;
+		for (const auto element : params.world.getDebugElements()) {
+			uniformChecker.shouldCheck = true;
 
-            _glsl.model = element->transform;
-            _glsl.color = element->color;
-            _glsl.userData = element->userData;
+			_glsl.model = element->transform;
+			_glsl.color = element->color;
+			_glsl.userData = element->userData;
 
-            switch (element->type) {
-                case DebugElement::Type::Line:
-                    kreogl::shapes::drawLine(element->lineStart, element->lineEnd);
-                    break;
-                case DebugElement::Type::Sphere:
-                    kreogl::shapes::drawSphere();
-                    break;
-                case DebugElement::Type::Box:
-                    kreogl::shapes::drawBox();
-                    break;
-                default:
-                    assert(false); // Non-exhaustive switch
-                    break;
-            }
-        }
-    }
+			switch (element->type) {
+				case DebugElement::Type::Line:
+					kreogl::shapes::drawLine(element->lineStart, element->lineEnd);
+					break;
+				case DebugElement::Type::Sphere:
+					kreogl::shapes::drawSphere();
+					break;
+				case DebugElement::Type::Box:
+					kreogl::shapes::drawBox();
+					break;
+				default:
+					assert(false); // Non-exhaustive switch
+					break;
+			}
+		}
+	}
 }

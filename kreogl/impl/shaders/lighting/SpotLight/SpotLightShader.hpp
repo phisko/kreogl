@@ -9,21 +9,21 @@
 #include "kreogl/impl/shaders/shadowMap/sample/SampleShadowMap/SampleShadowMapGLSL.hpp"
 
 namespace kreogl {
-    class SpotLightShader : public Shader, public Singleton<SpotLightShader> {
-    public:
-        SpotLightShader() noexcept;
+	class SpotLightShader : public Shader, public Singleton<SpotLightShader> {
+	public:
+		SpotLightShader() noexcept;
 
-    private:
-        void draw(const DrawParams & params) noexcept override;
-        void addSourceFiles() noexcept override;
-        std::vector<UniformBase *> getUniforms() noexcept override;
+	private:
+		void draw(const DrawParams & params) noexcept override;
+		void addSourceFiles() noexcept override;
+		std::vector<UniformBase *> getUniforms() noexcept override;
 
-    private:
-        void updateShadowMap(const struct SpotLight & light, const DrawParams & params) noexcept;
+	private:
+		void updateShadowMap(const struct SpotLight & light, const DrawParams & params) noexcept;
 
-    private:
-        SpotLightGLSL _glsl;
-        PositionProjViewModelGLSL _ppvmGLSL;
-        SampleShadowMapGLSL _shadowMapGLSL;
-    };
+	private:
+		SpotLightGLSL _glsl;
+		PositionProjViewModelGLSL _ppvmGLSL;
+		SampleShadowMapGLSL _shadowMapGLSL;
+	};
 }

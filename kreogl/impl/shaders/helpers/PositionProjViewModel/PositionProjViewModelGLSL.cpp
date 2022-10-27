@@ -1,7 +1,7 @@
 #include "PositionProjViewModelGLSL.hpp"
 
-namespace kreogl{
-    const char * PositionProjViewModelGLSL::vert = R"(
+namespace kreogl {
+	const char * PositionProjViewModelGLSL::vert = R"(
 #version 330
 
 layout (location = 0) in vec3 position;

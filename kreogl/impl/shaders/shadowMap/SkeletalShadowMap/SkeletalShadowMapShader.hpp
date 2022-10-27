@@ -5,13 +5,13 @@
 #include "kreogl/impl/shaders/Singleton.hpp"
 
 namespace kreogl {
-    class SkeletalShadowMapShader : public ShadowMapShader, public SkeletalShader, public Singleton<SkeletalShadowMapShader> {
-    public:
-        SkeletalShadowMapShader() noexcept;
+	class SkeletalShadowMapShader : public ShadowMapShader, public SkeletalShader, public Singleton<SkeletalShadowMapShader> {
+	public:
+		SkeletalShadowMapShader() noexcept;
 
-    private:
-        void addSourceFiles() noexcept override;
-        std::vector<UniformBase *> getUniforms() noexcept override;
-        void drawToTexture(GLuint texture, const glm::mat4 & lightSpaceMatrix, const DrawParams & params) noexcept override;
-    };
+	private:
+		void addSourceFiles() noexcept override;
+		std::vector<UniformBase *> getUniforms() noexcept override;
+		void drawToTexture(GLuint texture, const glm::mat4 & lightSpaceMatrix, const DrawParams & params) noexcept override;
+	};
 }

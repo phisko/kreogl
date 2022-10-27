@@ -1,7 +1,7 @@
 #include "SampleShadowCubeGLSL.hpp"
 
 namespace kreogl {
-    const char * SampleShadowCubeGLSL::frag = R"(
+	const char * SampleShadowCubeGLSL::frag = R"(
 #version 330
 
 uniform samplerCube shadowMap;

@@ -6,19 +6,19 @@
 #include "SkyboxGLSL.hpp"
 
 namespace kreogl {
-    class SkyboxShader : public Shader, public Singleton<SkyboxShader> {
-    public:
-        SkyboxShader() noexcept;
+	class SkyboxShader : public Shader, public Singleton<SkyboxShader> {
+	public:
+		SkyboxShader() noexcept;
 
-    private:
-        void draw(const DrawParams & params) noexcept override;
-        void addSourceFiles() noexcept override;
-        std::vector<UniformBase *> getUniforms() noexcept override;
+	private:
+		void draw(const DrawParams & params) noexcept override;
+		void addSourceFiles() noexcept override;
+		std::vector<UniformBase *> getUniforms() noexcept override;
 
-    private:
-        void drawSkyBox() noexcept;
+	private:
+		void drawSkyBox() noexcept;
 
-    private:
-        SkyboxGLSL _glsl;
-    };
+	private:
+		SkyboxGLSL _glsl;
+	};
 }

@@ -5,11 +5,11 @@
 #include "FontFamily.hpp"
 
 namespace kreogl {
-    class FontLibrary {
-    public:
-        FontFamily & getFontFamily(const std::string & file) noexcept;
+	class FontLibrary {
+	public:
+		FontFamily & getFontFamily(const std::string & file) noexcept;
 
-    private:
-        std::unordered_map<std::string, FontFamily> _fonts;
-    };
+	private:
+		std::unordered_map<std::string, FontFamily> _fonts;
+	};
 }

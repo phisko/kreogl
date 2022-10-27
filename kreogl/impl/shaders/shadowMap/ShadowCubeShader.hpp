@@ -7,21 +7,21 @@
 #include "kreogl/impl/shaders/shadowMap/ShadowCube/ShadowCubeGLSL.hpp"
 
 namespace kreogl {
-    class ShadowCubeShader : public Shader {
-    protected:
-        virtual void drawObjects(const DrawParams & params) noexcept = 0;
+	class ShadowCubeShader : public Shader {
+	protected:
+		virtual void drawObjects(const DrawParams & params) noexcept = 0;
 
-    public:
-        std::vector<UniformBase *> getUniforms() noexcept override;
-        virtual void addSourceFiles() noexcept override;
+	public:
+		std::vector<UniformBase *> getUniforms() noexcept override;
+		virtual void addSourceFiles() noexcept override;
 
-    public:
-        void draw(const PointLight & light, const DrawParams & params) noexcept;
+	public:
+		void draw(const PointLight & light, const DrawParams & params) noexcept;
 
-    private:
-        void draw(const DrawParams & params) noexcept final {}
+	private:
+		void draw(const DrawParams & params) noexcept final {}
 
-    private:
-        ShadowCubeGLSL _glsl;
-    };
+	private:
+		ShadowCubeGLSL _glsl;
+	};
 }

@@ -4,7 +4,7 @@
 #define MACRO_AS_STRING(macro) MACRO_AS_STRING_IMPL(macro)
 
 namespace kreogl {
-    const char * SkeletalGLSL::vert = R"(
+	const char * SkeletalGLSL::vert = R"(
 #version 330
 
 layout (location = 0) in vec3 position;
@@ -37,7 +37,7 @@ void main() {
 	gl_Position = proj * view * WorldPosition;
 })";
 
-    const char * SkeletalGLSL::frag = R"(
+	const char * SkeletalGLSL::frag = R"(
 #version 330
 
 in vec4 WorldPosition;

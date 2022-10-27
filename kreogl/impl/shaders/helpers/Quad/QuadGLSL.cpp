@@ -1,7 +1,7 @@
 #include "QuadGLSL.hpp"
 
 namespace kreogl {
-    const char * QuadGLSL::vert = R"(
+	const char * QuadGLSL::vert = R"(
 #version 330
 
 layout (location = 0) in vec3 position;

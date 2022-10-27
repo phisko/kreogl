@@ -1,7 +1,7 @@
 #include "SpotLightGLSL.hpp"
 
 namespace kreogl {
-    const char * SpotLightGLSL::frag = R"(
+	const char * SpotLightGLSL::frag = R"(
 #version 330
 
 uniform sampler2D gposition;

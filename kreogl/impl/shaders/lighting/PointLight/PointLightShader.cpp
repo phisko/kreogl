@@ -11,136 +11,136 @@
 #include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
-    PointLightShader::PointLightShader() noexcept {
-        KREOGL_PROFILING_SCOPE;
+	PointLightShader::PointLightShader() noexcept {
+		KREOGL_PROFILING_SCOPE;
 
-        init("PointLightShader");
+		init("PointLightShader");
 
 #ifndef NDEBUG
-        assert(_glsl.position.location == _shadowCubeGLSL.position.location);
-        _shadowCubeGLSL.position.used = true;
+		assert(_glsl.position.location == _shadowCubeGLSL.position.location);
+		_shadowCubeGLSL.position.used = true;
 
-        assert(_glsl.viewPos.location == _shadowCubeGLSL.viewPos.location);
-        _shadowCubeGLSL.viewPos.used = true;
+		assert(_glsl.viewPos.location == _shadowCubeGLSL.viewPos.location);
+		_shadowCubeGLSL.viewPos.used = true;
 #endif
 
-        useWithoutUniformCheck();
+		useWithoutUniformCheck();
 
-        _glsl.gposition = (int)GBuffer::Texture::Position;
-        _glsl.gnormal = (int)GBuffer::Texture::Normal;
-        _glsl.gdiffuse = (int)GBuffer::Texture::DiffuseAndShouldIgnoreLighting;
-        _glsl.gspecular = (int)GBuffer::Texture::Specular;
+		_glsl.gposition = (int)GBuffer::Texture::Position;
+		_glsl.gnormal = (int)GBuffer::Texture::Normal;
+		_glsl.gdiffuse = (int)GBuffer::Texture::DiffuseAndShouldIgnoreLighting;
+		_glsl.gspecular = (int)GBuffer::Texture::Specular;
 
-        _shadowCubeGLSL.shadowMap = (int)GBuffer::Texture::Count;
-    }
+		_shadowCubeGLSL.shadowMap = (int)GBuffer::Texture::Count;
+	}
 
-    void PointLightShader::addSourceFiles() noexcept {
-        KREOGL_PROFILING_SCOPE;
+	void PointLightShader::addSourceFiles() noexcept {
+		KREOGL_PROFILING_SCOPE;
 
-        addSourceFile(PositionProjViewModelGLSL::vert, GL_VERTEX_SHADER);
-        addSourceFile(PointLightGLSL::frag, GL_FRAGMENT_SHADER);
-        addSourceFile(SampleShadowCubeGLSL::frag, GL_FRAGMENT_SHADER);
-    }
+		addSourceFile(PositionProjViewModelGLSL::vert, GL_VERTEX_SHADER);
+		addSourceFile(PointLightGLSL::frag, GL_FRAGMENT_SHADER);
+		addSourceFile(SampleShadowCubeGLSL::frag, GL_FRAGMENT_SHADER);
+	}
 
-    std::vector<UniformBase *> PointLightShader::getUniforms() noexcept {
-        KREOGL_PROFILING_SCOPE;
+	std::vector<UniformBase *> PointLightShader::getUniforms() noexcept {
+		KREOGL_PROFILING_SCOPE;
 
-        return {
-            // PositionProjViewModelGLSL
-            &_ppvmGLSL.proj,
-            &_ppvmGLSL.view,
-            &_ppvmGLSL.model,
-            // PointLightGLSL
-            &_glsl.gposition,
-            &_glsl.gnormal,
-            &_glsl.gdiffuse,
-            &_glsl.gspecular,
-            &_glsl.viewPos,
-            &_glsl.screenSize,
-            &_glsl.color,
-            &_glsl.position,
-            &_glsl.diffuseStrength,
-            &_glsl.specularStrength,
-            &_glsl.attenuationConstant,
-            &_glsl.attenuationLinear,
-            &_glsl.attenuationQuadratic,
-            // SampleShadowCubeGLSL
-            &_shadowCubeGLSL.shadowMap,
-            &_shadowCubeGLSL.position,
-            &_shadowCubeGLSL.viewPos,
-            &_shadowCubeGLSL.farPlane,
-            &_shadowCubeGLSL.minBias,
-            &_shadowCubeGLSL.maxBias,
-        };
-    }
+		return {
+			// PositionProjViewModelGLSL
+			&_ppvmGLSL.proj,
+			&_ppvmGLSL.view,
+			&_ppvmGLSL.model,
+			// PointLightGLSL
+			&_glsl.gposition,
+			&_glsl.gnormal,
+			&_glsl.gdiffuse,
+			&_glsl.gspecular,
+			&_glsl.viewPos,
+			&_glsl.screenSize,
+			&_glsl.color,
+			&_glsl.position,
+			&_glsl.diffuseStrength,
+			&_glsl.specularStrength,
+			&_glsl.attenuationConstant,
+			&_glsl.attenuationLinear,
+			&_glsl.attenuationQuadratic,
+			// SampleShadowCubeGLSL
+			&_shadowCubeGLSL.shadowMap,
+			&_shadowCubeGLSL.position,
+			&_shadowCubeGLSL.viewPos,
+			&_shadowCubeGLSL.farPlane,
+			&_shadowCubeGLSL.minBias,
+			&_shadowCubeGLSL.maxBias,
+		};
+	}
 
-    void PointLightShader::draw(const DrawParams &params) noexcept {
-        KREOGL_PROFILING_SCOPE;
+	void PointLightShader::draw(const DrawParams & params) noexcept {
+		KREOGL_PROFILING_SCOPE;
 
-        useWithoutUniformCheck();
+		useWithoutUniformCheck();
 
-        const ScopedGLFeature cull(GL_CULL_FACE);
-        const ScopedGLFeature blend(GL_BLEND);
-        glBlendEquation(GL_FUNC_ADD);
-        glBlendFunc(GL_ONE, GL_ONE);
+		const ScopedGLFeature cull(GL_CULL_FACE);
+		const ScopedGLFeature blend(GL_BLEND);
+		glBlendEquation(GL_FUNC_ADD);
+		glBlendFunc(GL_ONE, GL_ONE);
 
-        _glsl.screenSize = params.camera.getViewport().getResolution();
-        _glsl.viewPos = params.camera.getPosition();
-        assert(_shadowCubeGLSL.viewPos.location == _glsl.viewPos.location); // If this fails, we need to explicitly set both uniforms
+		_glsl.screenSize = params.camera.getViewport().getResolution();
+		_glsl.viewPos = params.camera.getPosition();
+		assert(_shadowCubeGLSL.viewPos.location == _glsl.viewPos.location); // If this fails, we need to explicitly set both uniforms
 
-        glActiveTexture((GLenum)(GL_TEXTURE0 + (int)GBuffer::Texture::Count));
+		glActiveTexture((GLenum)(GL_TEXTURE0 + (int)GBuffer::Texture::Count));
 
-        for (const auto light : params.world.getPointLights()) {
-            if (light->castShadows)
-                updateShadowMap(*light, params);
+		for (const auto light : params.world.getPointLights()) {
+			if (light->castShadows)
+				updateShadowMap(*light, params);
 
-            const auto radius = light->getRadius();
-            if (glm::length(params.camera.getPosition() - light->position) < radius)
-                glCullFace(GL_BACK);
-            else
-                glCullFace(GL_FRONT);
+			const auto radius = light->getRadius();
+			if (glm::length(params.camera.getPosition() - light->position) < radius)
+				glCullFace(GL_BACK);
+			else
+				glCullFace(GL_FRONT);
 
-            const auto uniformChecker = use();
+			const auto uniformChecker = use();
 
-            _ppvmGLSL.proj = params.camera.getProjMatrix();
-            _ppvmGLSL.view = params.camera.getViewMatrix();
+			_ppvmGLSL.proj = params.camera.getProjMatrix();
+			_ppvmGLSL.view = params.camera.getViewMatrix();
 
-            glm::mat4 model(1.f);
-            model = glm::translate(model, light->position);
-            model = glm::scale(model, glm::vec3(radius));
-            _ppvmGLSL.model = model;
+			glm::mat4 model(1.f);
+			model = glm::translate(model, light->position);
+			model = glm::scale(model, glm::vec3(radius));
+			_ppvmGLSL.model = model;
 
-            _glsl.color = light->color;
-            _glsl.position = light->position;
-            _glsl.diffuseStrength = light->diffuseStrength;
-            _glsl.specularStrength = light->specularStrength;
-            _glsl.attenuationConstant = light->attenuationConstant;
-            _glsl.attenuationLinear = light->attenuationLinear;
-            _glsl.attenuationQuadratic = light->attenuationQuadratic;
-            _shadowCubeGLSL.farPlane = light->getRadius();
-            _shadowCubeGLSL.minBias = light->shadowMapMinBias;
-            _shadowCubeGLSL.maxBias = light->shadowMapMaxBias;
+			_glsl.color = light->color;
+			_glsl.position = light->position;
+			_glsl.diffuseStrength = light->diffuseStrength;
+			_glsl.specularStrength = light->specularStrength;
+			_glsl.attenuationConstant = light->attenuationConstant;
+			_glsl.attenuationLinear = light->attenuationLinear;
+			_glsl.attenuationQuadratic = light->attenuationQuadratic;
+			_shadowCubeGLSL.farPlane = light->getRadius();
+			_shadowCubeGLSL.minBias = light->shadowMapMinBias;
+			_shadowCubeGLSL.maxBias = light->shadowMapMaxBias;
 
-            glBindTexture(GL_TEXTURE_CUBE_MAP, light->shadowCube.texture);
-            kreogl::shapes::drawSphere();
-        }
+			glBindTexture(GL_TEXTURE_CUBE_MAP, light->shadowCube.texture);
+			kreogl::shapes::drawSphere();
+		}
 
-        glCullFace(GL_BACK);
-    }
+		glCullFace(GL_BACK);
+	}
 
-    void PointLightShader::updateShadowMap(const PointLight & light, const DrawParams & params) noexcept {
-        KREOGL_PROFILING_SCOPE;
+	void PointLightShader::updateShadowMap(const PointLight & light, const DrawParams & params) noexcept {
+		KREOGL_PROFILING_SCOPE;
 
-        const ScopedBindFramebuffer bind(light.shadowCube.frameBuffer);
-        glClear(GL_DEPTH_BUFFER_BIT);
+		const ScopedBindFramebuffer bind(light.shadowCube.frameBuffer);
+		glClear(GL_DEPTH_BUFFER_BIT);
 
-        const auto shaders = params.shaderPipeline.getShaders(ShaderStep::ShadowCube);
-        if (!shaders)
-            return;
+		const auto shaders = params.shaderPipeline.getShaders(ShaderStep::ShadowCube);
+		if (!shaders)
+			return;
 
-        for (const auto shader : *shaders) {
-            const auto shadowCubeShader = static_cast<ShadowCubeShader *>(shader);
-            shadowCubeShader->draw(light, params);
-        }
-    }
+		for (const auto shader : *shaders) {
+			const auto shadowCubeShader = static_cast<ShadowCubeShader *>(shader);
+			shadowCubeShader->draw(light, params);
+		}
+	}
 }

@@ -1,7 +1,7 @@
 #include "SpriteGLSL.hpp"
 
 namespace kreogl {
-    const char * SpriteGLSL::vert = R"(
+	const char * SpriteGLSL::vert = R"(
 #version 330
 
 layout (location = 0) in vec3 position;
@@ -24,7 +24,7 @@ void main() {
 	gl_Position = proj * view * WorldPosition;
 })";
 
-    const char * SpriteGLSL::frag = R"(
+	const char * SpriteGLSL::frag = R"(
 #version 330
 
 uniform sampler2D tex;

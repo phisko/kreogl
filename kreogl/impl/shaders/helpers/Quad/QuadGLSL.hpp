@@ -1,7 +1,7 @@
 #pragma once
 
 namespace kreogl {
-    struct QuadGLSL {
-        static const char * vert;
-    };
+	struct QuadGLSL {
+		static const char * vert;
+	};
 }
