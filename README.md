@@ -20,6 +20,61 @@ Take a look at the [example code](example). There are two examples:
 
 The examples can be built by setting the `KREOGL_EXAMPLE` CMake option.
 
+Below is a snippet of the important parts of the simple example:
+
+```cpp
+kreogl::window window; // create a window
+window.getdefaultcamera().setposition({ 0.f, 0.f, -5.f }); // move the camera back to see the centered scene
+
+kreogl::world world; // the world that will be used to draw into the window
+
+const kreogl::skyboxtexture skyboxtexture{ // load the skybox
+	"resources/skybox/left.jpg",
+	"resources/skybox/right.jpg",
+	"resources/skybox/top.jpg",
+	"resources/skybox/bottom.jpg",
+	"resources/skybox/front.jpg",
+	"resources/skybox/back.jpg",
+};
+world.skybox.texture = &skyboxtexture; // add it to the world
+
+kreogl::directionallight light; // create a light
+world.add(light); // add it to the world
+light.direction = { 0.f, -1.f, -1.f };
+light.castshadows = false; // disable shadows for our scene
+
+const auto model = kreogl::assimp::loadanimatedmodel("resources/funnyman/funnyman.fbx"); // load a 3d model
+assert(model && model->animations.size() == 1);
+
+kreogl::animatedobject object; // create an object
+object.model = model.get(); // base it on the loaded 3d model
+object.transform = glm::translate(glm::mat4{1.f}, glm::vec3{ 0.f, -2.5f, 5.f }); // move it forward and down a bit
+object.transform = glm::rotate(object.transform, glm::pi<float>(), glm::vec3{ 0.f, 1.f, 0.f }); // rotate it to face the camera
+object.animation = kreogl::animation{ // play an animation
+	.model = model->animations[0].get(), // use the animation that was baked into the 3d model
+	.loop = true
+};
+world.add(object); // add the object to the world
+
+// main loop
+auto previoustime = std::chrono::system_clock::now();
+while (!window.shouldclose()) {
+	const auto now = std::chrono::system_clock::now();
+	const auto deltatime = float(std::chrono::duration_cast<std::chrono::milliseconds>(now - previoustime).count()) / 1000.f;
+	previoustime = now;
+
+	object.tickanimation(deltatime); // play the object's animation
+
+	window.pollevents(); // process input
+	window.draw(world); // draw the world into the window
+	window.display(); // present the new window contents
+}
+```
+
+And here's a screenshot of the result:
+
+![](docs/example_simple.png)
+
 ## API
 
 ### High level objects
