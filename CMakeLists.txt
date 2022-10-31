@@ -35,7 +35,6 @@ file(GLOB src
 
 # shaders
 option(KREOGL_DEFAULT_SHADERS "Enable kreogl default shaders" ON)
-
 if(KREOGL_DEFAULT_SHADERS)
 	file(GLOB_RECURSE shadersSrc kreogl/impl/shaders/*/*.cpp kreogl/impl/shaders/*/*.hpp)
 	set(src ${src} ${shadersSrc})
@@ -72,7 +71,6 @@ target_include_directories(kreogl PUBLIC third_party/polyvox/include)
 
 # profiling
 option(KREOGL_PROFILING OFF)
-
 if(KREOGL_PROFILING)
 	add_compile_definitions(KREOGL_PROFILING TRACY_ENABLE)
 
@@ -89,7 +87,6 @@ if(KREOGL_PROFILING)
 endif()
 
 option(KREOGL_EXAMPLE OFF)
-
 if(KREOGL_EXAMPLE)
 	add_subdirectory(example)
 endif()
