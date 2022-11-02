@@ -78,7 +78,7 @@ target_include_directories(kreogl PUBLIC third_party/polyvox/include)
 # profiling
 option(KREOGL_PROFILING OFF)
 if(KREOGL_PROFILING)
-	add_compile_definitions(KREOGL_PROFILING TRACY_ENABLE)
+	target_compile_definitions(kreogl PUBLIC KREOGL_PROFILING TRACY_ENABLE)
 
 	include(FetchContent)
 	FetchContent_Declare(
