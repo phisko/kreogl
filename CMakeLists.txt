@@ -84,7 +84,7 @@ if(KREOGL_PROFILING)
 	FetchContent_Declare(
 		tracy
 		GIT_REPOSITORY https://github.com/wolfpld/tracy
-		GIT_TAG v0.8.2.1 # Oct 15 2022
+		GIT_TAG v0.9
 		GIT_PROGRESS TRUE
 		GIT_SHALLOW TRUE
 	)

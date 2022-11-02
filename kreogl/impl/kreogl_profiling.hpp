@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef KREOGL_PROFILING
-#	include "Tracy.hpp"
+#	include "tracy/Tracy.hpp"
 #	define KREOGL_PROFILING_SCOPE ZoneScoped
 #	define KREOGL_PROFILING_FRAME FrameMark
 #else
