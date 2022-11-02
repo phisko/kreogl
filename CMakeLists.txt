@@ -80,6 +80,7 @@ option(KREOGL_PROFILING OFF)
 if(KREOGL_PROFILING)
 	target_compile_definitions(kreogl PUBLIC KREOGL_PROFILING TRACY_ENABLE)
 
+	set(TRACY_STATIC OFF) # Link as a shared library
 	include(FetchContent)
 	FetchContent_Declare(
 		tracy
