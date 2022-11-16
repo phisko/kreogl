@@ -18,6 +18,8 @@ namespace kreogl {
 		GLuint & get() noexcept { return res; }
 		const GLuint get() const noexcept { return res; }
 
+		UIntSwapper() noexcept = default;
+
 		UIntSwapper(UIntSwapper && rhs) noexcept {
 			std::swap(res, rhs.res);
 		}
@@ -26,9 +28,5 @@ namespace kreogl {
 			std::swap(res, rhs.res);
 			return *this;
 		}
-
-		UIntSwapper() noexcept = default;
-		UIntSwapper(const UIntSwapper &) = delete;
-		UIntSwapper & operator=(const UIntSwapper &) = delete;
 	};
 }
