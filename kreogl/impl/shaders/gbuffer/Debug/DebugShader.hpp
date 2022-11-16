@@ -5,7 +5,7 @@
 #include "DebugGLSL.hpp"
 
 namespace kreogl {
-	class DebugShader : public Shader, public Singleton<DebugShader> {
+	class KREOGL_EXPORT DebugShader : public Shader, public Singleton<DebugShader> {
 	public:
 		DebugShader() noexcept;
 

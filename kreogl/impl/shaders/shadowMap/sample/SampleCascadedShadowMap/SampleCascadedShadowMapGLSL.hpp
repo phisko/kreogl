@@ -4,7 +4,7 @@
 #include "kreogl/impl/shadowMaps/CascadedShadowMap.hpp"
 
 namespace kreogl {
-	struct SampleCascadedShadowMapGLSL {
+	struct KREOGL_EXPORT SampleCascadedShadowMapGLSL {
 		static const char * frag;
 		Uniform<size_t> shadowMap[KREOGL_MAX_CSM_COUNT];
 		Uniform<glm::mat4> lightSpaceMatrix[KREOGL_MAX_CSM_COUNT];

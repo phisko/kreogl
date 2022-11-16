@@ -7,7 +7,7 @@
 #include "kreogl/impl/shaders/shadowMap/sample/SampleCascadedShadowMap/SampleCascadedShadowMapGLSL.hpp"
 
 namespace kreogl {
-	class DirectionalLightShader : public Shader, public Singleton<DirectionalLightShader> {
+	class KREOGL_EXPORT DirectionalLightShader : public Shader, public Singleton<DirectionalLightShader> {
 	public:
 		DirectionalLightShader() noexcept;
 

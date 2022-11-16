@@ -5,7 +5,7 @@
 #include "kreogl/impl/shaders/Singleton.hpp"
 
 namespace kreogl {
-	class PositionColorShader : public Shader, public Singleton<PositionColorShader> {
+	class KREOGL_EXPORT PositionColorShader : public Shader, public Singleton<PositionColorShader> {
 	public:
 		PositionColorShader() noexcept;
 

@@ -10,9 +10,9 @@
 #include <assimp/scene.h>
 
 namespace kreogl {
-	struct AssImpSkeletonModel : SkeletonModel {
-		struct Mesh {
-			struct Bone {
+	struct KREOGL_EXPORT AssImpSkeletonModel : SkeletonModel {
+		struct KREOGL_EXPORT Mesh {
+			struct KREOGL_EXPORT Bone {
 				const aiNode * node = nullptr;
 				glm::mat4 offset{ 1.f };
 			};

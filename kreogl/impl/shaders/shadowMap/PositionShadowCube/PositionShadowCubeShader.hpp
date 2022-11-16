@@ -5,7 +5,7 @@
 #include "kreogl/impl/shaders/helpers/PositionProjViewModel/PositionProjViewModelGLSL.hpp"
 
 namespace kreogl {
-	class PositionShadowCubeShader : public ShadowCubeShader, public Singleton<PositionShadowCubeShader> {
+	class KREOGL_EXPORT PositionShadowCubeShader : public ShadowCubeShader, public Singleton<PositionShadowCubeShader> {
 	public:
 		PositionShadowCubeShader() noexcept;
 		void drawObjects(const DrawParams & params) noexcept override;

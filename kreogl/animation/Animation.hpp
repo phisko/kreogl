@@ -5,7 +5,7 @@
 #include "AnimationModel.hpp"
 
 namespace kreogl {
-	struct Animation {
+	struct KREOGL_EXPORT Animation {
 		const AnimationModel * model = nullptr;
 		float currentTime = 0.f;
 		float speed = 1.f;

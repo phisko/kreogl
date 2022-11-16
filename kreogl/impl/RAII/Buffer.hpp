@@ -4,7 +4,7 @@
 #include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
-	struct Buffer : UIntSwapper {
+	struct KREOGL_EXPORT Buffer : UIntSwapper {
 		Buffer() noexcept {
 			KREOGL_PROFILING_SCOPE;
 			glGenBuffers(1, &res);

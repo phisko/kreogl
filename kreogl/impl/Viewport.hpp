@@ -9,9 +9,9 @@
 namespace kreogl {
 	class Camera;
 
-	class Viewport {
+	class KREOGL_EXPORT Viewport {
 	public:
-		struct ConstructionParams {
+		struct KREOGL_EXPORT ConstructionParams {
 			glm::ivec2 resolution = { 0, 0 };
 			glm::vec2 onScreenPosition = { 0, 0 };
 			glm::vec2 onScreenSize = { 1, 1 };

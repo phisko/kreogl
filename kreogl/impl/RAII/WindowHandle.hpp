@@ -4,7 +4,7 @@
 #include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
-	struct WindowHandle {
+	struct KREOGL_EXPORT WindowHandle {
 		GLFWwindow * window = nullptr;
 
 		~WindowHandle() noexcept {

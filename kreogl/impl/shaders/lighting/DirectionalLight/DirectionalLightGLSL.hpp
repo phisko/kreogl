@@ -3,7 +3,7 @@
 #include "kreogl/impl/shaders/Uniform.hpp"
 
 namespace kreogl {
-	struct DirectionalLightGLSL {
+	struct KREOGL_EXPORT DirectionalLightGLSL {
 		static const char * frag;
 
 		Uniform<int> gposition{ "gposition" };
@@ -19,7 +19,7 @@ namespace kreogl {
 		Uniform<float> diffuseStrength{ "diffuseStrength" };
 		Uniform<float> specularStrength{ "specularStrength" };
 
-		struct GetDirection {
+		struct KREOGL_EXPORT GetDirection {
 			static const char * frag;
 			Uniform<glm::vec3> direction{ "direction" };
 		};

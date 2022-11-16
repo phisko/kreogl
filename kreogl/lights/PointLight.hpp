@@ -4,7 +4,7 @@
 #include "kreogl/impl/shadowMaps/ShadowCube.hpp"
 
 namespace kreogl {
-	struct PointLight : Light {
+	struct KREOGL_EXPORT PointLight : Light {
 		glm::vec3 position;
 		float range = 1000.f;
 		float attenuationConstant = 1.f;

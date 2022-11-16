@@ -5,8 +5,8 @@
 #include <GL/glew.h>
 
 namespace kreogl {
-	struct MeshData {
-		struct Buffer {
+	struct KREOGL_EXPORT MeshData {
+		struct KREOGL_EXPORT Buffer {
 			size_t nbElements;
 			size_t elementSize;
 			const void * data;
@@ -17,7 +17,7 @@ namespace kreogl {
 		GLenum indexType;
 	};
 
-	struct ModelData {
+	struct KREOGL_EXPORT ModelData {
 		std::vector<MeshData> meshes;
 		std::vector<size_t> vertexAttributeOffsets;
 		size_t vertexSize;

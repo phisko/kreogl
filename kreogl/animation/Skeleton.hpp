@@ -4,8 +4,8 @@
 #include <glm/glm.hpp>
 
 namespace kreogl {
-	struct Skeleton {
-		struct Mesh {
+	struct KREOGL_EXPORT Skeleton {
+		struct KREOGL_EXPORT Mesh {
 			// Indexed by SkeletonModel::Mesh::boneNames
 			std::vector<glm::mat4> boneMatsBoneSpace;
 			std::vector<glm::mat4> boneMatsMeshSpace;

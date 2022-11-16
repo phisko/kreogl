@@ -3,5 +3,5 @@
 #include <glm/glm.hpp>
 
 namespace kreogl::shapes {
-	void drawLine(const glm::vec3 & start, const glm::vec3 & end) noexcept;
+	KREOGL_EXPORT void drawLine(const glm::vec3 & start, const glm::vec3 & end) noexcept;
 }

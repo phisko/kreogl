@@ -5,7 +5,7 @@
 #include <assimp/quaternion.h>
 
 namespace kreogl {
-	glm::mat4 toglm(const aiMatrix4x4 & mat) noexcept;
-	glm::vec3 toglm(const aiVector3D & vec) noexcept;
-	glm::quat toglm(const aiQuaternion & quat) noexcept;
+	KREOGL_EXPORT glm::mat4 toglm(const aiMatrix4x4 & mat) noexcept;
+	KREOGL_EXPORT glm::vec3 toglm(const aiVector3D & vec) noexcept;
+	KREOGL_EXPORT glm::quat toglm(const aiQuaternion & quat) noexcept;
 }

@@ -8,7 +8,7 @@
 #endif
 
 namespace kreogl {
-	struct CascadedShadowMap {
+	struct KREOGL_EXPORT CascadedShadowMap {
 		CascadedShadowMap() noexcept;
 
 		FrameBuffer frameBuffer;

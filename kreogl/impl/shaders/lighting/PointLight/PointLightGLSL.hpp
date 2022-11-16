@@ -3,7 +3,7 @@
 #include "kreogl/impl/shaders/Uniform.hpp"
 
 namespace kreogl {
-	struct PointLightGLSL {
+	struct KREOGL_EXPORT PointLightGLSL {
 		static const char * frag;
 
 		Uniform<int> gposition{ "gposition" };
@@ -21,7 +21,7 @@ namespace kreogl {
 		Uniform<float> attenuationLinear{ "attenuationLinear" };
 		Uniform<float> attenuationQuadratic{ "attenuationQuadratic" };
 
-		struct GetDirection {
+		struct KREOGL_EXPORT GetDirection {
 			static const char * frag;
 			Uniform<glm::vec3> position{ "position" };
 		};

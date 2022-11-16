@@ -17,7 +17,7 @@
 #endif
 
 namespace kreogl {
-	class AnimatedModel : public Model {
+	class KREOGL_EXPORT AnimatedModel : public Model {
 		public:
 		virtual ~AnimatedModel() noexcept = default;
 		using Model::Model;

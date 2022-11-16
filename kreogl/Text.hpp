@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 
 namespace kreogl {
-	struct Text {
+	struct KREOGL_EXPORT Text {
 		std::string text;
 		std::string font;
 		size_t fontSize = 1024;
@@ -21,6 +21,6 @@ namespace kreogl {
 		glm::vec4 userData{ 0.f };
 	};
 
-	struct Text2D : Text {};
-	struct Text3D : Text {};
+	struct KREOGL_EXPORT Text2D : Text {};
+	struct KREOGL_EXPORT Text3D : Text {};
 }

@@ -4,7 +4,7 @@
 #include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
-	struct VertexArray : UIntSwapper {
+	struct KREOGL_EXPORT VertexArray : UIntSwapper {
 		VertexArray() noexcept {
 			KREOGL_PROFILING_SCOPE;
 			glGenVertexArrays(1, &res);

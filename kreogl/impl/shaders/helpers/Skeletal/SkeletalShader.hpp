@@ -6,7 +6,7 @@
 #include "kreogl/Object.hpp"
 
 namespace kreogl {
-	class SkeletalShader {
+	class KREOGL_EXPORT SkeletalShader {
 	public:
 		void uploadDefaultBones() noexcept;
 		void drawObject(const Object & object) noexcept;

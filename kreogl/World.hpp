@@ -24,7 +24,7 @@
 	MACRO(Sprite3D)
 
 namespace kreogl {
-	class World {
+	class KREOGL_EXPORT World {
 	public:
 		void add(const Object & object) noexcept;
 		void remove(const Object & object) noexcept;
@@ -37,7 +37,7 @@ namespace kreogl {
 		KREOGL_WORLD_COLLECTIONS(DECLARE_COLLECTION)
 #undef DECLARE_COLLECTION
 
-		struct Skybox {
+		struct KREOGL_EXPORT Skybox {
 			const SkyboxTexture * texture = nullptr;
 			glm::vec4 color{ 1.f };
 		};

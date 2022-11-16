@@ -6,7 +6,7 @@
 #include "SkyboxGLSL.hpp"
 
 namespace kreogl {
-	class SkyboxShader : public Shader, public Singleton<SkyboxShader> {
+	class KREOGL_EXPORT SkyboxShader : public Shader, public Singleton<SkyboxShader> {
 	public:
 		SkyboxShader() noexcept;
 

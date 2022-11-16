@@ -6,7 +6,7 @@
 #include "Uniform.hpp"
 
 namespace kreogl {
-	class Shader {
+	class KREOGL_EXPORT Shader {
 	public:
 		virtual ~Shader() noexcept = default;
 
@@ -19,7 +19,7 @@ namespace kreogl {
 		virtual std::vector<UniformBase *> getUniforms() noexcept = 0;
 
 	protected:
-		struct UniformUseChecker {
+		struct KREOGL_EXPORT UniformUseChecker {
 #ifndef NDEBUG
 			~UniformUseChecker() noexcept;
 			std::vector<UniformBase *> & uniforms;

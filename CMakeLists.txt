@@ -9,11 +9,7 @@ if(MSVC)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DNOMINMAX")
 endif()
 
-#
-# CMake helpers
-#
 add_subdirectory(cmake_helpers)
-include(conan_helper)
 
 #
 # Library
@@ -40,7 +36,7 @@ if(KREOGL_DEFAULT_SHADERS)
 	set(src ${src} ${shadersSrc})
 endif()
 
-add_library(kreogl STATIC ${src})
+add_library(kreogl ${src})
 target_include_directories(kreogl PUBLIC .)
 
 if(KREOGL_DEFAULT_SHADERS)
@@ -50,6 +46,8 @@ endif()
 # dependencies
 set(customFindPackageNames glfw:glfw3)
 set(customLibraryNames glew:GLEW)
+putils_conan_set_shared_options(options assimp glew glfw)
+list(APPEND options assimp:with_ifc=False) # Otherwise AssImp will depend on clipper/4.10.0, which is broken
 putils_conan_download_and_link_packages_with_names(
 	kreogl PUBLIC "${customFindPackageNames}" "${customLibraryNames}"
 	glm/0.9.9.8
@@ -57,15 +55,15 @@ putils_conan_download_and_link_packages_with_names(
 	glew/2.2.0
 	glfw/3.3.6
 	stb/cci.20210910
-	OPTIONS
-		assimp:with_ifc=False # Otherwise AssImp will depend on clipper/4.10.0, which is broken
-		glfw:shared=False
+	${options}
 )
 
 # find_package(freetype) is broken right now, so use the old cmake generator
 # See https://github.com/conan-io/conan-center-index/issues/11218
+putils_conan_set_shared_options(options freetype)
 putils_conan_download_packages(
 	freetype/2.12.1
+	${options}
 	GENERATORS
 		cmake
 )
@@ -74,6 +72,9 @@ conan_basic_setup(TARGETS)
 target_link_libraries(kreogl PUBLIC CONAN_PKG::freetype)
 
 target_include_directories(kreogl PUBLIC third_party/polyvox/include)
+
+# Export the symbols if we're built as a DLL
+putils_export_symbols(kreogl)
 
 # profiling
 option(KREOGL_PROFILING OFF)

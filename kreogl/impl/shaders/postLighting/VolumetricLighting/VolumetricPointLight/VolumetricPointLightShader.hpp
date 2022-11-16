@@ -8,7 +8,7 @@
 #include "kreogl/impl/shaders/postLighting/VolumetricLighting/VolumetricLightingGLSL.hpp"
 
 namespace kreogl {
-	class VolumetricPointLightShader : public Shader, public Singleton<VolumetricPointLightShader> {
+	class KREOGL_EXPORT VolumetricPointLightShader : public Shader, public Singleton<VolumetricPointLightShader> {
 	public:
 		VolumetricPointLightShader() noexcept;
 

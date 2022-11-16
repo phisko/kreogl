@@ -4,7 +4,7 @@
 #include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
-	struct ScopedBindFramebuffer {
+	struct KREOGL_EXPORT ScopedBindFramebuffer {
 		ScopedBindFramebuffer(GLuint framebuffer) noexcept
 			: _framebuffer(framebuffer)
 		{

@@ -4,7 +4,7 @@
 #include "model/Model.hpp"
 
 namespace kreogl {
-	struct Object {
+	struct KREOGL_EXPORT Object {
 		const Model * model;
 		glm::mat4 transform{ 1.f };
 		glm::vec4 color{ 1.f };

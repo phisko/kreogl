@@ -8,7 +8,7 @@
 #include "kreogl/Sprite.hpp"
 
 namespace kreogl {
-	class SpriteShader : public Shader, public Singleton<SpriteShader> {
+	class KREOGL_EXPORT SpriteShader : public Shader, public Singleton<SpriteShader> {
 	public:
 		SpriteShader() noexcept;
 

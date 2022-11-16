@@ -7,7 +7,7 @@
 #endif
 
 namespace kreogl {
-	struct SkeletalGLSL {
+	struct KREOGL_EXPORT SkeletalGLSL {
 		static const char * vert;
 		Uniform<glm::mat4> model = { "model" };
 		Uniform<glm::mat4> view = { "view" };

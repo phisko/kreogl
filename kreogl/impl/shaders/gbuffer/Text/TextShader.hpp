@@ -11,7 +11,7 @@
 #include "kreogl/impl/RAII/VertexArray.hpp"
 
 namespace kreogl {
-	class TextShader : public Shader, public Singleton<TextShader> {
+	class KREOGL_EXPORT TextShader : public Shader, public Singleton<TextShader> {
 	public:
 		TextShader() noexcept;
 

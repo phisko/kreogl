@@ -5,7 +5,7 @@
 #include "FontFamily.hpp"
 
 namespace kreogl {
-	class FontLibrary {
+	class KREOGL_EXPORT FontLibrary {
 	public:
 		FontFamily & getFontFamily(const std::string & file) noexcept;
 

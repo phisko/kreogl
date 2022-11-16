@@ -3,7 +3,7 @@
 #include "kreogl/impl/shaders/Uniform.hpp"
 
 namespace kreogl {
-	struct SampleShadowMapGLSL {
+	struct KREOGL_EXPORT SampleShadowMapGLSL {
 		static const char * frag;
 
 		Uniform<size_t> shadowMap{ "shadowMap" };

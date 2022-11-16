@@ -4,13 +4,11 @@
 #include "kreogl/impl/shadowMaps/ShadowCube.hpp"
 
 namespace kreogl {
-	struct ShadowCubeGLSL {
+	struct KREOGL_EXPORT ShadowCubeGLSL {
 		static const char * geom;
-
 		Uniform<glm::mat4> lightSpaceMatrices[6];
 
 		static const char * frag;
-
 		Uniform<glm::vec3> lightPos{ "lightPos" };
 		Uniform<float> farPlane{ "farPlane" };
 

@@ -3,7 +3,7 @@
 #include "kreogl/impl/shaders/Uniform.hpp"
 
 namespace kreogl {
-	struct PositionColorGLSL {
+	struct KREOGL_EXPORT PositionColorGLSL {
 		static const char * vert;
 		Uniform<glm::mat4> proj = { "proj" };
 		Uniform<glm::mat4> view = { "view" };

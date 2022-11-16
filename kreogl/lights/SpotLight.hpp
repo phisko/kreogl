@@ -5,7 +5,7 @@
 #include "kreogl/impl/DrawParams.hpp"
 
 namespace kreogl {
-	struct SpotLight : PointLight {
+	struct KREOGL_EXPORT SpotLight : PointLight {
 		glm::vec3 direction;
 		float cutOff = .91f;
 		float outerCutOff = .82f;

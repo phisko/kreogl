@@ -5,7 +5,7 @@
 #include "AssImpAnimationModel.hpp"
 
 namespace kreogl {
-	class AssImpAnimatedModel : public AnimatedModel {
+	class KREOGL_EXPORT AssImpAnimatedModel : public AnimatedModel {
 	public:
 		std::unique_ptr<Assimp::Importer> importer;
 

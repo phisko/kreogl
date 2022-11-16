@@ -6,7 +6,7 @@
 #include "kreogl/impl/DrawParams.hpp"
 
 namespace kreogl {
-	class ShadowMapShader : public Shader {
+	class KREOGL_EXPORT ShadowMapShader : public Shader {
 	protected:
 		virtual void drawToTexture(GLuint texture, const glm::mat4 & lightSpaceMatrix, const DrawParams & params) noexcept = 0;
 

@@ -4,7 +4,7 @@
 #include <vector>
 
 namespace kreogl {
-	struct SkeletonModel {
+	struct KREOGL_EXPORT SkeletonModel {
 		virtual ~SkeletonModel() noexcept = default;
 
 		struct Mesh {

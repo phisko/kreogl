@@ -4,7 +4,7 @@
 #include "kreogl/impl/RAII/Texture.hpp"
 
 namespace kreogl {
-	struct ShadowCube {
+	struct KREOGL_EXPORT ShadowCube {
 		ShadowCube() noexcept;
 
 		FrameBuffer frameBuffer;

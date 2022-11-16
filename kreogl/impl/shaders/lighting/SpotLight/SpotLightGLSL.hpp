@@ -3,7 +3,7 @@
 #include "kreogl/impl/shaders/Uniform.hpp"
 
 namespace kreogl {
-	struct SpotLightGLSL {
+	struct KREOGL_EXPORT SpotLightGLSL {
 		static const char * frag;
 
 		Uniform<int> gposition{ "gposition" };
