@@ -1,5 +1,7 @@
 #pragma once
 
+// kreogl
+#include "kreogl/impl/DefaultConstructors.hpp"
 #include "kreogl/impl/RAII/Buffer.hpp"
 #include "kreogl/impl/RAII/VertexArray.hpp"
 #include "kreogl/impl/shaders/VertexSpecification.hpp"
@@ -7,7 +9,8 @@
 
 namespace kreogl {
 	struct KREOGL_EXPORT Mesh {
-		Mesh() noexcept = default;
+		KREOGL_MOVE_ONLY(Mesh);
+
 		Mesh(const MeshData & data, const ModelData & model, const VertexSpecification & vertexSpecification) noexcept;
 		void draw() const noexcept;
 
@@ -20,6 +23,8 @@ namespace kreogl {
 
 	class KREOGL_EXPORT Model {
 	public:
+		KREOGL_DELETE_COPY(Model);
+
 		virtual ~Model() noexcept = default;
 
 		Model(const VertexSpecification & vertexSpecification, const ModelData & data) noexcept;
@@ -27,10 +32,5 @@ namespace kreogl {
 
 		const VertexSpecification & vertexSpecification;
 		std::vector<Mesh> meshes;
-
-		Model(const Model &) noexcept = default;
-		Model(Model &&) noexcept = default;
-		Model & operator=(const Model &) noexcept = default;
-		Model & operator=(Model &&) noexcept = default;
 	};
 }

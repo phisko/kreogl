@@ -10,6 +10,8 @@ namespace kreogl {
 	struct KREOGL_EXPORT WindowHandle {
 		GLFWwindow * window = nullptr;
 
+		WindowHandle() noexcept = default;
+
 		~WindowHandle() noexcept {
 			KREOGL_PROFILING_SCOPE;
 
@@ -34,9 +36,5 @@ namespace kreogl {
 		explicit WindowHandle(GLFWwindow * window) noexcept
 		: window(window)
 		{}
-
-		WindowHandle() noexcept = default;
-		WindowHandle(const WindowHandle &) noexcept = delete;
-		WindowHandle & operator=(const WindowHandle &) noexcept = delete;
 	};
 }

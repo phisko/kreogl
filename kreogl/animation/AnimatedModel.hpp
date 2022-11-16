@@ -32,10 +32,6 @@ namespace kreogl {
 		};
 
 		struct MeshTextures {
-			MeshTextures() noexcept = default;
-			MeshTextures(MeshTextures &&) noexcept = default;
-			MeshTextures & operator=(MeshTextures &&) noexcept = default;
-
 			std::vector<kreogl::ImageTexture> diffuseTextures;
 			glm::vec4 diffuseColor;
 

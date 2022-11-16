@@ -11,14 +11,19 @@
 #include <glm/glm.hpp>
 
 // kreogl
+#include "kreogl/impl/DefaultConstructors.hpp"
 #include "kreogl/impl/RAII/Texture.hpp"
 
 namespace kreogl {
 	class KREOGL_EXPORT Font {
 	public:
+		KREOGL_MOVE_ONLY(Font);
+
 		Font(const char * file, size_t size) noexcept;
 
 		struct KREOGL_EXPORT Character {
+			KREOGL_MOVE_ONLY(Character);
+
 			Texture texture;
 			glm::ivec2 size;
 			glm::ivec2 bearing;
