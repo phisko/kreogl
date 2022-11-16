@@ -1,9 +1,9 @@
 #pragma once
 
+// kreogl
 #include "kreogl/impl/shaders/Shader.hpp"
 #include "kreogl/impl/shaders/Singleton.hpp"
 #include "kreogl/lights/SpotLight.hpp"
-
 #include "SpotLightGLSL.hpp"
 #include "kreogl/impl/shaders/helpers/PositionProjViewModel/PositionProjViewModelGLSL.hpp"
 #include "kreogl/impl/shaders/shadowMap/sample/SampleShadowMap/SampleShadowMapGLSL.hpp"

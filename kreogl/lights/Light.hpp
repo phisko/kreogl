@@ -1,8 +1,13 @@
 #pragma once
 
+// stl
 #include <vector>
 #include <optional>
+
+// glm
 #include <glm/glm.hpp>
+
+// kreogl
 #include "VolumetricLightingParams.hpp"
 
 #ifndef KREOGL_SHADOW_MAP_NEAR_PLANE

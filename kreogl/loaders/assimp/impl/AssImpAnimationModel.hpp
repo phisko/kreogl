@@ -1,14 +1,14 @@
 #pragma once
 
-// kreogl
-#include "kreogl/animation/AnimationModel.hpp"
-
 // glm
 #include <glm/glm.hpp>
 
 // AssImp
 #include <assimp/anim.h>
 #include <assimp/scene.h>
+
+// kreogl
+#include "kreogl/animation/AnimationModel.hpp"
 
 namespace kreogl {
 	struct AnimatedObject;

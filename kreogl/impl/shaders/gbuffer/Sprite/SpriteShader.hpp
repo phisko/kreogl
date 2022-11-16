@@ -1,10 +1,9 @@
 #pragma once
 
+// kreogl
 #include "kreogl/impl/shaders/Shader.hpp"
 #include "kreogl/impl/shaders/Singleton.hpp"
-
 #include "SpriteGLSL.hpp"
-
 #include "kreogl/Sprite.hpp"
 
 namespace kreogl {

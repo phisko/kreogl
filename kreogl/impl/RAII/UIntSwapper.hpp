@@ -1,6 +1,9 @@
 #pragma once
 
+// stl
 #include <utility>
+
+// gl
 #include <GL/glew.h>
 
 namespace kreogl {

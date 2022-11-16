@@ -1,10 +1,13 @@
 #include "GBuffer.hpp"
 
+// stl
 #include <cassert>
 
+// gl
 #include <GL/glew.h>
 #include <GL/gl.h>
 
+// kreogl
 #include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {

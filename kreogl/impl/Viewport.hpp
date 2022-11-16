@@ -1,6 +1,9 @@
 #pragma once
 
+// glm
 #include <glm/glm.hpp>
+
+// kreogl
 #include "DrawParams.hpp"
 #include "GBuffer.hpp"
 #include "RAII/FrameBuffer.hpp"

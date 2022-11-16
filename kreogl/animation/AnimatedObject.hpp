@@ -1,7 +1,9 @@
 #pragma once
 
+// stl
 #include <optional>
 
+// kreogl
 #include "kreogl/Object.hpp"
 #include "Skeleton.hpp"
 #include "Animation.hpp"

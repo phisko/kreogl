@@ -1,9 +1,11 @@
 #pragma once
 
-#include "kreogl/model/Model.hpp"
-
+// polyvox
 #include "PolyVox/RawVolume.h"
 #include "PolyVox/CubicSurfaceExtractor.h"
+
+// kreogl
+#include "kreogl/model/Model.hpp"
 
 namespace kreogl::PolyVox {
 	template<typename VertexData>

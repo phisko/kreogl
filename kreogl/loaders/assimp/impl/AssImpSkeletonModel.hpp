@@ -1,13 +1,13 @@
 #pragma once
 
-// kreogl
-#include "kreogl/animation/SkeletonModel.hpp"
-
 // glm
 #include <glm/glm.hpp>
 
 // AssImp
 #include <assimp/scene.h>
+
+// kreogl
+#include "kreogl/animation/SkeletonModel.hpp"
 
 namespace kreogl {
 	struct KREOGL_EXPORT AssImpSkeletonModel : SkeletonModel {

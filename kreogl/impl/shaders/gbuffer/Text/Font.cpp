@@ -1,6 +1,9 @@
 #include "Font.hpp"
 
+// stl
 #include <iostream>
+
+// kreogl
 #include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {

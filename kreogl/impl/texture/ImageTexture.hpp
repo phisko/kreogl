@@ -1,6 +1,9 @@
 #pragma once
 
+// stl
 #include <optional>
+
+// kreogl
 #include "kreogl/impl/RAII/Texture.hpp"
 
 namespace kreogl {

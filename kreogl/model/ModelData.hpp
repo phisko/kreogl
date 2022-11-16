@@ -1,7 +1,10 @@
 #pragma once
 
+// stl
 #include <functional>
 #include <vector>
+
+// gl
 #include <GL/glew.h>
 
 namespace kreogl {

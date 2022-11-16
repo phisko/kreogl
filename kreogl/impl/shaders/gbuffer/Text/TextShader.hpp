@@ -1,11 +1,10 @@
 #pragma once
 
+// kreogl
 #include "kreogl/impl/shaders/Shader.hpp"
 #include "kreogl/impl/shaders/Singleton.hpp"
-
 #include "FontLibrary.hpp"
 #include "TextGLSL.hpp"
-
 #include "kreogl/Text.hpp"
 #include "kreogl/impl/RAII/Buffer.hpp"
 #include "kreogl/impl/RAII/VertexArray.hpp"

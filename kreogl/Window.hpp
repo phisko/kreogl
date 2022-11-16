@@ -1,11 +1,14 @@
 #pragma once
 
-#include <glm/glm.hpp>
+// stl
 #include <vector>
 #include <memory>
 
-#include "Camera.hpp"
+// glm
+#include <glm/glm.hpp>
 
+// kreogl
+#include "Camera.hpp"
 #include "kreogl/impl/shaders/ShaderPipeline.hpp"
 #include "kreogl/impl/RAII/WindowHandle.hpp"
 
