@@ -1,5 +1,9 @@
 #include "ShadowMap.hpp"
+
+// stl
 #include <cassert>
+
+// kreogl
 #include "kreogl/impl/RAII/ScopedBindFramebuffer.hpp"
 #include "kreogl/impl/kreogl_profiling.hpp"
 

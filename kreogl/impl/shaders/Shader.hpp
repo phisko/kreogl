@@ -1,7 +1,12 @@
 #pragma once
 
+// stl
 #include <vector>
+
+// glm
 #include <glm/glm.hpp>
+
+// kreogl
 #include "kreogl/impl/DrawParams.hpp"
 #include "Uniform.hpp"
 

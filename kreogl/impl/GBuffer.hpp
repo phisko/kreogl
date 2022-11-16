@@ -1,7 +1,12 @@
 #pragma once
 
+// stl
 #include <vector>
+
+// glm
 #include <glm/glm.hpp>
+
+// kreogl
 #include "RAII/Buffer.hpp"
 #include "RAII/FrameBuffer.hpp"
 #include "RAII/Texture.hpp"

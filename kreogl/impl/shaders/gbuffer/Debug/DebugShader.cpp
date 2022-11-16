@@ -1,6 +1,7 @@
 #include "DebugShader.hpp"
-#include "kreogl/impl/shaders/helpers/ApplyTransparency/ApplyTransparencyGLSL.hpp"
 
+// kreogl
+#include "kreogl/impl/shaders/helpers/ApplyTransparency/ApplyTransparencyGLSL.hpp"
 #include "kreogl/Camera.hpp"
 #include "kreogl/World.hpp"
 #include "kreogl/impl/shaders/VertexSpecification.hpp"

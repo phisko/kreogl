@@ -1,6 +1,9 @@
 #pragma once
 
+// stl
 #include <string>
+
+// glm
 #include <glm/glm.hpp>
 
 namespace kreogl {

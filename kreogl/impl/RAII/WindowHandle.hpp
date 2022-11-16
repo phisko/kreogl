@@ -1,6 +1,9 @@
 #pragma once
 
+// glfw
 #include <GLFW/glfw3.h>
+
+// kreogl
 #include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {

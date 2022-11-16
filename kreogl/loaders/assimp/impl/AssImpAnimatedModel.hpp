@@ -1,7 +1,10 @@
 #pragma once
 
-#include "kreogl/animation/AnimatedModel.hpp"
+// assimp
 #include <assimp/Importer.hpp>
+
+// kreogl
+#include "kreogl/animation/AnimatedModel.hpp"
 #include "AssImpAnimationModel.hpp"
 
 namespace kreogl {

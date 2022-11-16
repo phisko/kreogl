@@ -1,5 +1,9 @@
-#include <algorithm>
 #include "World.hpp"
+
+// stl
+#include <algorithm>
+
+// kreogl
 #include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {

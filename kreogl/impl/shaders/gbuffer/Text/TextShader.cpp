@@ -1,7 +1,7 @@
 #include "TextShader.hpp"
-#include "kreogl/impl/shaders/helpers/ApplyTransparency/ApplyTransparencyGLSL.hpp"
 
 // kreogl
+#include "kreogl/impl/shaders/helpers/ApplyTransparency/ApplyTransparencyGLSL.hpp"
 #include "kreogl/Camera.hpp"
 #include "kreogl/World.hpp"
 #include "FontLibrary.hpp"

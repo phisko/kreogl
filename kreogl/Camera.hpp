@@ -1,7 +1,12 @@
 #pragma once
 
+// stl
 #include <optional>
+
+// glm
 #include <glm/gtc/matrix_transform.hpp>
+
+// kreogl
 #include "impl/Viewport.hpp"
 
 namespace kreogl {

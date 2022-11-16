@@ -1,6 +1,9 @@
 #pragma once
 
+// glm
 #include <glm/glm.hpp>
+
+// assimp
 #include <assimp/matrix4x4.h>
 #include <assimp/quaternion.h>
 

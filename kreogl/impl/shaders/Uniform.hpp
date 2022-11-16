@@ -1,11 +1,14 @@
 #pragma once
 
+// stl
 #include <type_traits>
 #include <string>
 
+// gl
 #include <GL/glew.h>
 #include <GL/gl.h>
 
+// glm
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
