@@ -4,7 +4,7 @@
 #include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
-	struct FrameBuffer : UIntSwapper {
+	struct KREOGL_EXPORT FrameBuffer : UIntSwapper {
 		FrameBuffer() noexcept {
 			KREOGL_PROFILING_SCOPE;
 			glGenFramebuffers(1, &res);

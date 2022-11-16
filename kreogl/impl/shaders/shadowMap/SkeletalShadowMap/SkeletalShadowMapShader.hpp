@@ -5,7 +5,7 @@
 #include "kreogl/impl/shaders/Singleton.hpp"
 
 namespace kreogl {
-	class SkeletalShadowMapShader : public ShadowMapShader, public SkeletalShader, public Singleton<SkeletalShadowMapShader> {
+	class KREOGL_EXPORT SkeletalShadowMapShader : public ShadowMapShader, public SkeletalShader, public Singleton<SkeletalShadowMapShader> {
 	public:
 		SkeletalShadowMapShader() noexcept;
 

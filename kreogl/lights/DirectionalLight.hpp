@@ -5,7 +5,7 @@
 #include "kreogl/impl/DrawParams.hpp"
 
 namespace kreogl {
-	struct DirectionalLight : Light {
+	struct KREOGL_EXPORT DirectionalLight : Light {
 		DirectionalLight() noexcept {
 			lightSphereSize = 100.f;
 		}

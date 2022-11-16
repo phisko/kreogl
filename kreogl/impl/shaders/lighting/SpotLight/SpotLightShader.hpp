@@ -9,7 +9,7 @@
 #include "kreogl/impl/shaders/shadowMap/sample/SampleShadowMap/SampleShadowMapGLSL.hpp"
 
 namespace kreogl {
-	class SpotLightShader : public Shader, public Singleton<SpotLightShader> {
+	class KREOGL_EXPORT SpotLightShader : public Shader, public Singleton<SpotLightShader> {
 	public:
 		SpotLightShader() noexcept;
 

@@ -7,7 +7,7 @@
 #include "kreogl/impl/shaders/shadowMap/ShadowCube/ShadowCubeGLSL.hpp"
 
 namespace kreogl {
-	class ShadowCubeShader : public Shader {
+	class KREOGL_EXPORT ShadowCubeShader : public Shader {
 	protected:
 		virtual void drawObjects(const DrawParams & params) noexcept = 0;
 

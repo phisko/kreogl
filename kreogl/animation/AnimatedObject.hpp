@@ -7,7 +7,7 @@
 #include "Animation.hpp"
 
 namespace kreogl {
-	struct AnimatedObject : Object {
+	struct KREOGL_EXPORT AnimatedObject : Object {
 		Skeleton skeleton;
 		std::optional<Animation> animation;
 

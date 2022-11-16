@@ -3,7 +3,7 @@
 #include "kreogl/impl/shaders/Uniform.hpp"
 
 namespace kreogl {
-	struct TextGLSL {
+	struct KREOGL_EXPORT TextGLSL {
 		static const char * vert;
 		Uniform<glm::mat4> model{ "model" };
 		Uniform<glm::mat4> view{ "view" };

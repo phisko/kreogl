@@ -8,7 +8,7 @@
 #include "kreogl/impl/shaders/Singleton.hpp"
 
 namespace kreogl {
-	class PointLightShader : public Shader, public Singleton<PointLightShader> {
+	class KREOGL_EXPORT PointLightShader : public Shader, public Singleton<PointLightShader> {
 	public:
 		PointLightShader() noexcept;
 

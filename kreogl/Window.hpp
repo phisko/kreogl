@@ -12,7 +12,7 @@
 struct GLFWwindow;
 
 namespace kreogl {
-	class Window {
+	class KREOGL_EXPORT Window {
 	public:
 		struct ConstructionParams {
 			const char * name = "kreogl";

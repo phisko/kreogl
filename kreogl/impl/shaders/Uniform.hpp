@@ -31,7 +31,7 @@ namespace kreogl {
 
 	inline void setUniform(GLint location, const glm::mat4 & val) noexcept { glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(val)); }
 
-	struct UniformBase {
+	struct KREOGL_EXPORT UniformBase {
 		std::string name;
 		GLint location = -1;
 #ifndef NDEBUG

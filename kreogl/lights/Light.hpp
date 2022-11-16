@@ -14,7 +14,7 @@
 #endif
 
 namespace kreogl {
-	struct Light {
+	struct KREOGL_EXPORT Light {
 		glm::vec4 color{ 1.f };
 		float diffuseStrength = 1.f;
 		float specularStrength = 1.f;

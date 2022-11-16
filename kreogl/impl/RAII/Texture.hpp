@@ -4,7 +4,7 @@
 #include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
-	struct Texture : UIntSwapper {
+	struct KREOGL_EXPORT Texture : UIntSwapper {
 		Texture() noexcept {
 			KREOGL_PROFILING_SCOPE;
 			glGenTextures(1, &res);

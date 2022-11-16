@@ -1,7 +1,7 @@
 #pragma once
 
 namespace kreogl {
-	struct ApplyTransparencyGLSL {
+	struct KREOGL_EXPORT ApplyTransparencyGLSL {
 		static const char * frag;
 	};
 }

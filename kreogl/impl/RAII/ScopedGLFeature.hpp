@@ -4,7 +4,7 @@
 #include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
-	struct ScopedGLFeature {
+	struct KREOGL_EXPORT ScopedGLFeature {
 		ScopedGLFeature(GLenum feature) noexcept
 		: feature(feature)
 		{

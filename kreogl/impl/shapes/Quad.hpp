@@ -1,5 +1,5 @@
 #pragma once
 
 namespace kreogl::shapes {
-	void drawQuad() noexcept;
+	KREOGL_EXPORT void drawQuad() noexcept;
 }

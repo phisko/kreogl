@@ -3,7 +3,7 @@
 #include <string>
 
 namespace kreogl {
-	struct AnimationModel {
+	struct KREOGL_EXPORT AnimationModel {
 		virtual ~AnimationModel() noexcept = default;
 
 		virtual void tick(float deltaTime, struct AnimatedObject & object) const noexcept = 0;

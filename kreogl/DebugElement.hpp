@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 
 namespace kreogl {
-	struct DebugElement {
+	struct KREOGL_EXPORT DebugElement {
 		enum class Type {
 			Line,
 			Sphere,

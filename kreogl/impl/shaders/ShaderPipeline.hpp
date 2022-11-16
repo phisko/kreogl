@@ -9,7 +9,7 @@
 #include "ShaderStep.hpp"
 
 namespace kreogl {
-	class ShaderPipeline {
+	class KREOGL_EXPORT ShaderPipeline {
 #ifdef KREOGL_DEFAULT_SHADERS
 	public:
 		static const ShaderPipeline & getDefaultShaders() noexcept;

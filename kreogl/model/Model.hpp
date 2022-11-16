@@ -6,7 +6,7 @@
 #include "ModelData.hpp"
 
 namespace kreogl {
-	struct Mesh {
+	struct KREOGL_EXPORT Mesh {
 		Mesh() noexcept = default;
 		Mesh(const MeshData & data, const ModelData & model, const VertexSpecification & vertexSpecification) noexcept;
 		void draw() const noexcept;
@@ -18,7 +18,7 @@ namespace kreogl {
 		GLenum indexType = GL_UNSIGNED_INT;
 	};
 
-	class Model {
+	class KREOGL_EXPORT Model {
 	public:
 		virtual ~Model() noexcept = default;
 

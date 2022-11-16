@@ -14,11 +14,11 @@
 #include "kreogl/impl/RAII/Texture.hpp"
 
 namespace kreogl {
-	class Font {
+	class KREOGL_EXPORT Font {
 	public:
 		Font(const char * file, size_t size) noexcept;
 
-		struct Character {
+		struct KREOGL_EXPORT Character {
 			Texture texture;
 			glm::ivec2 size;
 			glm::ivec2 bearing;

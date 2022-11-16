@@ -7,7 +7,7 @@
 #include "kreogl/impl/shaders/helpers/Color/ColorGLSL.hpp"
 
 namespace kreogl {
-	class LightSphereShader : public Shader, public Singleton<LightSphereShader> {
+	class KREOGL_EXPORT LightSphereShader : public Shader, public Singleton<LightSphereShader> {
 	public:
 		LightSphereShader() noexcept;
 

@@ -7,7 +7,7 @@
 #include "kreogl/animation/AnimatedModel.hpp"
 
 namespace kreogl {
-	class SkeletalTexturedShader : public Shader, public SkeletalShader, public Singleton<SkeletalTexturedShader> {
+	class KREOGL_EXPORT SkeletalTexturedShader : public Shader, public SkeletalShader, public Singleton<SkeletalTexturedShader> {
 	public:
 		SkeletalTexturedShader() noexcept;
 

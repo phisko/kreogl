@@ -12,7 +12,7 @@ namespace kreogl {
 
 		std::vector<Attribute> attributes;
 
-		static const VertexSpecification positionColor;
-		static const VertexSpecification skeletal;
+		static KREOGL_EXPORT const VertexSpecification positionColor;
+		static KREOGL_EXPORT const VertexSpecification skeletal;
 	};
 }

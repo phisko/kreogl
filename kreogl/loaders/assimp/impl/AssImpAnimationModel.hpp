@@ -13,7 +13,7 @@
 namespace kreogl {
 	struct AnimatedObject;
 
-	struct AssImpAnimationModel : AnimationModel {
+	struct KREOGL_EXPORT AssImpAnimationModel : AnimationModel {
 		const aiAnimation * assimpAnimation = nullptr;
 
 	private: // AnimationModel implementation

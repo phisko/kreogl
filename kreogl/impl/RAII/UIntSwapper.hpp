@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 
 namespace kreogl {
-	struct UIntSwapper {
+	struct KREOGL_EXPORT UIntSwapper {
 		GLuint res = (GLuint)-1;
 
 		bool isValid() const noexcept { return res != (GLuint)-1; }

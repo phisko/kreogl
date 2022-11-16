@@ -5,7 +5,7 @@
 #include "impl/Viewport.hpp"
 
 namespace kreogl {
-	class Camera {
+	class KREOGL_EXPORT Camera {
 	public:
 		struct ConstructionParams {
 			glm::vec3 position = { 0, 0, 0 };

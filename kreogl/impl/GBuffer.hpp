@@ -7,7 +7,7 @@
 #include "RAII/Texture.hpp"
 
 namespace kreogl {
-	class GBuffer {
+	class KREOGL_EXPORT GBuffer {
 	public:
 		enum class Texture {
 			Position,
