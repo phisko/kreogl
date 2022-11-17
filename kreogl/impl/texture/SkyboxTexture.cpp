@@ -4,7 +4,7 @@
 #include <cassert>
 
 // stb
-#include "stb_image.h"
+#include <stb_image.h>
 
 // kreogl
 #include "kreogl/impl/kreogl_profiling.hpp"
