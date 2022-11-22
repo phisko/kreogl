@@ -32,6 +32,7 @@ namespace kreogl {
 		// TODO: add fullscreen param
 
 		init(glfwCreateWindow(params.size.x, params.size.y, params.name, nullptr, nullptr));
+		_glfwWindow.owning = true;
 	}
 
 	Window::Window(GLFWwindow & glfwWindow) noexcept {
