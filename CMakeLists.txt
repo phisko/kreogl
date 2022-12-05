@@ -27,7 +27,7 @@ file(GLOB src
 	kreogl/impl/texture/*.cpp kreogl/impl/texture/*.hpp
 	kreogl/impl/shapes/*.cpp kreogl/impl/shapes/*.hpp
 	kreogl/impl/shaders/*.cpp kreogl/impl/shaders/*.hpp
-	kreogl/impl/shadowMaps/*.cpp kreogl/impl/shadowMaps/*.hpp)
+	kreogl/impl/shadow_maps/*.cpp kreogl/impl/shadow_maps/*.hpp)
 
 # shaders
 option(KREOGL_DEFAULT_SHADERS "Enable kreogl default shaders" ON)
