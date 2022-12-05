@@ -11,11 +11,11 @@
 #include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
-	bool initGLFW() noexcept {
+	bool init_glfw() noexcept {
 		KREOGL_PROFILING_SCOPE;
 
-		static bool s_isInit = false;
-		if (s_isInit)
+		static bool s_is_init = false;
+		if (s_is_init)
 			return true;
 
 		glfwSetErrorCallback([](int error, const char * desc) {
@@ -27,15 +27,15 @@ namespace kreogl {
 			return false;
 		}
 
-		s_isInit = true;
+		s_is_init = true;
 		return true;
 	}
 
-	bool initGlew() noexcept {
+	bool init_glew() noexcept {
 		KREOGL_PROFILING_SCOPE;
 
-		static bool s_isInit = false;
-		if (s_isInit)
+		static bool s_is_init = false;
+		if (s_is_init)
 			return true;
 
 		glewExperimental = true;
@@ -47,22 +47,22 @@ namespace kreogl {
 #ifndef NDEBUG
 		glEnable(GL_DEBUG_OUTPUT);
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-		glDebugMessageCallback([](GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, const void * userParam) {
+		glDebugMessageCallback([](GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, const void * user_param) {
 			if (id == 131154) // Pixel-path performance warning: Pixel transfer is synchronized with 3D rendering
 				return;
 
-			const char * severityString;
+			const char * severity_string;
 			if (severity == GL_DEBUG_SEVERITY_MEDIUM)
-				severityString = "warning";
+				severity_string = "warning";
 			else if (severity == GL_DEBUG_SEVERITY_HIGH)
-				severityString = "error";
+				severity_string = "error";
 			else
 				return;
-			std::cerr << "OpenGL " << severityString << " -- Source: " << source << ". Type: " << type << ". ID: " << id << ". Message: '" << message << '\'' << std::endl;
+			std::cerr << "OpenGL " << severity_string << " -- Source: " << source << ". Type: " << type << ". ID: " << id << ". Message: '" << message << '\'' << std::endl;
 		}, nullptr);
 #endif
 
-		s_isInit = true;
+		s_is_init = true;
 		return true;
 	}
 }

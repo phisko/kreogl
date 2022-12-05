@@ -5,8 +5,8 @@ Global state of the renderer.
 ## init
 
 ```cpp
-bool initGLFW() noexcept;
-bool initGlew() noexcept;
+bool init_glfw() noexcept;
+bool init_glew() noexcept;
 ```
 
 Initialize third-party libraries.

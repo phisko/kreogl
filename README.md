@@ -81,128 +81,128 @@ And here's a screenshot of the result:
 
 These are objects that will typically live for as long as the application is running.
 
-* [Window](kreogl/Window.md)
-* [World](kreogl/World.md)
-* [Camera](kreogl/Camera.md)
+* [window](kreogl/window.md)
+* [world](kreogl/world.md)
+* [camera](kreogl/camera.md)
 
 ### Basic drawables
 
-* [Object](kreogl/Object.md)
-* [Sprite](kreogl/Sprite.md)
-* [Text](kreogl/Text.md)
-* [DebugElement](kreogl/DebugElement.md)
+* [object](kreogl/object.md)
+* [sprite](kreogl/sprite.md)
+* [text](kreogl/text.md)
+* [debug_element](kreogl/debug_element.md)
 
 ### Lights
 
-* [DirectionalLight](kreogl/lights/DirectionalLight.md)
-* [PointLight](kreogl/lights/PointLight.md)
-* [SpotLight](kreogl/lights/SpotLight.md)
+* [directional_light](kreogl/lights/directional_light.md)
+* [point_light](kreogl/lights/point_light.md)
+* [spot_light](kreogl/lights/spot_light.md)
 
 ### Loaders
 
-These provide functions to load [Models](kreogl/model/Model.md) from files.
+These provide functions to load [models](kreogl/model/model.md) from files.
 
-* [AssImp](kreogl/loaders/assimp/AssImp.md)
-* [PolyVox](kreogl/loaders/polyvox/PolyVox.md)
+* [assimp](kreogl/loaders/assimp/assimp.md)
+* [polyvox](kreogl/loaders/polyvox/polyvox.md)
 
 ### Animation
 
-* [AnimatedObject](kreogl/animation/AnimatedObject.md)
+* [animated_object](kreogl/animation/animated_object.md)
 
 The rest of these types are less user-facing, and understanding them isn't required for basic animation code.
 
-* [AnimatedModel](kreogl/animation/AnimatedModel.md)
-* [Animation](kreogl/animation/Animation.md)
-* [AnimationFile](kreogl/animation/AnimationFile.md)
-* [AnimationModel](kreogl/animation/AnimationModel.md)
-* [Skeleton](kreogl/animation/Skeleton.md)
-* [SkeletonModel](kreogl/animation/SkeletonModel.md)
+* [animated_model](kreogl/animation/animated_model.md)
+* [animation](kreogl/animation/animation.md)
+* [animation_file](kreogl/animation/animation_file.md)
+* [animation_model](kreogl/animation/animation_model.md)
+* [skeleton](kreogl/animation/skeleton.md)
+* [skeleton_model](kreogl/animation/skeleton_model.md)
 
 ## Implementation details
 
 This describe the internal implementation of the rendering engine. You don't need to be aware of these to make use of `kreogl`, but if you wish to improve/extend/understand its behavior, this is a good starting point.
 
-### [Viewport](kreogl/impl/Viewport.md)
+### [viewport](kreogl/impl/viewport.md)
 
-Each [Camera](kreogl/Camera.md) has an associated viewport, which represents the on-screen area used to display the camera.
+Each [camera](kreogl/camera.md) has an associated viewport, which represents the on-screen area used to display the camera.
 
-### [GBuffer](kreogl/impl/GBuffer.md)
+### [gbuffer](kreogl/impl/gbuffer.md)
 
-Each [Viewport](kreogl/impl/Viewport.md) has an underlying G-buffer, which contains the intermediate rendering data generated when drawing the camera content. It can be used to query the position, color, or custom user data that was drawn in a specific pixel.
+Each [viewport](kreogl/impl/viewport.md) has an underlying G-buffer, which contains the intermediate rendering data generated when drawing the camera content. It can be used to query the position, color, or custom user data that was drawn in a specific pixel.
 
 ### [RAII](https://en.cppreference.com/w/cpp/language/raii) wrappers to OpenGL resources
 
-* [Buffer](kreogl/impl/RAII/Buffer.md)
-* [FrameBuffer](kreogl/impl/RAII/FrameBuffer.md)
-* [ScopedBindFramebuffer](kreogl/impl/RAII/ScopedBindFramebuffer.md)
-* [ScopedGLFeature](kreogl/impl/RAII/ScopedGLFeature.md)
-* [Texture](kreogl/impl/RAII/Texture.md)
-* [VertexArray](kreogl/impl/RAII/VertexArray.md)
+* [buffer](kreogl/impl/raii/buffer.md)
+* [frame_buffer](kreogl/impl/raii/frame_buffer.md)
+* [scoped_bind_framebuffer](kreogl/impl/raii/scoped_bind_framebuffer.md)
+* [scoped_gl_feature](kreogl/impl/raii/scoped_gl_feature.md)
+* [texture](kreogl/impl/raii/texture.md)
+* [vertex_array](kreogl/impl/raii/vertex_array.md)
 
 ### Shadow maps
 
-* [ShadowMap](kreogl/impl/shadowMaps/ShadowMap.md)
-* [ShadowCube](kreogl/impl/shadowMaps/ShadowCube.md)
-* [CascadedShadowMap](kreogl/impl/shadowMaps/CascadedShadowMap.md)
+* [shadow_map](kreogl/impl/shadow_maps/shadow_map.md)
+* [shadow_cube](kreogl/impl/shadow_maps/shadow_cube.md)
+* [cascaded_shadow_map](kreogl/impl/shadow_maps/cascaded_shadow_map.md)
 
 ### Textures
 
-* [ImageTexture](kreogl/impl/texture/ImageTexture.md)
-* [SkyboxTexture](kreogl/impl/texture/SkyboxTexture.md)
+* [image_texture](kreogl/impl/texture/image_texture.md)
+* [skybox_texture](kreogl/impl/texture/skybox_texture.md)
 
 ### Shapes
 
-* [Box](kreogl/impl/shapes/Box.md)
-* [Line](kreogl/impl/shapes/Line.md)
-* [Quad](kreogl/impl/shapes/Quad.md)
-* [Sphere](kreogl/impl/shapes/Sphere.md)
-* [TexturedQuad](kreogl/impl/shapes/TexturedQuad.md)
+* [box](kreogl/impl/shapes/box.md)
+* [line](kreogl/impl/shapes/line.md)
+* [quad](kreogl/impl/shapes/quad.md)
+* [sphere](kreogl/impl/shapes/sphere.md)
+* [textured_quad](kreogl/impl/shapes/textured_quad.md)
 
 ### Shaders
 
-Shaders are instances of [Shader](kreogl/impl/shaders/Shader.md), grouped into a [ShaderPipeline](kreogl/impl/shaders/ShaderPipeline.md), which can be passed to `Window::draw`. The default pipeline contains all the pre-implemented shaders:
+Shaders are instances of [shader](kreogl/impl/shaders/shader.md), grouped into a [shader_pipeline](kreogl/impl/shaders/shader_pipeline.md), which can be passed to `window::draw`. The default pipeline contains all the pre-implemented shaders:
 
-#### GBuffer shaders
+#### gbuffer shaders
 
-These are shaders in charge of filling the [GBuffer](kreogl/impl/GBuffer.md).
+These are shaders in charge of filling the [gbuffer](kreogl/impl/gbuffer.md).
 
-* [PositionColorShader](kreogl/impl/shaders/gbuffer/PositionColor/PositionColorShader.md)
-* [SkeletalTexturedShader](kreogl/impl/shaders/gbuffer/SkeletalTextured/SkeletalTexturedShader.md)
-* [DebugShader](kreogl/impl/shaders/gbuffer/Debug/DebugShader.md)
-* [SpriteShader](kreogl/impl/shaders/gbuffer/Sprite/SpriteShader.md)
-* [TextShader](kreogl/impl/shaders/gbuffer/Text/TextShader.md)
+* [position_color_shader](kreogl/impl/shaders/gbuffer/position_color/position_color_shader.md)
+* [skeletal_textured_shader](kreogl/impl/shaders/gbuffer/skeletal_textured/skeletal_textured_shader.md)
+* [debug_shader](kreogl/impl/shaders/gbuffer/debug/debug_shader.md)
+* [sprite_shader](kreogl/impl/shaders/gbuffer/sprite/sprite_shader.md)
+* [text_shader](kreogl/impl/shaders/gbuffer/text/text_shader.md)
 
 #### Lighting shaders
 
-These are shaders in charge of applying lighting to what was previously written into the [GBuffer](kreogl/impl/GBuffer.md), and writing the result to the main framebuffer.
+These are shaders in charge of applying lighting to what was previously written into the [gbuffer](kreogl/impl/gbuffer.md), and writing the result to the main framebuffer.
 
-* [DirectionalLightShader](kreogl/impl/shaders/lighting/DirectionalLight/DirectionalLightShader.md)
-* [PointLightShader](kreogl/impl/shaders/lighting/PointLight/PointLightShader.md)
-* [SpotLightShader](kreogl/impl/shaders/lighting/SpotLight/SpotLightShader.md)
+* [directional_light_shader](kreogl/impl/shaders/lighting/directional_light/directional_light_shader.md)
+* [point_light_shader](kreogl/impl/shaders/lighting/point_light/point_light_shader.md)
+* [spot_light_shader](kreogl/impl/shaders/lighting/spot_light/spot_light_shader.md)
 
 #### Post-lighting shaders
 
 These are shaders that run after the lighting pass, and can render effects to alter the lighting of the scene.
 
-* [VolumetricDirectionalLight](kreogl/impl/shaders/postLighting/VolumetricLighting/VolumetricDirectionalLight/VolumetricDirectionalLightShader.md)
-* [VolumetricPointLight](kreogl/impl/shaders/postLighting/VolumetricLighting/VolumetricPointLight/VolumetricPointLightShader.md)
-* [VolumetricSpotLight](kreogl/impl/shaders/postLighting/VolumetricLighting/VolumetricSpotLight/VolumetricSpotLightShader.md)
+* [volumetric_directional_light](kreogl/impl/shaders/post_lighting/volumetric_lighting/volumetric_directional_light/volumetric_directional_light_shader.md)
+* [volumetric_point_light](kreogl/impl/shaders/post_lighting/volumetric_lighting/volumetric_point_light/volumetric_point_light_shader.md)
+* [volumetric_spot_light](kreogl/impl/shaders/post_lighting/volumetric_lighting/volumetric_spot_light/volumetric_spot_light_shader.md)
 
 #### Post-process shaders
 
 These are shaders that run after the post-lighting pass, and can add the "final touches" to the scene.
 
-* [LightSphereShader](kreogl/impl/shaders/postProcess/LightSphere/LightSphereShader.md)
-* [SkyboxShader](kreogl/impl/shaders/postProcess/Skybox/SkyboxShader.md)
+* [light_sphere_shader](kreogl/impl/shaders/post_process/light_sphere/light_sphere_shader.md)
+* [skybox_shader](kreogl/impl/shaders/post_process/skybox/skybox_shader.md)
 
 #### Shadowmap shaders
 
-These are shaders that implement the [ShadowMapShader](kreogl/impl/shaders/shadowMap/ShadowMapShader.md) or [ShadowCubeShader](kreogl/impl/shaders/shadowMap/ShadowCubeShader.md) interfaces, and are called by the lighting shaders to fill lights' [ShadowMaps](kreogl/impl/shadowMaps/ShadowMap.md).
+These are shaders that implement the [shadow_map_shader](kreogl/impl/shaders/shadow_map/shadow_map_shader.md) or [shadow_cube_shader](kreogl/impl/shaders/shadow_map/shadow_cube_shader.md) interfaces, and are called by the lighting shaders to fill lights' [ShadowMaps](kreogl/impl/shadow_maps/shadow_map.md).
 
-* [PositionShadowMapShader](kreogl/impl/shaders/shadowMap/PositionShadowMap/PositionShadowMapShader.md)
-* [PositionShadowCubeShader](kreogl/impl/shaders/shadowMap/PositionShadowCube/PositionShadowCubeShader.md)
-* [SkeletalShadowMapShader](kreogl/impl/shaders/shadowMap/SkeletalShadowMap/SkeletalShadowMapShader.md)
-* [SkeletalShadowCubeShader](kreogl/impl/shaders/shadowMap/SkeletalShadowCube/SkeletalShadowCubeShader.md)
+* [position_shadow_map_shader](kreogl/impl/shaders/shadow_map/position_shadow_map/position_shadow_map_shader.md)
+* [position_shadow_cube_shader](kreogl/impl/shaders/shadow_map/position_shadow_cube/position_shadow_cube_shader.md)
+* [skeletal_shadow_map_shader](kreogl/impl/shaders/shadow_map/skeletal_shadow_map/skeletal_shadow_map_shader.md)
+* [skeletal_shadow_cube_shader](kreogl/impl/shaders/shadow_map/skeletal_shadow_cube/skeletal_shadow_cube_shader.md)
 
 ## Profiling
 
