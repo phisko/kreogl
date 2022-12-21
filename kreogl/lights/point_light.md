@@ -12,14 +12,6 @@ glm::vec3 position;
 
 The light's position in the [world](../world.md).
 
-### range
-
-```cpp
-float range = 1000.f;
-```
-
-The maximum range for this light.
-
 ### Dissipation parameters
 
 ```cpp

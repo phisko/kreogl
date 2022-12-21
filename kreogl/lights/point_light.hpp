@@ -7,7 +7,6 @@
 namespace kreogl {
 	struct KREOGL_EXPORT point_light : light {
 		glm::vec3 position;
-		float range = 1000.f;
 		float attenuation_constant = 1.f;
 		float attenuation_linear = .09f;
 		float attenuation_quadratic = .032f;
