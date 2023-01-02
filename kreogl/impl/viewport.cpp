@@ -10,12 +10,11 @@
 
 namespace kreogl {
 	viewport::viewport(const construction_params & params) noexcept
-	: _resolution(params.resolution),
-	_on_screen_position(params.on_screen_position),
-	_on_screen_size(params.on_screen_size),
-	_z_order(params.z_order),
-	_gbuffer(params.resolution)
-	{
+		: _resolution(params.resolution),
+		  _on_screen_position(params.on_screen_position),
+		  _on_screen_size(params.on_screen_size),
+		  _z_order(params.z_order),
+		  _gbuffer(params.resolution) {
 		KREOGL_PROFILING_SCOPE;
 
 		glBindTexture(GL_TEXTURE_2D, _render_texture);

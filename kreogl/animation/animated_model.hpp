@@ -13,7 +13,7 @@
 #include "skeleton_model.hpp"
 
 #ifndef KREOGL_BONE_INFO_PER_VERTEX
-#	define KREOGL_BONE_INFO_PER_VERTEX 4
+#define KREOGL_BONE_INFO_PER_VERTEX 4
 #endif
 
 namespace kreogl {

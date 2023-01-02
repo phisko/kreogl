@@ -49,8 +49,7 @@ namespace kreogl {
 	}
 
 	model::model(const kreogl::vertex_specification & vertex_specification, const kreogl::model_data & data) noexcept
-	: vertex_specification(vertex_specification)
-	{
+		: vertex_specification(vertex_specification) {
 		KREOGL_PROFILING_SCOPE;
 
 		meshes.clear();

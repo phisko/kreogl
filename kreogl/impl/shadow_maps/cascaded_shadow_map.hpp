@@ -5,7 +5,7 @@
 #include "kreogl/impl/raii/texture.hpp"
 
 #ifndef KREOGL_MAX_CSM_COUNT
-#	define KREOGL_MAX_CSM_COUNT 5
+#define KREOGL_MAX_CSM_COUNT 5
 #endif
 
 namespace kreogl {

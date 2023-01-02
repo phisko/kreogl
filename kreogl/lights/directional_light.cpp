@@ -30,6 +30,7 @@ namespace kreogl {
 
 		const auto inv = glm::inverse(proj * view);
 
+		// clang-format off
 		const glm::vec3 ndc_corners[] = {
 			{ -1.f, -1.f, -1.f }, // left bottom back
 			{ 1.f, -1.f, -1.f }, // right bottom back
@@ -40,6 +41,7 @@ namespace kreogl {
 			{ -1.f, 1.f, 1.f }, // left top front
 			{ 1.f, 1.f, 1.f }, // right top front
 		};
+		// clang-format on
 		static_assert(std::extent_v<decltype(ndc_corners)> == cascade_bounds::corner_count);
 
 		cascade_bounds bounds;

@@ -14,6 +14,7 @@ namespace kreogl::shapes {
 	namespace {
 #define X .525731112119133606f
 #define Z .850650808352039932f
+		// clang-format off
 		static constexpr GLfloat vdata[12][3] = {
 			{ -X, 0.f, Z }, { X, 0.f, Z }, { -X, 0.f, -Z }, { X, 0.f, -Z },
 			{ 0.f, Z, X }, { 0.f, Z, -X }, { 0.f, -Z, X }, { 0.f, -Z, -X },
@@ -26,6 +27,7 @@ namespace kreogl::shapes {
 			{ 7, 10, 3 }, { 7, 6, 10 }, { 7, 11, 6 }, { 11, 0, 6 }, { 0, 1, 6 },
 			{ 6, 1, 10 }, { 9, 0, 11 }, { 9, 11, 2 }, { 9, 2, 5 }, { 7, 2, 11 }
 		};
+		// clang-format on
 
 		static void normalize(GLfloat * a) noexcept {
 			GLfloat d = std::sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]);
@@ -45,7 +47,8 @@ namespace kreogl::shapes {
 				ret.push_back(c[0] * r);
 				ret.push_back(c[1] * r);
 				ret.push_back(c[2] * r);
-			} else {
+			}
+			else {
 				GLfloat ab[3], ac[3], bc[3];
 				for (int i = 0; i < 3; i++) {
 					ab[i] = (a[i] + b[i]) / 2;

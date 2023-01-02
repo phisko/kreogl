@@ -5,13 +5,12 @@
 
 namespace kreogl {
 	camera::camera(const construction_params & params) noexcept
-	: _position(params.position),
-	_direction(params.direction),
-	_fov(params.fov),
-	_viewport(params.viewport),
-	_near_plane(params.near_plane),
-	_far_plane(params.far_plane)
-	{}
+		: _position(params.position),
+		  _direction(params.direction),
+		  _fov(params.fov),
+		  _viewport(params.viewport),
+		  _near_plane(params.near_plane),
+		  _far_plane(params.far_plane) {}
 
 	void camera::set_position(const glm::vec3 & position) noexcept {
 		KREOGL_PROFILING_SCOPE;

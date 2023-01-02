@@ -38,7 +38,6 @@ namespace kreogl {
 		operator GLFWwindow *() const noexcept { return window; }
 
 		explicit window_handle(GLFWwindow * window) noexcept
-		: window(window), owning(false)
-		{}
+			: window(window), owning(false) {}
 	};
 }

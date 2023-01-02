@@ -81,7 +81,8 @@ namespace kreogl {
 			glActiveTexture((GLenum)(GL_TEXTURE0 + DIFFUSE_TEXTURE_INDEX));
 			glBindTexture(GL_TEXTURE_2D, *textures.diffuse_textures[0].texture);
 			_glsl.diffuse_color.mark_as_used();
-		} else
+		}
+		else
 			_glsl.diffuse_color = textures.diffuse_color;
 
 		// Specular
@@ -89,7 +90,8 @@ namespace kreogl {
 			glActiveTexture((GLenum)(GL_TEXTURE0 + SPECULAR_TEXTURE_INDEX));
 			glBindTexture(GL_TEXTURE_2D, *textures.specular_textures[0].texture);
 			_glsl.specular_color.mark_as_used();
-		} else
+		}
+		else
 			_glsl.specular_color = textures.specular_color;
 	}
 }

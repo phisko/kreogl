@@ -13,8 +13,7 @@
 
 namespace kreogl {
 	window::window(const construction_params & params) noexcept
-	: _size(params.size)
-	{
+		: _size(params.size) {
 		KREOGL_PROFILING_SCOPE;
 
 		init_glfw();
@@ -50,8 +49,8 @@ namespace kreogl {
 		init_glew();
 		_default_camera = std::make_unique<camera>(camera::construction_params{
 			.viewport = {
-				.resolution = _size
-			}
+				.resolution = _size,
+			},
 		});
 		_cameras.emplace_back(_default_camera.get());
 	}
@@ -108,7 +107,8 @@ namespace kreogl {
 			0, 0, viewport.get_resolution().x, viewport.get_resolution().y,
 			// dest
 			dest_x, dest_y, dest_x + dest_size_x, dest_y + dest_size_y,
-			GL_COLOR_BUFFER_BIT, GL_LINEAR);
+			GL_COLOR_BUFFER_BIT, GL_LINEAR
+		);
 	}
 
 	bool window::should_close() const noexcept {

@@ -4,7 +4,7 @@
 #include "kreogl/impl/shaders/uniform.hpp"
 
 #ifndef KREOGL_SKELETON_MAX_BONES
-#	define KREOGL_SKELETON_MAX_BONES 128
+#define KREOGL_SKELETON_MAX_BONES 128
 #endif
 
 namespace kreogl {

@@ -33,16 +33,21 @@ namespace kreogl {
 
 		light.cascaded_shadow_map.set_size(light.shadow_map_size);
 
-		draw_impl(light.cascaded_shadow_map, [&]() noexcept {
-			for (size_t i = 0; i < light.cascade_ends.size(); ++i) {
-				const float cascade_start = (i == 0 ? KREOGL_SHADOW_MAP_NEAR_PLANE : light.cascade_ends[i - 1]);
-				const float cascade_end = light.cascade_ends[i];
-				if (cascade_start >= cascade_end)
-					continue;
-				const auto & texture = light.cascaded_shadow_map.textures[i];
-				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, texture, 0);
-				draw_to_texture(texture, light.get_light_space_matrix_for_cascade(params, i), params);
-		} }, params);
+		draw_impl(
+			light.cascaded_shadow_map,
+			[&]() noexcept {
+				for (size_t i = 0; i < light.cascade_ends.size(); ++i) {
+					const float cascade_start = (i == 0 ? KREOGL_SHADOW_MAP_NEAR_PLANE : light.cascade_ends[i - 1]);
+					const float cascade_end = light.cascade_ends[i];
+					if (cascade_start >= cascade_end)
+						continue;
+					const auto & texture = light.cascaded_shadow_map.textures[i];
+					glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, texture, 0);
+					draw_to_texture(texture, light.get_light_space_matrix_for_cascade(params, i), params);
+				}
+			},
+			params
+		);
 	}
 
 	void shadow_map_shader::draw(const spot_light & light, const draw_params & params) noexcept {
@@ -50,8 +55,12 @@ namespace kreogl {
 
 		light.shadow_map.set_size(light.shadow_map_size);
 
-		draw_impl(light.shadow_map, [&]() noexcept {
-			draw_to_texture(light.shadow_map.texture, light.get_light_space_matrix(), params);
-		}, params);
+		draw_impl(
+			light.shadow_map,
+			[&]() noexcept {
+				draw_to_texture(light.shadow_map.texture, light.get_light_space_matrix(), params);
+			},
+			params
+		);
 	}
 }

@@ -34,12 +34,12 @@ namespace kreogl::polyvox {
 			.vertices = {
 				.nb_elements = mesh.getNoOfVertices(),
 				.element_size = sizeof(vertex_type),
-				.data = mesh.getRawVertexData()
+				.data = mesh.getRawVertexData(),
 			},
 			.indices = {
 				.nb_elements = mesh.getNoOfIndices(),
 				.element_size = sizeof(index_type),
-				.data = mesh.getRawIndexData()
+				.data = mesh.getRawIndexData(),
 			},
 			.index_type = GL_UNSIGNED_INT
 		};

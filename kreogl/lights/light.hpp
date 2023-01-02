@@ -11,11 +11,11 @@
 #include "volumetric_lighting_params.hpp"
 
 #ifndef KREOGL_SHADOW_MAP_NEAR_PLANE
-#	define KREOGL_SHADOW_MAP_NEAR_PLANE .1f
+#define KREOGL_SHADOW_MAP_NEAR_PLANE .1f
 #endif
 
 #ifndef KREOGL_SHADOW_MAP_FAR_PLANE
-#	define KREOGL_SHADOW_MAP_FAR_PLANE 1000.f
+#define KREOGL_SHADOW_MAP_FAR_PLANE 1000.f
 #endif
 
 namespace kreogl {

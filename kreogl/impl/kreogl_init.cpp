@@ -47,19 +47,22 @@ namespace kreogl {
 #ifndef NDEBUG
 		glEnable(GL_DEBUG_OUTPUT);
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-		glDebugMessageCallback([](GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, const void * user_param) {
-			if (id == 131154) // Pixel-path performance warning: Pixel transfer is synchronized with 3D rendering
-				return;
+		glDebugMessageCallback(
+			[](GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, const void * user_param) {
+				if (id == 131154) // Pixel-path performance warning: Pixel transfer is synchronized with 3D rendering
+					return;
 
-			const char * severity_string;
-			if (severity == GL_DEBUG_SEVERITY_MEDIUM)
-				severity_string = "warning";
-			else if (severity == GL_DEBUG_SEVERITY_HIGH)
-				severity_string = "error";
-			else
-				return;
-			std::cerr << "OpenGL " << severity_string << " -- Source: " << source << ". Type: " << type << ". ID: " << id << ". Message: '" << message << '\'' << std::endl;
-		}, nullptr);
+				const char * severity_string;
+				if (severity == GL_DEBUG_SEVERITY_MEDIUM)
+					severity_string = "warning";
+				else if (severity == GL_DEBUG_SEVERITY_HIGH)
+					severity_string = "error";
+				else
+					return;
+				std::cerr << "OpenGL " << severity_string << " -- Source: " << source << ". Type: " << type << ". ID: " << id << ". Message: '" << message << '\'' << std::endl;
+			},
+			nullptr
+		);
 #endif
 
 		s_is_init = true;

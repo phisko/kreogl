@@ -9,8 +9,7 @@
 namespace kreogl {
 	struct KREOGL_EXPORT scoped_gl_feature {
 		scoped_gl_feature(GLenum feature) noexcept
-		: feature(feature)
-		{
+			: feature(feature) {
 			KREOGL_PROFILING_SCOPE;
 			glEnable(feature);
 		}
