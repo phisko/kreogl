@@ -69,7 +69,8 @@ namespace kreogl {
 				assert(false);
 				return;
 			}
-		} else {
+		}
+		else {
 			this->width = (int)width;
 			this->height = (int)height;
 			this->components = expected_channels;

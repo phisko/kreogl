@@ -70,7 +70,8 @@ namespace kreogl::assimp {
 					if (mesh.mTextureCoords[0] != nullptr) {
 						vertex.tex_coords.x = mesh.mTextureCoords[0][i].x;
 						vertex.tex_coords.y = mesh.mTextureCoords[0][i].y;
-					} else
+					}
+					else
 						vertex.tex_coords = { 0.f, 0.f };
 
 					ret.vertices.push_back(vertex);
@@ -131,7 +132,8 @@ namespace kreogl::assimp {
 					ret.textures.diffuse_color = glm::vec4(color.r, color.g, color.b, 1.f);
 					material.Get(AI_MATKEY_COLOR_SPECULAR, color);
 					ret.textures.specular_color = glm::vec4(color.r, color.g, color.b, 1.f);
-				} else
+				}
+				else
 					assert(false); // Unknown material
 
 				return ret;
@@ -170,7 +172,7 @@ namespace kreogl::assimp {
 						const auto & name = bone->mName;
 						assimp_skeleton_mesh.bones.push_back(assimp_skeleton_model::mesh::bone{
 							.node = find_node(all_nodes, name),
-							.offset = toglm(bone->mOffsetMatrix)
+							.offset = toglm(bone->mOffsetMatrix),
 						});
 						skeleton_mesh.bone_names.emplace_back(name.C_Str());
 					}
@@ -249,7 +251,7 @@ namespace kreogl::assimp {
 				offsetof(animated_model::vertex, normal),
 				offsetof(animated_model::vertex, tex_coords),
 				offsetof(animated_model::vertex, bone_weights),
-				offsetof(animated_model::vertex, bone_ids)
+				offsetof(animated_model::vertex, bone_ids),
 			},
 			.vertex_size = sizeof(animated_model::vertex)
 		};
@@ -259,14 +261,14 @@ namespace kreogl::assimp {
 				.vertices = {
 					.nb_elements = assimp_mesh_data.vertices.size(),
 					.element_size = sizeof(animated_model::vertex),
-					.data = assimp_mesh_data.vertices.data()
+					.data = assimp_mesh_data.vertices.data(),
 				},
 				.indices = {
 					.nb_elements = assimp_mesh_data.indices.size(),
 					.element_size = sizeof(unsigned int),
-					.data = assimp_mesh_data.indices.data()
+					.data = assimp_mesh_data.indices.data(),
 				},
-				.index_type = GL_UNSIGNED_INT
+				.index_type = GL_UNSIGNED_INT,
 			});
 
 		auto ret = std::make_unique<assimp_animated_model>(vertex_specification::skeletal, model_data);

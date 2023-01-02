@@ -160,7 +160,8 @@ namespace kreogl {
 					.rotation = rot,
 					.scale = scale
 				};
-			} else {
+			}
+			else {
 				mat = glm::translate(mat, pos);
 				mat *= glm::mat4_cast(rot);
 			}

@@ -12,8 +12,7 @@
 
 namespace kreogl {
 	gbuffer::gbuffer(const glm::ivec2 & size) noexcept
-	: _size(size)
-	{
+		: _size(size) {
 		KREOGL_PROFILING_SCOPE;
 
 		_textures.resize((int)texture::count);

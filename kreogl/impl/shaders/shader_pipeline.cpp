@@ -9,31 +9,31 @@
 // shaders
 #ifdef KREOGL_DEFAULT_SHADERS
 // lighting
-#	include "kreogl/impl/shaders/lighting/directional_light/directional_light_shader.hpp"
-#	include "kreogl/impl/shaders/lighting/point_light/point_light_shader.hpp"
-#	include "kreogl/impl/shaders/lighting/spot_light/spot_light_shader.hpp"
+#include "kreogl/impl/shaders/lighting/directional_light/directional_light_shader.hpp"
+#include "kreogl/impl/shaders/lighting/point_light/point_light_shader.hpp"
+#include "kreogl/impl/shaders/lighting/spot_light/spot_light_shader.hpp"
 
 // volumetric lighting
-#	include "kreogl/impl/shaders/post_lighting/volumetric_lighting/volumetric_directional_light/volumetric_directional_light_shader.hpp"
-#	include "kreogl/impl/shaders/post_lighting/volumetric_lighting/volumetric_point_light/volumetric_point_light_shader.hpp"
-#	include "kreogl/impl/shaders/post_lighting/volumetric_lighting/volumetric_spot_light/volumetric_spot_light_shader.hpp"
+#include "kreogl/impl/shaders/post_lighting/volumetric_lighting/volumetric_directional_light/volumetric_directional_light_shader.hpp"
+#include "kreogl/impl/shaders/post_lighting/volumetric_lighting/volumetric_point_light/volumetric_point_light_shader.hpp"
+#include "kreogl/impl/shaders/post_lighting/volumetric_lighting/volumetric_spot_light/volumetric_spot_light_shader.hpp"
 
 // voxels
-#	include "kreogl/impl/shaders/gbuffer/position_color/position_color_shader.hpp"
-#	include "kreogl/impl/shaders/shadow_map/position_shadow_cube/position_shadow_cube_shader.hpp"
-#	include "kreogl/impl/shaders/shadow_map/position_shadow_map/position_shadow_map_shader.hpp"
+#include "kreogl/impl/shaders/gbuffer/position_color/position_color_shader.hpp"
+#include "kreogl/impl/shaders/shadow_map/position_shadow_cube/position_shadow_cube_shader.hpp"
+#include "kreogl/impl/shaders/shadow_map/position_shadow_map/position_shadow_map_shader.hpp"
 
 // skeletal
-#	include "kreogl/impl/shaders/gbuffer/skeletal_textured/skeletal_textured_shader.hpp"
-#	include "kreogl/impl/shaders/shadow_map/skeletal_shadow_map/skeletal_shadow_map_shader.hpp"
-#	include "kreogl/impl/shaders/shadow_map/skeletal_shadow_cube/skeletal_shadow_cube_shader.hpp"
+#include "kreogl/impl/shaders/gbuffer/skeletal_textured/skeletal_textured_shader.hpp"
+#include "kreogl/impl/shaders/shadow_map/skeletal_shadow_map/skeletal_shadow_map_shader.hpp"
+#include "kreogl/impl/shaders/shadow_map/skeletal_shadow_cube/skeletal_shadow_cube_shader.hpp"
 
 // misc
-#	include "kreogl/impl/shaders/gbuffer/debug/debug_shader.hpp"
-#	include "kreogl/impl/shaders/gbuffer/sprite/sprite_shader.hpp"
-#	include "kreogl/impl/shaders/gbuffer/text/text_shader.hpp"
-#	include "kreogl/impl/shaders/post_process/light_sphere/light_sphere_shader.hpp"
-#	include "kreogl/impl/shaders/post_process/skybox/skybox_shader.hpp"
+#include "kreogl/impl/shaders/gbuffer/debug/debug_shader.hpp"
+#include "kreogl/impl/shaders/gbuffer/sprite/sprite_shader.hpp"
+#include "kreogl/impl/shaders/gbuffer/text/text_shader.hpp"
+#include "kreogl/impl/shaders/post_process/light_sphere/light_sphere_shader.hpp"
+#include "kreogl/impl/shaders/post_process/skybox/skybox_shader.hpp"
 #endif
 
 namespace kreogl {

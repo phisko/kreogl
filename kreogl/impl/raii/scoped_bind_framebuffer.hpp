@@ -9,8 +9,7 @@
 namespace kreogl {
 	struct KREOGL_EXPORT scoped_bind_framebuffer {
 		scoped_bind_framebuffer(GLuint framebuffer) noexcept
-			: _framebuffer(framebuffer)
-		{
+			: _framebuffer(framebuffer) {
 			KREOGL_PROFILING_SCOPE;
 			glGetIntegerv(GL_FRAMEBUFFER_BINDING, &_previous);
 			glBindFramebuffer(GL_FRAMEBUFFER, _framebuffer);

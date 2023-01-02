@@ -14,13 +14,16 @@ namespace kreogl::shapes {
 		static GLuint vbo;
 
 		if (vao == 0) {
+			// clang-format off
 			const float vertices[] = {
 				// positions		// tex_coords
-				-1.0f, -1.0f, 0.0f, 0.f, 1.f,
-				-1.0f, 1.0f, 0.0f, 0.f, 0.f,
-				1.0f, -1.0f, 0.0f, 1.f, 1.f,
-				1.0f, 1.0f, 0.0f, 1.f, 0.f,
+				-1.0f, -1.0f, 0.0f,	0.f, 1.f,
+				-1.0f, 1.0f, 0.0f,	0.f, 0.f,
+				1.0f, -1.0f, 0.0f,	1.f, 1.f,
+				1.0f, 1.0f, 0.0f,	1.f, 0.f,
 			};
+			// clang-format on
+
 			// setup plane VAO
 			glGenVertexArrays(1, &vao);
 			glGenBuffers(1, &vbo);

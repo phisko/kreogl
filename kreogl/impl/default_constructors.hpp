@@ -1,5 +1,6 @@
 #pragma once
 
+// clang-format off
 #define KREOGL_DEFAULT_COPY(T) \
 	T(const T &) noexcept = default; \
 	T & operator=(const T &) noexcept = default;
@@ -20,3 +21,4 @@
 	T() noexcept = default; \
 	KREOGL_DELETE_COPY(T) \
 	KREOGL_DEFAULT_MOVE(T)
+// clang-format on

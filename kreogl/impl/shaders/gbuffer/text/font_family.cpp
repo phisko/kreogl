@@ -5,9 +5,7 @@
 
 namespace kreogl {
 	font_family::font_family(const std::string & file) noexcept
-	: _file(file)
-	{
-	}
+		: _file(file) {}
 
 	font * font_family::get_font(size_t size) noexcept {
 		KREOGL_PROFILING_SCOPE;
