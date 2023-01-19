@@ -14,20 +14,25 @@ add_subdirectory(cmake_helpers)
 #
 # Library
 #
-file(GLOB src
-	kreogl/*.cpp kreogl/*.hpp
-	kreogl/animation/*.cpp kreogl/animation/*.hpp
-	kreogl/lights/*.cpp kreogl/lights/*.hpp
-	kreogl/model/*.cpp kreogl/model/*.hpp
-	kreogl/loaders/*.cpp kreogl/loaders/*.hpp
-	kreogl/loaders/polyvox/*.cpp kreogl/loaders/polyvox/*.hpp
-	kreogl/loaders/assimp/*.cpp kreogl/loaders/assimp/*.hpp
-	kreogl/loaders/assimp/impl/*.cpp kreogl/loaders/assimp/impl/*.hpp
-	kreogl/impl/*.cpp kreogl/impl/*.hpp
-	kreogl/impl/texture/*.cpp kreogl/impl/texture/*.hpp
-	kreogl/impl/shapes/*.cpp kreogl/impl/shapes/*.hpp
-	kreogl/impl/shaders/*.cpp kreogl/impl/shaders/*.hpp
-	kreogl/impl/shadow_maps/*.cpp kreogl/impl/shadow_maps/*.hpp)
+putils_src_files(
+	src
+	DIRECTORIES
+		kreogl
+		kreogl/animation
+		kreogl/lights
+		kreogl/model
+		kreogl/loaders
+		kreogl/loaders/polyvox
+		kreogl/loaders/assimp
+		kreogl/loaders/assimp/impl
+		kreogl/impl
+		kreogl/impl/texture
+		kreogl/impl/shapes
+		kreogl/impl/shaders
+		kreogl/impl/shadow_maps
+	EXTENSIONS
+		cpp hpp
+)
 
 # shaders
 option(KREOGL_DEFAULT_SHADERS "Enable kreogl default shaders" ON)
