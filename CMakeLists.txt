@@ -73,7 +73,7 @@ putils_conan_download_packages(
 		cmake
 )
 include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup(TARGETS)
+conan_basic_setup(TARGETS NO_OUTPUT_DIRS)
 target_link_libraries(kreogl PUBLIC CONAN_PKG::freetype)
 
 target_include_directories(kreogl PUBLIC third_party/polyvox/include)
