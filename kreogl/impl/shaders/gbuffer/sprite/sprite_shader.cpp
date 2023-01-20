@@ -69,7 +69,7 @@ namespace kreogl {
 		_glsl.color = sprite.color;
 		_glsl.user_data = sprite.user_data;
 
-		glBindTexture(GL_TEXTURE_2D, *sprite.texture->texture);
+		glBindTexture(GL_TEXTURE_2D, *sprite.tex);
 		shapes::draw_textured_quad();
 	}
 }

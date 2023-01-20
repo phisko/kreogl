@@ -7,10 +7,10 @@ A sprite to be drawn into the [world](world.md). Two identical types exist: `spr
 ### texture
 
 ```cpp
-const image_texture * texture = nullptr;
+const texture * tex = nullptr;
 ```
 
-The [image_texture](impl/texture/image_texture.md) to be drawn.
+The [texture](impl/raii/texture.md) to be drawn.
 
 ### transform
 

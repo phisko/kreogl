@@ -8,7 +8,7 @@
 
 // kreogl
 #include "kreogl/model/model.hpp"
-#include "kreogl/impl/texture/image_texture.hpp"
+#include "kreogl/impl/raii/texture.hpp"
 #include "animation_model.hpp"
 #include "skeleton_model.hpp"
 
@@ -32,10 +32,10 @@ namespace kreogl {
 		};
 
 		struct mesh_textures {
-			std::vector<kreogl::image_texture> diffuse_textures;
+			std::vector<kreogl::texture> diffuse_textures;
 			glm::vec4 diffuse_color;
 
-			std::vector<kreogl::image_texture> specular_textures;
+			std::vector<kreogl::texture> specular_textures;
 			glm::vec4 specular_color;
 		};
 

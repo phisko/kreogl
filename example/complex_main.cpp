@@ -390,10 +390,11 @@ int main(int ac, const char ** av) {
 	};
 	world.add(debug_box);
 
-	const kreogl::image_texture koala_texture("resources/sprites/koala.png");
+	const kreogl::texture_data koala_texture_data("resources/sprites/koala.png");
+	const auto koala_texture = koala_texture_data.load_to_texture();
 
 	kreogl::sprite_2d sprite_2d;
-	sprite_2d.texture = &koala_texture;
+	sprite_2d.tex = &koala_texture;
 	sprite_2d.transform = glm::translate(glm::mat4{ 1.f }, glm::vec3{ -.95f, -.9f, -1.f }); // Bottom left corner
 	sprite_2d.transform = glm::scale(sprite_2d.transform, glm::vec3{ .1f / window.get_default_camera().get_viewport().get_aspect_ratio(), .1f, 0.f });
 	world.add(sprite_2d);
@@ -414,7 +415,7 @@ int main(int ac, const char ** av) {
 	world.add(text_3d);
 
 	kreogl::sprite_3d sprite_3d;
-	sprite_3d.texture = &koala_texture;
+	sprite_3d.tex = &koala_texture;
 	sprite_3d.transform = glm::translate(text_3d.transform, glm::vec3{ 0.f, -1.5f, 0.f });
 	sprite_3d.color = text_3d.color;
 	world.add(sprite_3d);

@@ -147,7 +147,7 @@ Each [viewport](kreogl/impl/viewport.md) has an underlying G-buffer, which conta
 
 ### Textures
 
-* [image_texture](kreogl/impl/texture/image_texture.md)
+* [texture_data](kreogl/impl/texture/texture_data.md)
 * [skybox_texture](kreogl/impl/texture/skybox_texture.md)
 
 ### Shapes

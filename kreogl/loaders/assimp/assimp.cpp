@@ -9,6 +9,7 @@
 
 // kreogl
 #include "kreogl/impl/kreogl_profiling.hpp"
+#include "kreogl/impl/texture/texture_data.hpp"
 #include "impl/assimp_animated_model.hpp"
 #include "impl/assimp_animation_file.hpp"
 #include "impl/assimp_animation_model.hpp"
@@ -139,10 +140,10 @@ namespace kreogl::assimp {
 				return ret;
 			}
 
-			static std::vector<kreogl::image_texture> load_textures(const std::string & directory, const aiMaterial & material, aiTextureType type, const aiScene & scene) noexcept {
+			static std::vector<kreogl::texture_data> load_textures(const std::string & directory, const aiMaterial & material, aiTextureType type, const aiScene & scene) noexcept {
 				KREOGL_PROFILING_SCOPE;
 
-				std::vector<kreogl::image_texture> ret;
+				std::vector<kreogl::texture_data> ret;
 
 				for (unsigned int i = 0; i < material.GetTextureCount(type); ++i) {
 					aiString path;
