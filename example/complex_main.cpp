@@ -335,7 +335,7 @@ int main(int ac, const char ** av) {
 	scene::create_scene(world);
 
 	const auto funnyman_model = kreogl::assimp::load_animated_model("resources/funnyman/funnyman.fbx");
-	assert(funnyman_model && funnyman_model->animations.size() == 1);
+	assert(funnyman_model && funnyman_model->animations->animations.size() == 1);
 
 	const auto anim_file = kreogl::assimp::load_animation_file("resources/funnyman/animations/dancing.fbx");
 	assert(anim_file && anim_file->animations.size() == 1);
@@ -362,7 +362,7 @@ int main(int ac, const char ** av) {
 				funnyMan.model = funnyman_model.get();
 				funnyMan.transform = glm::translate(base_transform, glm::vec3{ x * 5.f, -45.f, z * 5.f });
 				funnyMan.animation = kreogl::animation{
-					.model = funnyman_model->animations[0].get(),
+					.model = funnyman_model->animations->animations[0].get(),
 					.loop = true
 				};
 				world.add(funnyMan);
