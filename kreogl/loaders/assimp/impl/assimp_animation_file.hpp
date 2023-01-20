@@ -11,6 +11,8 @@
 
 namespace kreogl {
 	struct KREOGL_EXPORT assimp_animation_file : animation_file {
+		KREOGL_MOVE_ONLY(assimp_animation_file);
+
 		std::unique_ptr<Assimp::Importer> importer = nullptr;
 	};
 }

@@ -10,34 +10,17 @@
 // kreogl
 #include "kreogl/impl/kreogl_profiling.hpp"
 #include "kreogl/impl/texture/texture_data.hpp"
-#include "impl/assimp_animated_model.hpp"
 #include "impl/assimp_animation_file.hpp"
 #include "impl/assimp_animation_model.hpp"
+#include "impl/assimp_model_data.hpp"
 #include "impl/assimp_skeleton_model.hpp"
 #include "impl/assimp_to_glm.hpp"
 
 namespace kreogl::assimp {
 	namespace {
-		struct assimp_mesh_data {
-			std::vector<animated_model::vertex> vertices;
-			std::vector<unsigned int> indices;
-			animated_model::mesh_textures textures;
-		};
-
-		struct assimp_model_data {
-			std::vector<assimp_mesh_data> meshes;
-		};
-
 		struct impl {
 			static assimp_model_data load_model_data(const char * file, const aiScene & scene) noexcept {
-				KREOGL_PROFILING_SCOPE;
 
-				assimp_model_data ret;
-
-				const auto dir = std::filesystem::path(file).parent_path().string();
-				process_node(ret, dir, scene, *scene.mRootNode);
-
-				return ret;
 			}
 
 			static void process_node(assimp_model_data & model_data, const std::string & directory, const aiScene & scene, const aiNode & node) noexcept {
@@ -125,14 +108,14 @@ namespace kreogl::assimp {
 				if (mesh.mMaterialIndex >= 0) {
 					const auto & material = *scene.mMaterials[mesh.mMaterialIndex];
 
-					ret.textures.diffuse_textures = load_textures(directory, material, aiTextureType_DIFFUSE, scene);
-					ret.textures.specular_textures = load_textures(directory, material, aiTextureType_SPECULAR, scene);
+					ret.diffuse_textures = load_textures(directory, material, aiTextureType_DIFFUSE, scene);
+					ret.specular_textures = load_textures(directory, material, aiTextureType_SPECULAR, scene);
 
 					aiColor3D color{ 0.f, 0.f, 0.f };
 					material.Get(AI_MATKEY_COLOR_DIFFUSE, color);
-					ret.textures.diffuse_color = glm::vec4(color.r, color.g, color.b, 1.f);
+					ret.diffuse_color = glm::vec4(color.r, color.g, color.b, 1.f);
 					material.Get(AI_MATKEY_COLOR_SPECULAR, color);
-					ret.textures.specular_color = glm::vec4(color.r, color.g, color.b, 1.f);
+					ret.specular_color = glm::vec4(color.r, color.g, color.b, 1.f);
 				}
 				else
 					assert(false); // Unknown material
@@ -234,17 +217,37 @@ namespace kreogl::assimp {
 		return importer.IsExtensionSupported(extension);
 	}
 
-	std::unique_ptr<animated_model> load_animated_model(const char * file) noexcept {
+	assimp_model_data load_model_data(const char * file) noexcept {
 		KREOGL_PROFILING_SCOPE;
+
+		assimp_model_data ret;
 
 		auto importer = std::make_unique<Assimp::Importer>();
 
 		const auto scene = importer->ReadFile(file, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals /*| aiProcess_OptimizeMeshes*/ | aiProcess_JoinIdenticalVertices);
 		const auto succeeded = scene != nullptr && !(scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) && scene->mRootNode != nullptr;
 		if (!succeeded)
-			return nullptr;
+			return ret;
 
-		auto assimp_model_data = impl::load_model_data(file, *scene);
+		const auto dir = std::filesystem::path(file).parent_path().string();
+		impl::process_node(ret, dir, *scene, *scene->mRootNode);
+
+		auto animation_file = std::make_unique<assimp_animation_file>();
+		animation_file->importer = std::move(importer);
+		animation_file->animations = impl::load_animations(file, *scene);
+		ret.animations = std::move(animation_file);
+
+		ret.skeleton = std::make_unique<assimp_skeleton_model>(impl::load_skeleton(*scene));
+
+		return ret;
+	}
+
+	std::unique_ptr<animated_model> load_animated_model(const char * file) noexcept {
+		return load_animated_model(load_model_data(file));
+	}
+
+	std::unique_ptr<animated_model> load_animated_model(assimp_model_data && assimp_model_data) noexcept {
+		KREOGL_PROFILING_SCOPE;
 
 		model_data model_data{
 			.vertex_attribute_offsets = {
@@ -272,14 +275,24 @@ namespace kreogl::assimp {
 				.index_type = GL_UNSIGNED_INT,
 			});
 
-		auto ret = std::make_unique<assimp_animated_model>(vertex_specification::skeletal, model_data);
-		ret->importer = std::move(importer);
+		auto ret = std::make_unique<animated_model>(vertex_specification::skeletal, model_data);
 
-		for (auto & assimp_mesh_data : assimp_model_data.meshes)
-			ret->textures.emplace_back(std::move(assimp_mesh_data.textures));
+		for (auto & assimp_mesh_data : assimp_model_data.meshes) {
+			animated_model::mesh_textures textures;
 
-		ret->animations = impl::load_animations(file, *scene);
-		ret->skeleton = std::make_unique<assimp_skeleton_model>(impl::load_skeleton(*scene));
+			textures.diffuse_color = assimp_mesh_data.diffuse_color;
+			for (const auto & texture : assimp_mesh_data.diffuse_textures)
+				textures.diffuse_textures.emplace_back(texture.load_to_texture());
+
+			textures.specular_color = assimp_mesh_data.specular_color;
+			for (const auto & texture : assimp_mesh_data.specular_textures)
+				textures.specular_textures.emplace_back(texture.load_to_texture());
+
+			ret->textures.emplace_back(std::move(textures));
+		}
+
+		ret->animations = std::move(assimp_model_data.animations);
+		ret->skeleton = std::move(assimp_model_data.skeleton);
 		return ret;
 	}
 

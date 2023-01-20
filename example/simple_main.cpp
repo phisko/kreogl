@@ -35,7 +35,7 @@ int main(int ac, const char ** av) {
 	light.cast_shadows = false; // Disable shadows for our scene
 
 	const auto model = kreogl::assimp::load_animated_model("resources/funnyman/funnyman.fbx"); // Load a 3D model
-	assert(model && model->animations.size() == 1);
+	assert(model && model->animations->animations.size() == 1);
 
 	kreogl::animated_object object; // Create an object
 	object.model = model.get(); // Base it on the loaded 3D model
@@ -43,7 +43,7 @@ int main(int ac, const char ** av) {
 	object.transform = glm::rotate(object.transform, glm::pi<float>(), glm::vec3{ 0.f, 1.f, 0.f }); // Rotate it to face the camera
 	object.animation = kreogl::animation{
 		// Play an animation
-		.model = model->animations[0].get(), // Use the animation that was baked into the 3D model
+		.model = model->animations->animations[0].get(), // Use the animation that was baked into the 3D model
 		.loop = true
 	};
 	world.add(object); // Add the object to the world

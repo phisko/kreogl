@@ -9,7 +9,7 @@
 // kreogl
 #include "kreogl/model/model.hpp"
 #include "kreogl/impl/raii/texture.hpp"
-#include "animation_model.hpp"
+#include "animation_file.hpp"
 #include "skeleton_model.hpp"
 
 #ifndef KREOGL_BONE_INFO_PER_VERTEX
@@ -42,6 +42,6 @@ namespace kreogl {
 	public:
 		std::unique_ptr<skeleton_model> skeleton = nullptr;
 		std::vector<mesh_textures> textures;
-		std::vector<std::unique_ptr<animation_model>> animations;
+		std::unique_ptr<animation_file> animations;
 	};
 }
