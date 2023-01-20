@@ -14,7 +14,7 @@ add_custom_command(TARGET kreogl_example_simple POST_BUILD COMMAND ${CMAKE_COMMA
 # Complex
 add_executable(kreogl_example_complex complex_main.cpp)
 target_link_libraries(kreogl_example_complex kreogl)
-putils_copy_dlls(kreogl_example_simple)
+putils_copy_dlls(kreogl_example_complex)
 
 add_custom_command(TARGET kreogl_example_complex POST_BUILD COMMAND ${CMAKE_COMMAND} -E
         make_directory $<TARGET_FILE_DIR:kreogl_example_complex>/resources)
