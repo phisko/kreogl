@@ -41,7 +41,6 @@ namespace kreogl {
 			stbi_image_free(data);
 	}
 
-
 	texture_data::texture_data(texture_data && other) noexcept {
 		*this = std::move(other);
 	}

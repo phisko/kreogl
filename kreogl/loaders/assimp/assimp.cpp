@@ -19,10 +19,6 @@
 namespace kreogl::assimp {
 	namespace {
 		struct impl {
-			static assimp_model_data load_model_data(const char * file, const aiScene & scene) noexcept {
-
-			}
-
 			static void process_node(assimp_model_data & model_data, const std::string & directory, const aiScene & scene, const aiNode & node) noexcept {
 				KREOGL_PROFILING_SCOPE;
 
