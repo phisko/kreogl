@@ -5,10 +5,11 @@
 
 // kreogl
 #include "kreogl/impl/raii/texture.hpp"
+#include "kreogl/impl/texture/texture_data.hpp"
 
 namespace kreogl {
 	struct KREOGL_EXPORT skybox_texture {
-		skybox_texture(const char * left, const char * right, const char * top, const char * bottom, const char * front, const char * back) noexcept;
+		skybox_texture(const texture_data & left, const texture_data & right, const texture_data & top, const texture_data & bottom, const texture_data & front, const texture_data & back) noexcept;
 
 		skybox_texture() noexcept = default;
 		skybox_texture(skybox_texture &&) noexcept = default;
