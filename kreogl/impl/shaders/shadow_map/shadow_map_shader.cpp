@@ -7,7 +7,7 @@
 #include "kreogl/impl/kreogl_profiling.hpp"
 
 namespace kreogl {
-	template<typename T, typename Func>
+	template<typename T, std::invocable Func>
 	void shadow_map_shader::draw_impl(T & depth_map, Func && draw, const draw_params & params) noexcept {
 		KREOGL_PROFILING_SCOPE;
 

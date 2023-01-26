@@ -1,5 +1,8 @@
 #pragma once
 
+// stl
+#include <concepts>
+
 // kreogl
 #include "kreogl/impl/shaders/shader.hpp"
 #include "kreogl/lights/directional_light.hpp"
@@ -18,7 +21,7 @@ namespace kreogl {
 	private:
 		void draw(const draw_params & params) noexcept final {}
 
-		template<typename T, typename Func>
+		template<typename T, std::invocable Func>
 		void draw_impl(T & shadow_map, Func && draw, const draw_params & params) noexcept;
 	};
 }
