@@ -24,11 +24,11 @@ Below is a snippet of the important parts of the simple example:
 
 ```cpp
 kreogl::window window; // create a window
-window.getdefaultcamera().setposition({ 0.f, 0.f, -5.f }); // move the camera back to see the centered scene
+window.get_default_camera().set_position({ 0.f, 0.f, -5.f }); // move the camera back to see the centered scene
 
 kreogl::world world; // the world that will be used to draw into the window
 
-const kreogl::skyboxtexture skyboxtexture{ // load the skybox
+const kreogl::skybox_texture skybox_texture{ // load the skybox
 	"resources/skybox/left.jpg",
 	"resources/skybox/right.jpg",
 	"resources/skybox/top.jpg",
@@ -36,36 +36,36 @@ const kreogl::skyboxtexture skyboxtexture{ // load the skybox
 	"resources/skybox/front.jpg",
 	"resources/skybox/back.jpg",
 };
-world.skybox.texture = &skyboxtexture; // add it to the world
+world.skybox.texture = &skybox_texture; // add it to the world
 
-kreogl::directionallight light; // create a light
+kreogl::directional_light light; // create a light
 world.add(light); // add it to the world
 light.direction = { 0.f, -1.f, -1.f };
-light.castshadows = false; // disable shadows for our scene
+light.cast_shadows = false; // disable shadows for our scene
 
-const auto model = kreogl::assimp::loadanimatedmodel("resources/funnyman/funnyman.fbx"); // load a 3d model
+const auto model = kreogl::assimp::load_animated_model("resources/funnyman/funnyman.fbx"); // load a 3d model
 assert(model && model->animations.size() == 1);
 
-kreogl::animatedobject object; // create an object
+kreogl::animated_object object; // create an object
 object.model = model.get(); // base it on the loaded 3d model
 object.transform = glm::translate(glm::mat4{1.f}, glm::vec3{ 0.f, -2.5f, 5.f }); // move it forward and down a bit
 object.transform = glm::rotate(object.transform, glm::pi<float>(), glm::vec3{ 0.f, 1.f, 0.f }); // rotate it to face the camera
 object.animation = kreogl::animation{ // play an animation
-	.model = model->animations[0].get(), // use the animation that was baked into the 3d model
+	.model = model->animations->animations[0].get(), // use the animation that was baked into the 3d model
 	.loop = true
 };
 world.add(object); // add the object to the world
 
 // main loop
-auto previoustime = std::chrono::system_clock::now();
-while (!window.shouldclose()) {
+auto previous_time = std::chrono::system_clock::now();
+while (!window.should_close()) {
 	const auto now = std::chrono::system_clock::now();
-	const auto deltatime = float(std::chrono::duration_cast<std::chrono::milliseconds>(now - previoustime).count()) / 1000.f;
-	previoustime = now;
+	const auto delta_time = float(std::chrono::duration_cast<std::chrono::milliseconds>(now - previous_time).count()) / 1000.f;
+	previous_time = now;
 
-	object.tickanimation(deltatime); // play the object's animation
+	object.tick_animation(delta_time); // play the object's animation
 
-	window.pollevents(); // process input
+	window.poll_events(); // process input
 	window.draw(world); // draw the world into the window
 	window.display(); // present the new window contents
 }
