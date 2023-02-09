@@ -38,8 +38,9 @@ namespace kreogl {
 			&_glsl.view,
 			&_glsl.proj,
 			&_glsl.bones,
-			&_glsl.has_texture,
+			&_glsl.has_diffuse_texture,
 			&_glsl.texture_diffuse,
+			&_glsl.has_specular_texture,
 			&_glsl.texture_specular,
 			&_glsl.diffuse_color,
 			&_glsl.specular_color,
@@ -75,9 +76,9 @@ namespace kreogl {
 		KREOGL_PROFILING_SCOPE;
 
 		// Diffuse
-		const bool has_texture = !textures.diffuse_textures.empty();
-		_glsl.has_texture = has_texture;
-		if (has_texture) {
+		const bool has_diffuse_texture = !textures.diffuse_textures.empty();
+		_glsl.has_diffuse_texture = has_diffuse_texture;
+		if (has_diffuse_texture) {
 			glActiveTexture((GLenum)(GL_TEXTURE0 + DIFFUSE_TEXTURE_INDEX));
 			glBindTexture(GL_TEXTURE_2D, textures.diffuse_textures[0]);
 			_glsl.diffuse_color.mark_as_used();
@@ -86,7 +87,9 @@ namespace kreogl {
 			_glsl.diffuse_color = textures.diffuse_color;
 
 		// Specular
-		if (!textures.specular_textures.empty()) {
+		const bool has_specular_texture = !textures.specular_textures.empty();
+		_glsl.has_specular_texture = has_specular_texture;
+		if (has_specular_texture) {
 			glActiveTexture((GLenum)(GL_TEXTURE0 + SPECULAR_TEXTURE_INDEX));
 			glBindTexture(GL_TEXTURE_2D, textures.specular_textures[0]);
 			_glsl.specular_color.mark_as_used();

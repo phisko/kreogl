@@ -50,8 +50,9 @@ layout (location = 2) out vec4 gdiffuse;
 layout (location = 3) out vec4 gspecular;
 layout (location = 4) out vec4 guser_data;
 
-uniform int has_texture;
+uniform int has_diffuse_texture;
 uniform sampler2D texture_diffuse;
+uniform int has_specular_texture;
 uniform sampler2D texture_specular;
 uniform vec4 diffuse_color;
 uniform vec4 specular_color;
@@ -63,17 +64,17 @@ void apply_transparency(float a);
 
 void main() {
 	vec4 total_diffuse;
-	vec4 total_specular;
-	if (has_texture == 0) {
+	if (has_diffuse_texture == 0)
 		total_diffuse = diffuse_color;
-		total_specular = specular_color;
-	}
-	else {
+	else
 		total_diffuse = texture(texture_diffuse, TexCoords);
-		total_specular = texture(texture_specular, TexCoords);
-	}
-
 	total_diffuse *= color;
+
+	vec4 total_specular;
+	if (has_specular_texture == 0)
+		total_specular = specular_color;
+	else
+		total_specular = texture(texture_specular, TexCoords);
 	total_specular *= color;
 
 	// apply_transparency(total_diffuse.a);
