@@ -82,7 +82,7 @@ target_include_directories(kreogl PUBLIC third_party/polyvox/include)
 putils_export_symbols(kreogl)
 
 # profiling
-option(KREOGL_PROFILING OFF)
+option(KREOGL_PROFILING "Enable profiling with Tracy")
 if(KREOGL_PROFILING)
 	target_compile_definitions(kreogl PUBLIC KREOGL_PROFILING TRACY_ENABLE)
 
@@ -99,7 +99,7 @@ if(KREOGL_PROFILING)
 	target_link_libraries(kreogl PUBLIC TracyClient)
 endif()
 
-option(KREOGL_EXAMPLE OFF)
+option(KREOGL_EXAMPLE "Build examples")
 if(KREOGL_EXAMPLE)
 	add_subdirectory(example)
 endif()
