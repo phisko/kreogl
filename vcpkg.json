@@ -1,0 +1,14 @@
+{
+    "builtin-baseline": "223d33be7d3ec6c3d64381ca37f501b8c87dda6a",
+    "dependencies": [
+        "assimp",
+        "freetype",
+        "glew",
+        "glfw3",
+        "glm",
+        "stb"
+    ],
+    "overrides": [
+        { "name": "assimp", "version": "5.0.1" }
+    ]
+}

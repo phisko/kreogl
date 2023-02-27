@@ -23,22 +23,26 @@ on:
 
 jobs:
   build:
-    uses: phisko/cmake-cxx-conan/.github/workflows/build.yml@main
+    uses: phisko/cmake-cxx-vcpkg/.github/workflows/build.yml@main
     with:
+      vcpkg_commit: '223d33be7d3ec6c3d64381ca37f501b8c87dda6a'
       apt_dependencies: libgl-dev libx11-dev libx11-xcb-dev libfontenc-dev libice-dev libsm-dev libxau-dev libxaw7-dev libxcomposite-dev libxcursor-dev libxdamage-dev libxdmcp-dev libxext-dev libxfixes-dev libxft-dev libxi-dev libxinerama-dev libxkbfile-dev libxmu-dev libxmuu-dev libxpm-dev libxrandr-dev libxrender-dev libxres-dev libxss-dev libxt-dev libxtst-dev libxv-dev libxvmc-dev libxxf86vm-dev xtrans-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-xkb-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-xinerama0-dev xkb-data libxcb-dri3-dev uuid-dev libxcb-util-dev libglu1-mesa-dev libopengl-dev
       cmake_options: -DKREOGL_EXAMPLE=ON
   build_no_default_shaders:
-    uses: phisko/cmake-cxx-conan/.github/workflows/build.yml@main
+    uses: phisko/cmake-cxx-vcpkg/.github/workflows/build.yml@main
     with:
+      vcpkg_commit: '223d33be7d3ec6c3d64381ca37f501b8c87dda6a'
       apt_dependencies: libgl-dev libx11-dev libx11-xcb-dev libfontenc-dev libice-dev libsm-dev libxau-dev libxaw7-dev libxcomposite-dev libxcursor-dev libxdamage-dev libxdmcp-dev libxext-dev libxfixes-dev libxft-dev libxi-dev libxinerama-dev libxkbfile-dev libxmu-dev libxmuu-dev libxpm-dev libxrandr-dev libxrender-dev libxres-dev libxss-dev libxt-dev libxtst-dev libxv-dev libxvmc-dev libxxf86vm-dev xtrans-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-xkb-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-xinerama0-dev xkb-data libxcb-dri3-dev uuid-dev libxcb-util-dev libglu1-mesa-dev libopengl-dev
       cmake_options: -DKREOGL_EXAMPLE=ON -DKREOGL_DEFAULT_SHADERS=OFF
   build_profiling:
-    uses: phisko/cmake-cxx-conan/.github/workflows/build.yml@main
+    uses: phisko/cmake-cxx-vcpkg/.github/workflows/build.yml@main
     with:
+      vcpkg_commit: '223d33be7d3ec6c3d64381ca37f501b8c87dda6a'
       apt_dependencies: libgl-dev libx11-dev libx11-xcb-dev libfontenc-dev libice-dev libsm-dev libxau-dev libxaw7-dev libxcomposite-dev libxcursor-dev libxdamage-dev libxdmcp-dev libxext-dev libxfixes-dev libxft-dev libxi-dev libxinerama-dev libxkbfile-dev libxmu-dev libxmuu-dev libxpm-dev libxrandr-dev libxrender-dev libxres-dev libxss-dev libxt-dev libxtst-dev libxv-dev libxvmc-dev libxxf86vm-dev xtrans-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-xkb-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-xinerama0-dev xkb-data libxcb-dri3-dev uuid-dev libxcb-util-dev libglu1-mesa-dev libopengl-dev
       cmake_options: -DKREOGL_EXAMPLE=ON -DKREOGL_PROFILING=ON
   build_shared:
-    uses: phisko/cmake-cxx-conan/.github/workflows/build.yml@main
+    uses: phisko/cmake-cxx-vcpkg/.github/workflows/build.yml@main
     with:
+      vcpkg_commit: '223d33be7d3ec6c3d64381ca37f501b8c87dda6a'
       apt_dependencies: libgl-dev libx11-dev libx11-xcb-dev libfontenc-dev libice-dev libsm-dev libxau-dev libxaw7-dev libxcomposite-dev libxcursor-dev libxdamage-dev libxdmcp-dev libxext-dev libxfixes-dev libxft-dev libxi-dev libxinerama-dev libxkbfile-dev libxmu-dev libxmuu-dev libxpm-dev libxrandr-dev libxrender-dev libxres-dev libxss-dev libxt-dev libxtst-dev libxv-dev libxvmc-dev libxxf86vm-dev xtrans-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-xkb-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-xinerama0-dev xkb-data libxcb-dri3-dev uuid-dev libxcb-util-dev libglu1-mesa-dev libopengl-dev
       cmake_options: -DKREOGL_EXAMPLE=ON -DBUILD_SHARED_LIBS=ON
