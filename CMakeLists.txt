@@ -49,32 +49,28 @@ if(KREOGL_DEFAULT_SHADERS)
 endif()
 
 # dependencies
-set(customFindPackageNames glfw:glfw3)
-set(customLibraryNames glew:GLEW)
-putils_conan_set_shared_options(options assimp glew glfw)
-list(APPEND options assimp:with_ifc=False) # Otherwise AssImp will depend on clipper/4.10.0, which is broken
-putils_conan_download_and_link_packages_with_names(
-	kreogl PUBLIC "${customFindPackageNames}" "${customLibraryNames}"
-	glm/0.9.9.8
-	assimp/5.0.1 # tested with 5.2.2 but that caused animation bugs (imported animation model was missing intermediate nodes)
-	glew/2.2.0
-	glfw/3.3.6
-	stb/cci.20210910
-	${options}
+find_package(assimp 5.0.1 CONFIG REQUIRED)
+find_package(Freetype REQUIRED)
+find_package(GLEW REQUIRED)
+find_package(glfw3 CONFIG REQUIRED)
+find_package(glm CONFIG REQUIRED)
+target_link_libraries(
+	kreogl PUBLIC
+	assimp::assimp
+	Freetype::Freetype
+	GLEW::GLEW
+	glfw
+	glm::glm
 )
 
-# find_package(freetype) is broken right now, so use the old cmake generator
-# See https://github.com/conan-io/conan-center-index/issues/11218
-putils_conan_set_shared_options(options freetype)
-putils_conan_download_packages(
-	freetype/2.12.1
-	${options}
-	GENERATORS
-		cmake
-)
-include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup(TARGETS NO_OUTPUT_DIRS)
-target_link_libraries(kreogl PUBLIC CONAN_PKG::freetype)
+if(UNIX)
+	# assimp doesn't link against IrrXML, see https://github.com/microsoft/vcpkg/issues/9918
+	find_library(ASSIMP_IRRXML_LIBRARY IrrXML)
+	target_link_libraries(kreogl PUBLIC ${ASSIMP_IRRXML_LIBRARY})
+endif()
+
+find_package(Stb REQUIRED)
+target_include_directories(kreogl PUBLIC ${Stb_INCLUDE_DIR})
 
 target_include_directories(kreogl PUBLIC third_party/polyvox/include)
 
